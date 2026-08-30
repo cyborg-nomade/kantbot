@@ -27,8 +27,8 @@ contributors to work without silently adopting incompatible assumptions.
 
 Deliverables:
 
-- a project glossary that distinguishes Kant's terms from their computational
-  interpretations;
+- a [project glossary](GLOSSARY.md) that distinguishes Kant's terms from their
+  computational interpretations;
 - a primary-source map covering the passages and editions relevant to the
   initial architecture;
 - a claims register labeling statements as textual, interpretive, analogical,
