@@ -8,6 +8,10 @@ This directory contains the public-domain text references used by the project:
 - [A Deduction](deduction-a.md), A95-A130, from the 1781 first edition;
 - [B Deduction](deduction-b.md), B129-B169, from the 1787 second edition.
 
+The project-level [primary-source map](../../PRIMARY_SOURCES.md) organizes these
+texts by the architecture questions and edition-sensitive decisions they
+constrain.
+
 The focused deduction files remain convenient reading copies even though the A
 Deduction also occurs within the complete first-edition text.
 
