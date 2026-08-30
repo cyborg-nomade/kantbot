@@ -31,8 +31,8 @@ Deliverables:
   computational interpretations;
 - a [primary-source map](PRIMARY_SOURCES.md) covering the passages and editions
   relevant to the initial architecture;
-- a claims register labeling statements as textual, interpretive, analogical,
-  or engineering choices;
+- a [claims register](CLAIMS.md) labeling statements as textual, interpretive,
+  analogical, or engineering choices;
 - a short set of research questions and explicit non-goals;
 - lightweight repository, documentation, and decision-record conventions.
 
