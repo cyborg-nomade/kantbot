@@ -59,7 +59,9 @@ notes](sources/kant/README.md) before quoting them. The original German is also
 freely available in separate [1781](https://www.gutenberg.org/ebooks/6342) and
 [1787](https://www.gutenberg.org/ebooks/6343) editions.
 
-Each Kantbot interpretation has one of these claim labels:
+Each Kantbot interpretation has one of these claim labels. Substantive project
+statements and their current status are tracked in the [claims
+register](CLAIMS.md).
 
 - **Textual:** intended as a close restatement of Kant's text.
 - **Interpretive:** selects among, or builds upon, plausible readings of Kant.

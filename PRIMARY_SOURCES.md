@@ -148,7 +148,7 @@ but they should not expand the first cognitive cycle prematurely.
   that bears interpretive weight should be checked against the German and a
   current scholarly translation.
 - A citation identifies evidence, not a settled interpretation. Competing
-  readings belong in the claims register or a decision record.
+  readings belong in the [claims register](CLAIMS.md) or a decision record.
 - Add a passage here only when it constrains a declared architecture question,
   claim, invariant, behavior, or limit. Add definitions to the glossary instead.
 - When a Roadmap decision is settled, link its decision record back to the
