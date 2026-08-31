@@ -33,7 +33,7 @@ Deliverables:
   relevant to the initial architecture;
 - a [claims register](CLAIMS.md) labeling statements as textual, interpretive,
   analogical, or engineering choices;
-- a short set of research questions and explicit non-goals;
+- a short set of [research questions and explicit non-goals](RESEARCH_QUESTIONS.md);
 - lightweight repository, documentation, and decision-record conventions.
 
 Exit criterion: the central terms are defined well enough to identify genuine
