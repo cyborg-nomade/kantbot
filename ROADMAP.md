@@ -34,7 +34,8 @@ Deliverables:
 - a [claims register](CLAIMS.md) labeling statements as textual, interpretive,
   analogical, or engineering choices;
 - a short set of [research questions and explicit non-goals](RESEARCH_QUESTIONS.md);
-- lightweight repository, documentation, and decision-record conventions.
+- lightweight [repository and documentation conventions](CONTRIBUTING.md),
+  including [decision records](docs/decisions/README.md).
 
 Exit criterion: the central terms are defined well enough to identify genuine
 disagreements, even if those disagreements remain unresolved.

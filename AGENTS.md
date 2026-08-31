@@ -14,3 +14,10 @@ of work:
    update it from `origin/main`, and only then begin the next Roadmap item.
 
 Use one chat for each Roadmap phase and name it `Phase N`.
+
+## Project conventions
+
+Follow the repository's [contribution guide](CONTRIBUTING.md) for documentation,
+citation, claim, and review conventions. Use
+[decision records](docs/decisions/README.md) for consequential philosophical or
+engineering choices.
