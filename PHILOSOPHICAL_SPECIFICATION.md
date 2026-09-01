@@ -2,20 +2,20 @@
 
 ## Status and purpose
 
-This document proposes the philosophical contract for Kantbot's first cognitive
+This document defines the philosophical contract for Kantbot's first cognitive
 cycle. Its audience is the implementer who must decide what each stage may
 receive, produce, and claim before choosing data structures or algorithms. It
 answers [RQ-01 through RQ-07](RESEARCH_QUESTIONS.md#research-questions) only far
 enough to fix that contract; the later Phase 1 diagrams, hand-worked traces, and
 behavioral-prediction catalog will test and refine it.
 
-[ADRs 0002–0004](docs/decisions/README.md#index) are Accepted and govern the
-synthesis default, judgment licensing, and cognitive limits. The terminology
-decision in [ADR 0001](docs/decisions/0001-receptive-representation-terminology.md)
-remains Proposed. This draft therefore uses `constrained presentation` and
-`presented element` as editorial placeholders rather than settled public type
-names. None of the decisions should be treated as Kant's uniquely correct
-architecture. Definitions retain the senses fixed in the
+[ADRs 0001–0004](docs/decisions/README.md#index) are Accepted and govern
+receptive terminology, the synthesis default, judgment licensing, and cognitive
+limits. [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md)
+fixes `observation` and `presented element` as shared-boundary vocabulary and
+uses `intuition` theory-internally within the accepted Kantian variant. None of
+the decisions should be treated as Kant's uniquely correct architecture.
+Definitions retain the senses fixed in the
 [glossary](GLOSSARY.md), source routing comes from the
 [primary-source map](PRIMARY_SOURCES.md), and stable cross-document commitments
 retain their status in the [claims register](CLAIMS.md).
@@ -75,15 +75,23 @@ that record but performs no cognitive synthesis. An **episode** bounds the
 observations available to one cycle and declares whether order is total,
 partial, or unavailable.
 
-**Analogical.** Reception transforms valid observations into a **receptive
-representation**: particular content ordered under the model's configured form.
-This draft provisionally calls that representation a `constrained presentation`.
-[ADR 0001](docs/decisions/0001-receptive-representation-terminology.md) remains
-open among calling it an `intuition` as theory-internal terminology, retaining
-the weaker name, making `intuition` a criterion-governed status, or using
-variant-scoped vocabularies. Every option must preserve the
-receptive-before-conceptual distinction in [K-001](CLAIMS.md#k-001) and expose
-the role criteria required by [K-015](CLAIMS.md#k-015).
+**Engineering.** Shared reception first derives a **presented element** from a
+valid observation. It preserves source, episode, ordering, and provenance
+identity for comparison, but it has no licensed object identity, concept, or
+variant-specific cognitive status.
+
+**Interpretive.** Each declared architecture then performs an explicit
+**variant projection**. The accepted A/B Kantian variant projects a presented
+element into an **intuition** under its sensibility, sensible-form, singularity,
+and preconceptuality constraints. The projection must add or validate those
+conditions and may fail; changing only a type or display label does not count
+([ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md)).
+
+**Analogical.** `Intuition` is theory-internal terminology for the role this
+Kantian variant attempts to realize. It preserves the receptive-before-
+conceptual distinction in [K-001](CLAIMS.md#k-001) and is governed by
+[K-015](CLAIMS.md#k-015). The identifier is not evidence that the projection,
+the wider architecture, or human cognition has already been reproduced.
 
 ### Form and manifold
 
@@ -100,24 +108,29 @@ no common form. Spatial order is required only in scenarios whose object rules
 depend on spatial relations. This models a constrained role of form; it does
 not claim that arbitrary timestamps and coordinates are Kant's pure intuitions.
 
-**Analogical.** A **manifold** is the bounded plurality of presented elements
-available together for synthesis under the episode's form. It is not an
-already-segmented object, a bag of attributes, or the toy world's hidden state.
-Its boundary, granularity, and form remain visible in the trace.
+**Analogical.** A **manifold of intuition** is the bounded plurality of
+successfully projected intuitions available together for synthesis under the
+episode's form. Shared presented elements do not become members merely by
+crossing the common boundary. The manifold is not an already-segmented object,
+a bag of attributes, or the toy world's hidden state. Its boundary, granularity,
+form, and projection grounds remain visible in the trace.
 
 ### Reception failures
 
-**Engineering.** Reception has three outcomes:
+**Engineering.** Reception and variant projection distinguish four outcomes:
 
-1. `presented`: the record is admitted and placed under the declared form;
-2. `presentation-ambiguous`: more than one admissible ordering or segmentation
-   remains, so all alternatives continue; or
-3. `not-presentable`: required source, boundary, or form metadata is absent or
-   contradictory, so no object-directed judgment may result from that record.
+1. `presented`: the observation is admitted at the shared boundary;
+2. `projected`: the selected variant produces its declared representation—an
+   intuition in the accepted Kantian variant;
+3. `projection-ambiguous`: more than one admissible form, ordering, or
+   segmentation remains, so all alternatives continue; or
+4. `not-presentable`: the shared element cannot enter the selected variant
+   because a required form or role condition is absent or contradictory.
 
-Invalid serialization is an input error before reception. Missing content is
-ordinary absence of data. Neither is by itself a model of a transcendental
-limit.
+When a Kantian projection fails, the shared presented element remains
+inspectable for comparison but cannot enter its manifold of intuition. Invalid
+serialization is an input error before reception. Missing content is ordinary
+absence of data. Neither is by itself a model of a transcendental limit.
 
 ## Representations carried by the cycle
 
@@ -128,9 +141,11 @@ trace still preserves these distinctions.
 | Representation | What it contains | What it does not yet license |
 | --- | --- | --- |
 | Observation | Immutable supplied content plus source and ordering metadata | Presentation, objecthood, or truth |
-| Presented element | Particular content admitted under a declared temporal and, when configured, spatial form | An identified object or concept |
-| Manifold | A bounded plurality of presented elements available to one synthesis attempt | Unity merely from co-occurrence |
-| Retained sequence | Present elements plus explicitly recalled earlier elements and the rule licensing recall | Identity or an object candidate |
+| Presented element | Minimal shared content plus source, episode, order, and provenance identity | Variant-specific cognitive status, objecthood, or a concept |
+| Variant projection | A declared transformation with interpretation-specific structure, invariants, omissions, and possible failure | Success merely from renaming the shared element |
+| Intuition | In the accepted Kantian variant, singular content admitted under declared sensibility and sensible-form criteria | A constituted object, concept, or proof of human cognition |
+| Manifold of intuition | A bounded plurality of Kantian intuitions available to one synthesis attempt | Unity merely from shared-boundary co-occurrence |
+| Retained sequence | Current intuitions plus explicitly reproduced earlier intuitions and the rule licensing reproduction | Identity or an object candidate |
 | Candidate representation | A proposed rule-governed combination with provenance, rival combinations, and unresolved conflicts | A licensed object claim |
 | Object candidate | A candidate representation that has passed local identity and constitutive-unity tests | A judgment or unrestricted external object |
 | Concept | General applicability conditions, inferential consequences, scope, and authority | Application merely by being named |
@@ -157,16 +172,20 @@ structure ([K-022](CLAIMS.md#k-022)).
 
 ## Cognitive roles
 
-### Sensibility: constrained reception
+### Sensibility: Kantian variant projection
 
 **Textual.** Human sensibility is receptive and supplies intuitions rather than
 concepts ([A19/B33](sources/kant/critique-a.md#a19),
 [A50/B74](sources/kant/critique-a.md#a50)).
 
-**Analogical.** Kantbot's **sensibility role** admits particular content only
-through the configured form and produces presented elements and a manifold. It
-does not identify objects, apply concepts, or repair invalid input. It is not a
-sensor, parser, or literal faculty of sensibility.
+**Interpretive.** Kantbot's accepted **sensibility role** performs the Kantian
+variant projection: it admits shared presented elements only under the
+configured form and produces intuitions and a manifold of intuition. It does
+not identify objects, apply concepts, or repair invalid input.
+
+**Analogical.** The sensibility role is not a sensor or parser, and its theory-
+internal name does not establish that the role or the wider model has
+succeeded.
 
 ### Imagination: provenance-preserving synthesis
 
@@ -182,9 +201,9 @@ describes figurative synthesis while emphasizing its relation to understanding
 **Interpretive.** The default **imagination role** coordinates three
 inspectable operations:
 
-1. **Apprehension** traverses and takes together presented elements under the
+1. **Apprehension** traverses and takes together intuitions under the
    declared form.
-2. **Reproduction** makes earlier elements available under an explicit
+2. **Reproduction** makes earlier intuitions available under an explicit
    retention rule; unrestricted retrieval is forbidden.
 3. **Recognition** proposes that retained elements belong to the same
    combination under an identity rule, yielding one or more candidates.
@@ -219,7 +238,7 @@ the first experiment, but their acquisition is deferred.
 
 **Interpretive.** The minimal constitutive repertoire contains:
 
-- **unity and plurality constraints** that state how many presented elements
+- **unity and plurality constraints** that state how many intuitions
   may belong to one candidate;
 - **persistence constraints** that state which changes preserve the identity
   of a candidate through time; and
@@ -261,7 +280,8 @@ merely subjective unity ([B131-142](sources/kant/deduction-b.md#b131)).
 judgment and its entire provenance subgraph. It requires:
 
 1. one declared cycle and configuration governs every ground;
-2. every transformation is reachable from admitted presented elements;
+2. every transformation is reachable from admitted presented elements through
+   a successful variant projection;
 3. identity references do not assign incompatible identities to the same
    element or silently merge rival candidates;
 4. rule authorities and scopes are mutually compatible; and
@@ -316,12 +336,15 @@ outputs.
 
 1. **Open the cycle.** Freeze the episode boundary, form configuration,
    available concepts, schemas, rule authorities, and interpretation variant.
-2. **Receive.** Validate observations and place admissible particulars under
-   the configured form. Stop an affected path at `not-presentable`; preserve
-   competing orderings as alternatives.
-3. **Apprehend.** Traverse and take together the manifold according to its form.
+2. **Receive and project.** Derive shared presented elements from valid
+   observations, then run the selected variant projection. The accepted
+   Kantian variant places admissible particulars under sensible form as
+   intuitions. Stop an affected path at `not-presentable`; preserve competing
+   projections as alternatives.
+3. **Apprehend.** Traverse and take together the manifold of intuition according
+   to its form.
    Record segmentation choices rather than treating them as given objects.
-4. **Reproduce.** Retrieve only earlier presented elements licensed by the
+4. **Reproduce.** Retrieve only earlier intuitions licensed by the
    retention rule. Record omissions and rival retrievals.
 5. **Recognize and synthesize.** Apply identity and constitutive-unity rules to
    propose candidate representations. Stop at `synthesis-failed` when no
@@ -353,7 +376,8 @@ failure into warrant.
 **Interpretive.** A candidate counts as an object candidate only if all of the
 following hold:
 
-- its content descends from admitted presented elements;
+- its content descends from admitted presented elements through successful
+  variant projections;
 - its elements can be combined under the episode's form;
 - an explicit identity rule explains their proposed unity across the relevant
   interval;
@@ -389,10 +413,10 @@ presentation, synthesis, applicability, and unity. It is not high confidence,
 successful execution, majority agreement, or truth in every context.
 
 **Engineering.** A warrant contains at least the observation grounds,
-presentation form, synthesis operations, identity rule, concept and schema
-results, constitutive rules, unity-check result, alternatives, scope, and limit
-status. If any required field is unavailable, the system withholds the judgment
-rather than inventing an explanation.
+presentation form, variant projection, synthesis operations, identity rule,
+concept and schema results, constitutive rules, unity-check result,
+alternatives, scope, and limit status. If any required field is unavailable,
+the system withholds the judgment rather than inventing an explanation.
 
 ## Terminal outcomes and cognitive limits
 
@@ -401,7 +425,7 @@ rather than inventing an explanation.
 | Outcome | Meaning | Permitted next claim |
 | --- | --- | --- |
 | `input-error` | Serialized material violates the external interface | No cognitive result about the supplied content |
-| `not-presentable` | Content cannot enter the declared form or episode | No object candidate from that path |
+| `not-presentable` | A shared element cannot enter the selected variant under its declared form and role conditions | No object candidate from that variant path |
 | `synthesis-failed` | No candidate satisfies identity and unity constraints | Report the manifold and failed rules |
 | `synthesis-ambiguous` | Several candidates remain admissible | Report alternatives; do not silently choose |
 | `concept-not-applicable` | Required applicability conditions fail | Retain the candidate without that predicate |
@@ -445,6 +469,9 @@ differences:
 7. A B-led synthesis variant may produce fewer stage distinctions in its trace,
    but it must preserve reception, figurative synthesis, objective-unity, and
    sensible-use constraints.
+8. The same presented-element identity can project into a Kantian intuition, a
+   different variant representation, or a variant-specific refusal; a variant
+   that changes only the label fails the projection safeguard.
 
 **Engineering.** If a later executable model cannot display these differences,
 its vocabulary does not yet implement this specification.
@@ -459,13 +486,12 @@ about the deductions, imagination, schematism, or apperception.
 
 The decision records governing this specification are:
 
-- [ADR 0001: Name the receptive representation](docs/decisions/0001-receptive-representation-terminology.md)
+- [ADR 0001: Use variant-scoped receptive terminology](docs/decisions/0001-variant-scoped-receptive-terminology.md)
 - [ADR 0002: Use an A/B hybrid synthesis default](docs/decisions/0002-a-b-synthesis.md)
 - [ADR 0003: Separate object formation, applicability, and judgment licensing](docs/decisions/0003-object-and-judgment-licensing.md)
 - [ADR 0004: Make limit outcomes and rule authority behaviorally distinct](docs/decisions/0004-limit-outcomes-and-rule-authority.md)
 
-ADRs 0002–0004 are Accepted and their affected claims are Current and linked in
-the [claims register](CLAIMS.md). ADR 0001 remains Proposed; its final
-terminology and K-015 status must be updated before Phase 2 freezes public type
-names, following the
+All four records are Accepted and their affected claims are Current and linked
+in the [claims register](CLAIMS.md). Phase 2 must formalize the shared-boundary
+and variant-projection types without collapsing them, following the
 [decision-record lifecycle](docs/decisions/README.md#status-lifecycle).

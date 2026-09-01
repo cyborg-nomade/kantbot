@@ -57,7 +57,7 @@ cognition. It is the minimum primary-source packet for Phase 1.
 
 | Question | Primary passages | Constraint supplied by the text | Project decision or remaining question |
 | --- | --- | --- | --- |
-| What counts as being given? | [A19-20/B33-34](sources/kant/critique-a.md#a19) | Sensibility is receptive; intuition is the immediate way an object is given | Open in [ADR 0001](docs/decisions/0001-receptive-representation-terminology.md): whether the receptive representation should use theory-internal Kantian terminology, weaker vocabulary, earned status, or variant-scoped names |
+| What counts as being given? | [A19-20/B33-34](sources/kant/critique-a.md#a19) | Sensibility is receptive; intuition is the immediate way an object is given | [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md) preserves shared presented elements and requires explicit variant projections; the accepted Kantian variant uses `intuition` under declared role criteria |
 | What is a manifold? | [A77-79/B102-104](sources/kant/critique-a.md#a77) | A manifold is supplied for synthesis and does not organize itself into cognition | Its computational boundaries, granularity, and temporal extent |
 | What makes an intuition empirical? | [A20/B34](sources/kant/critique-a.md#a20) | Empirical intuition includes sensation and presents an appearance | Whether the toy world models anything analogous to affection or sensation |
 | What role do space and time play? | [A22-25/B37-41](sources/kant/critique-a.md#a22), [A30-32/B46-49](sources/kant/critique-a.md#a30) | They are forms of sensible intuition rather than empirical properties abstracted from objects | Whether the first model implements spatial form, temporal form, both, or a weaker ordering constraint |

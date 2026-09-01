@@ -1,10 +1,10 @@
-# ADR 0001: Name the receptive representation
+# ADR 0001: Use variant-scoped receptive terminology
 
-- **Status:** Proposed
-- **Date:** 2026-08-31
+- **Status:** Accepted
+- **Date:** 2026-09-01
 - **Deciders:** Kantbot maintainers
 - **Related questions:** [RQ-01](../../RESEARCH_QUESTIONS.md#rq-01--what-can-be-given-to-the-model)
-- **Related claims:** [K-001](../../CLAIMS.md#k-001), [K-015](../../CLAIMS.md#k-015), [K-027](../../CLAIMS.md#k-027)
+- **Related claims:** [K-001](../../CLAIMS.md#k-001), [K-015](../../CLAIMS.md#k-015), [K-016](../../CLAIMS.md#k-016), [K-027](../../CLAIMS.md#k-027)
 - **Supersedes:** None
 - **Superseded by:** None
 
@@ -135,7 +135,8 @@ never evidence that those tests pass.
 
 The internal state is a `constrained presentation`; Kantian documents say that
 it is analogous to intuition, while types and traces retain the weaker name.
-This is the terminology used provisionally in the current prose specification.
+This was the terminology used provisionally in the initial prose-specification
+draft.
 
 **Best argument.** The first model does not reproduce obvious elements of
 Kant's account, including affection by independently existing objects and
@@ -239,11 +240,35 @@ variant is supposed to explain.
 
 ## Decision
 
-No option is selected. Maintainer approval is withheld pending comparison of
-the expanded arguments above.
+Choose Option D. Use a minimal shared boundary vocabulary for interoperability
+and variant-specific philosophical vocabulary inside each declared
+architecture.
 
-The following constraints are common ground and do not depend on the eventual
-name:
+The shared boundary distinguishes:
+
+- an external `observation`, which is serialized content plus source and
+  episode metadata; and
+- a `presented element`, which is admitted at the common boundary but carries
+  no licensed object identity, concept, or variant-specific cognitive status.
+
+Each interpretation then performs an explicit **variant projection**. The
+accepted A/B hybrid Kantian variant projects presented elements into
+`intuition` and `manifold of intuition` under its declared sensibility, form,
+singularity, and preconceptuality constraints. A projection must add or validate
+interpretation-specific structure and may fail; an alias or display-label
+change does not count. Later Kantian readings may impose different criteria,
+and later critiques may introduce different representations or reject the
+intuition kind.
+
+Traces preserve both layers: the stable observation and presented-element
+identities used for comparison, and the variant-specific representation,
+transformation, invariants, omissions, and terminology. The default Kantian
+variant may therefore claim to realize the role of intuition without treating
+that identifier as evidence that the role, the wider architecture, or human
+cognition has been reproduced successfully.
+
+The following constraints are common ground and do not depend on any one
+variant's terminology:
 
 - serialized input remains an external observation, not an already constituted
   object;
@@ -256,32 +281,43 @@ name:
 - avoiding a Kantian term does not make an architecture philosophically
   neutral or release it from behavioral criteria.
 
-The current specification's use of `constrained presentation` is provisional
-editorial vocabulary, not an implementation mandate while this record remains
-Proposed.
+`Constrained presentation` is not the accepted public type name. It may remain
+ordinary explanatory prose for the shared boundary, but implementation-facing
+documents use `presented element` for that boundary and `intuition` within the
+accepted Kantian variant.
 
 ## Consequences
 
-- Phase 2 must not freeze the receptive representation's final public type name
-  until this record is accepted.
-- The observation/presentation boundary and its provenance requirements can be
-  specified independently of the naming choice.
-- Diagrams and hand-worked examples should mark the term as provisional or
-  show the leading alternatives.
-- Any accepted option must state what evidence bears on fidelity to human
-  cognition beyond the presence of a Kantian identifier.
+- Phase 2 must define the shared `observation` and `presented element` types plus
+  an explicit variant-projection interface.
+- The accepted Kantian variant uses `intuition` theory-internally and declares
+  the conditions and omissions attached to that use.
+- Diagrams, examples, and traces must show both the shared boundary and the
+  variant-specific transformation; merely relabeling a shared record violates
+  this decision.
+- Cross-variant comparison becomes easier at the cost of an additional
+  representation layer and more complex traces. The project accepts that cost.
+- Evaluation must test what the Kantian projection changes and what evidence
+  bears on fidelity to human cognition beyond the presence of its identifier.
+- New variants may reuse the shared boundary but cannot inherit objecthood,
+  concepts, or other commitments that their interpretation is meant to
+  explain.
 
 ## Observable consequences
 
-Option A produces theory-internal traces that call the receptive state an
-`intuition`; Option B calls the same declared boundary a `constrained
-presentation`; Option C records which criteria change a candidate's status;
-Option D records both a shared boundary representation and a variant-specific
-projection. A review scenario should compare whether each choice exposes or
-conceals missing affection, form, and preconceptual-particularity conditions.
+Two variants can receive the same observation and preserve the same presented-
+element identifier while producing different cognitive traces. The accepted
+Kantian variant admits an `intuition` only through its declared form and role
+constraints; a competing variant may produce another representation or reject
+the element. If temporal form required by the Kantian variant is absent, the
+shared presented element remains inspectable but the Kantian projection fails
+and cannot enter its manifold of intuition. A trace that changes only the label
+while retaining identical structure, invariants, and behavior fails this
+decision's safeguard.
 
 ## Follow-up
 
-After an option is accepted, update K-015, the glossary, the prose
-specification, and the future Phase 1 diagrams and examples. Phase 2 must then
-define the selected public vocabulary and any variant or criterion metadata.
+K-015, the glossary, prose specification, primary-source map, and RQ-01 now
+record the accepted vocabulary. Future Phase 1 diagrams and examples must show
+the two layers. Phase 2 must define shared-boundary types, the variant-
+projection interface, and variant-specific representation metadata.

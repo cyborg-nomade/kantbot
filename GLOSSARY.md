@@ -88,9 +88,9 @@ Implementation labels describe the current roadmap:
   in a specified spatial, temporal, or otherwise ordered form.
 - **Not equivalent to:** A hardware sensor, a generic input parser, or an
   unstructured store of raw facts.
-- **Status:** **Analogical**; **Foundation**. What the receptive representation
-  should be called remains open in
-  [ADR 0001](docs/decisions/0001-receptive-representation-terminology.md).
+- **Status:** **Interpretive / Analogical**; **Foundation**. The accepted
+  Kantian variant uses this role to project shared presented elements into
+  intuitions under [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md).
 - **Primary anchors:** [A19/B33](sources/kant/critique-a.md#a19); [A50/B74](sources/kant/critique-a.md#a50).
 
 ### Understanding (*Verstand*)
@@ -177,12 +177,14 @@ Implementation labels describe the current roadmap:
 
 - **Textual sense:** The plurality given in intuition that must be combined for
   cognition of an object.
-- **Kantbot role:** A bounded, ordered collection or stream of presented
-  elements available to a synthesis operation.
+- **Kantbot role:** In the accepted Kantian variant, a bounded and ordered
+  plurality of intuitions made available to synthesis through successful
+  variant projections.
 - **Not equivalent to:** An already identified object's attributes, a bag of
   facts, or raw data with no form of presentation.
-- **Status:** **Interpretive / Analogical**; **Foundation**. Its boundaries and
-  ordering are engineering choices that must be visible in the trace.
+- **Status:** **Interpretive / Analogical**; **Foundation**. Its boundaries,
+  ordering, and projection grounds must be visible in the trace; shared
+  presented elements do not constitute it automatically.
 - **Primary anchors:** [A77/B102](sources/kant/critique-a.md#a77); [B129-130](sources/kant/deduction-b.md#b129).
 
 ### Intuition (*Anschauung*)
@@ -194,10 +196,10 @@ Implementation labels describe the current roadmap:
   cognitive cycle before it is determined as an object under concepts.
 - **Not equivalent to:** A hunch, an unexplained model output, a mental image,
   or simply one row of input data.
-- **Status:** **Interpretive / Analogical**; **Decision required**.
-  [ADR 0001](docs/decisions/0001-receptive-representation-terminology.md)
-  compares whether this should be theory-internal terminology, a weaker name,
-  a criterion-governed status, or variant-scoped vocabulary.
+- **Status:** **Interpretive / Analogical**; **Foundation** within the accepted
+  Kantian variant. [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md)
+  makes this theory-internal terminology for an explicit projection from a
+  shared presented element, not a label applied at the shared boundary.
 - **Primary anchors:** [A19/B33](sources/kant/critique-a.md#a19); [A50/B74](sources/kant/critique-a.md#a50); [A68/B93](sources/kant/critique-a.md#a68).
 
 ### Empirical intuition (*empirische Anschauung*)
@@ -207,9 +209,10 @@ Implementation labels describe the current roadmap:
   recorded observation rather than solely on the model's ordering constraints.
 - **Not equivalent to:** A verified fact or a fully recognized empirical
   object.
-- **Status:** **Interpretive / Analogical**; **Decision required** under
-  [ADR 0001](docs/decisions/0001-receptive-representation-terminology.md),
-  especially because the first model records observation-dependent content but
+- **Status:** **Interpretive / Analogical**; **Foundation** within the accepted
+  Kantian variant under
+  [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md). The
+  first model records observation-dependent content but must declare that it
   does not yet reproduce human sensation.
 - **Primary anchor:** [A20/B34](sources/kant/critique-a.md#a20).
 
@@ -221,8 +224,9 @@ Implementation labels describe the current roadmap:
   presented and related before concept application.
 - **Not equivalent to:** Synthetic training data, a blank record, or arbitrary
   prior knowledge.
-- **Status:** **Interpretive / Analogical**; **Decision required** under
-  [ADR 0001](docs/decisions/0001-receptive-representation-terminology.md).
+- **Status:** **Interpretive / Analogical**; **Foundation** within the accepted
+  Kantian variant under
+  [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md).
 - **Primary anchors:** [A20-22/B34-36](sources/kant/critique-a.md#a20); [A30-32/B46-49](sources/kant/critique-a.md#a30).
 
 ### Space and time (*Raum und Zeit*)
@@ -235,9 +239,10 @@ Implementation labels describe the current roadmap:
 - **Not equivalent to:** Database coordinates and timestamps merely because
   those fields happen to exist.
 - **Status:** **Interpretive / Analogical**; **Foundation** as ordering
-  constraints. [ADR 0001](docs/decisions/0001-receptive-representation-terminology.md)
-  remains open on whether the model calls these Kantian forms or a weaker
-  analogue.
+  constraints. Under
+  [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md), the
+  accepted Kantian variant treats them as its declared sensible form while
+  recording the limits of the computational realization.
 - **Primary anchors:** [A22-25/B37-41](sources/kant/critique-a.md#a22); [A30-32/B46-49](sources/kant/critique-a.md#a30).
 
 ### Appearance (*Erscheinung*)
@@ -248,8 +253,9 @@ Implementation labels describe the current roadmap:
   determined as an object within the model's conditions of presentation.
 - **Not equivalent to:** A deceptive look, an external thing as it is in itself,
   or every unprocessed input value.
-- **Status:** **Interpretive / Analogical**; **Decision required** under
-  [ADR 0001](docs/decisions/0001-receptive-representation-terminology.md).
+- **Status:** **Interpretive / Analogical**; **Decision required**. ADR 0001
+  does not decide whether the accepted Kantian variant should name this
+  pre-object content an appearance.
 - **Primary anchor:** [A20/B34](sources/kant/critique-a.md#a20).
 
 ### Object of experience (*Gegenstand der Erfahrung*)
@@ -637,6 +643,22 @@ The serialized material accepted by an interface. Parsing input may produce
 observations, but the transport format has no cognitive status of its own.
 **Claim label: Engineering.**
 
+### Presented element
+
+A minimal shared-boundary representation derived from an observation. It keeps
+source, episode, ordering, and provenance identity available for comparison but
+has no licensed object identity, concept, or variant-specific cognitive status.
+It is not automatically an intuition. **Claim label: Engineering.**
+
+### Variant projection
+
+An explicit transformation from shared presented elements into the
+representations required by one declared philosophical architecture. It must
+add or validate variant-specific structure, invariants, and behavioral
+conditions; changing only a type or display label does not count. The accepted
+Kantian projection produces intuitions under its sensibility and form criteria.
+**Claim label: Engineering and interpretive.**
+
 ### Cognitive state
 
 The versioned collection of representations, transformations, applicable
@@ -715,9 +737,10 @@ be compared through behavior and traces, not only through terminology.
 The glossary keeps both the remaining disagreement and accepted answers
 visible:
 
-1. **Open:** [ADR 0001](docs/decisions/0001-receptive-representation-terminology.md)
-   compares theory-internal `intuition`, `constrained presentation`, a
-   criterion-governed status, and variant-scoped vocabularies.
+1. **Accepted:** [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md)
+   preserves a minimal shared presented-element boundary and requires explicit
+   variant projections; the accepted Kantian variant uses `intuition`
+   theory-internally.
 2. **Accepted:** [ADR 0002](docs/decisions/0002-a-b-synthesis.md) uses
    apprehension, reproduction, and recognition in an A/B hybrid default, with
    a behaviorally meaningful B-led variant.

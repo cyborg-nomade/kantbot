@@ -20,9 +20,13 @@ What will count as a manifold or intuition *for this model*, under which forms
 will it be presented, and where does structured program input cease to be a
 useful analogue of receptive sensibility?
 
-An answer must define the boundary, granularity, and temporal or spatial form
-of an input episode. It must also choose whether implementation documents use
-`intuition` or the weaker term `constrained presentation`.
+The accepted answer in
+[ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md) defines
+a minimal shared observation and presented-element boundary followed by
+explicit variant projections. The accepted Kantian variant uses `intuition`
+theory-internally under declared receptive-role criteria; later variants may
+use different representations. The shared boundary, temporal or spatial form,
+and projection must remain visible in traces.
 
 Related claims: [K-001](CLAIMS.md#k-001) and [K-015](CLAIMS.md#k-015). Source map:
 [what is presented to the model?](PRIMARY_SOURCES.md#what-is-presented-to-the-model)
