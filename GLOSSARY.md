@@ -3,9 +3,9 @@
 ## Purpose
 
 This glossary fixes a shared vocabulary for the first Kantbot experiments. It
-is not a dictionary of Kant's philosophy and does not claim that computational
-structures are literally Kantian faculties. It records, for each load-bearing
-term:
+is not a dictionary of Kant's philosophy and does not assume in advance that
+computational structures either do or do not realize Kantian cognitive roles.
+It records, for each load-bearing term:
 
 - a concise textual sense;
 - the provisional role the term may play in Kantbot;
@@ -88,8 +88,9 @@ Implementation labels describe the current roadmap:
   in a specified spatial, temporal, or otherwise ordered form.
 - **Not equivalent to:** A hardware sensor, a generic input parser, or an
   unstructured store of raw facts.
-- **Status:** **Analogical**; **Foundation**. What can count as being "given" to a
-  program remains an explicit modeling decision.
+- **Status:** **Interpretive / Analogical**; **Foundation**. The accepted
+  Kantian variant uses this role to project shared presented elements into
+  intuitions under [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md).
 - **Primary anchors:** [A19/B33](sources/kant/critique-a.md#a19); [A50/B74](sources/kant/critique-a.md#a50).
 
 ### Understanding (*Verstand*)
@@ -100,8 +101,9 @@ Implementation labels describe the current roadmap:
   synthesized representations and making them available for judgment.
 - **Not equivalent to:** General intelligence, all computation, or an opaque
   classifier whose output is merely renamed a concept.
-- **Status:** **Analogical**; **Foundation**. Its division from imagination and the
-  power of judgment is a Phase 1 decision.
+- **Status:** **Analogical**; **Foundation**. Its division from imagination and
+  the power of judgment follows [ADRs 0002](docs/decisions/0002-a-b-synthesis.md)
+  and [0003](docs/decisions/0003-object-and-judgment-licensing.md).
 - **Primary anchors:** [A50-51/B74-75](sources/kant/critique-a.md#a50); [A69/B94](sources/kant/critique-a.md#a69).
 
 ### Imagination (*Einbildungskraft*)
@@ -114,8 +116,9 @@ Implementation labels describe the current roadmap:
   conceptual determination.
 - **Not equivalent to:** Image generation, fantasy, free-form creativity, or a
   cache with a philosophical name.
-- **Status:** **Interpretive / Analogical**; **Foundation**. Kant's accounts in
-  the A and B deductions do not yield a single uncontested software boundary.
+- **Status:** **Interpretive / Analogical**; **Foundation**. The A/B hybrid
+  default and its shared boundary with understanding are fixed by
+  [ADR 0002](docs/decisions/0002-a-b-synthesis.md).
 - **Primary anchors:** [A120](sources/kant/deduction-a.md#a120); [B151-152](sources/kant/deduction-b.md#b151).
 
 ### Power of judgment (*Urteilskraft*)
@@ -126,8 +129,9 @@ Implementation labels describe the current roadmap:
   the conditions for applying a concept or rule and for forming a judgment.
 - **Not equivalent to:** A judgment as output, a scoring function alone, or
   unrestricted practical decision-making.
-- **Status:** **Analogical**; **Foundation**. Whether this is a distinct component
-  or a policy boundary between understanding and judgment remains open.
+- **Status:** **Analogical**; **Foundation**. Its applicability role remains
+  semantically distinct even if later types combine it with another component,
+  as fixed by [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md).
 - **Primary anchor:** [A132/B171](sources/kant/critique-a.md#a132).
 
 ### Apperception (*Apperzeption*)
@@ -139,8 +143,10 @@ Implementation labels describe the current roadmap:
   belong to one coherent cognitive state and trace.
 - **Not equivalent to:** Machine consciousness, a user account, object identity,
   or a globally unique process ID.
-- **Status:** **Analogical**; **Decision required**. Kantbot models a
-  functional unity condition and makes no claim to self-consciousness.
+- **Status:** **Analogical**; **Foundation**. Kantbot models the cycle-wide
+  provenance and scope check fixed by
+  [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md), without
+  treating it as proof of self-consciousness.
 - **Primary anchors:** [B131-136](sources/kant/deduction-b.md#b131).
 
 ### Reason (*Vernunft*)
@@ -171,12 +177,14 @@ Implementation labels describe the current roadmap:
 
 - **Textual sense:** The plurality given in intuition that must be combined for
   cognition of an object.
-- **Kantbot role:** A bounded, ordered collection or stream of presented
-  elements available to a synthesis operation.
+- **Kantbot role:** In the accepted Kantian variant, a bounded and ordered
+  plurality of intuitions made available to synthesis through successful
+  variant projections.
 - **Not equivalent to:** An already identified object's attributes, a bag of
   facts, or raw data with no form of presentation.
-- **Status:** **Interpretive / Analogical**; **Foundation**. Its boundaries and
-  ordering are engineering choices that must be visible in the trace.
+- **Status:** **Interpretive / Analogical**; **Foundation**. Its boundaries,
+  ordering, and projection grounds must be visible in the trace; shared
+  presented elements do not constitute it automatically.
 - **Primary anchors:** [A77/B102](sources/kant/critique-a.md#a77); [B129-130](sources/kant/deduction-b.md#b129).
 
 ### Intuition (*Anschauung*)
@@ -188,8 +196,10 @@ Implementation labels describe the current roadmap:
   cognitive cycle before it is determined as an object under concepts.
 - **Not equivalent to:** A hunch, an unexplained model output, a mental image,
   or simply one row of input data.
-- **Status:** **Analogical**; **Decision required**. Artificial input is not assumed
-  to be intuition in Kant's literal sense.
+- **Status:** **Interpretive / Analogical**; **Foundation** within the accepted
+  Kantian variant. [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md)
+  makes this theory-internal terminology for an explicit projection from a
+  shared presented element, not a label applied at the shared boundary.
 - **Primary anchors:** [A19/B33](sources/kant/critique-a.md#a19); [A50/B74](sources/kant/critique-a.md#a50); [A68/B93](sources/kant/critique-a.md#a68).
 
 ### Empirical intuition (*empirische Anschauung*)
@@ -199,7 +209,11 @@ Implementation labels describe the current roadmap:
   recorded observation rather than solely on the model's ordering constraints.
 - **Not equivalent to:** A verified fact or a fully recognized empirical
   object.
-- **Status:** **Analogical**; **Decision required**.
+- **Status:** **Interpretive / Analogical**; **Foundation** within the accepted
+  Kantian variant under
+  [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md). The
+  first model records observation-dependent content but must declare that it
+  does not yet reproduce human sensation.
 - **Primary anchor:** [A20/B34](sources/kant/critique-a.md#a20).
 
 ### Pure intuition (*reine Anschauung*)
@@ -210,7 +224,9 @@ Implementation labels describe the current roadmap:
   presented and related before concept application.
 - **Not equivalent to:** Synthetic training data, a blank record, or arbitrary
   prior knowledge.
-- **Status:** **Analogical**; **Decision required**.
+- **Status:** **Interpretive / Analogical**; **Foundation** within the accepted
+  Kantian variant under
+  [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md).
 - **Primary anchors:** [A20-22/B34-36](sources/kant/critique-a.md#a20); [A30-32/B46-49](sources/kant/critique-a.md#a30).
 
 ### Space and time (*Raum und Zeit*)
@@ -222,9 +238,11 @@ Implementation labels describe the current roadmap:
   them.
 - **Not equivalent to:** Database coordinates and timestamps merely because
   those fields happen to exist.
-- **Status:** **Interpretive / Analogical**; **Decision required**. The project
-  must state whether it models Kant's forms or only borrows their constraining
-  role.
+- **Status:** **Interpretive / Analogical**; **Foundation** as ordering
+  constraints. Under
+  [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md), the
+  accepted Kantian variant treats them as its declared sensible form while
+  recording the limits of the computational realization.
 - **Primary anchors:** [A22-25/B37-41](sources/kant/critique-a.md#a22); [A30-32/B46-49](sources/kant/critique-a.md#a30).
 
 ### Appearance (*Erscheinung*)
@@ -235,7 +253,9 @@ Implementation labels describe the current roadmap:
   determined as an object within the model's conditions of presentation.
 - **Not equivalent to:** A deceptive look, an external thing as it is in itself,
   or every unprocessed input value.
-- **Status:** **Interpretive / Analogical**; **Decision required**.
+- **Status:** **Interpretive / Analogical**; **Decision required**. ADR 0001
+  does not decide whether the accepted Kantian variant should name this
+  pre-object content an appearance.
 - **Primary anchor:** [A20/B34](sources/kant/critique-a.md#a20).
 
 ### Object of experience (*Gegenstand der Erfahrung*)
@@ -247,8 +267,9 @@ Implementation labels describe the current roadmap:
   licensed by synthesis, applicable concepts, and the model's unity conditions.
 - **Not equivalent to:** A record created by the program, an external entity in
   itself, or any cluster that crosses a similarity threshold.
-- **Status:** **Interpretive / Analogical**; **Foundation**. Object criteria must
-  be made testable in Phase 1.
+- **Status:** **Interpretive / Analogical**; **Foundation**. Testable identity,
+  constitutive-unity, applicability, and unity-check criteria are fixed by
+  [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md).
 - **Primary anchors:** [B137](sources/kant/deduction-b.md#b137); [B146-148](sources/kant/deduction-b.md#b146); [A93/B126](sources/kant/critique-a.md#a93).
 
 ### Concept (*Begriff*)
@@ -284,8 +305,11 @@ Implementation labels describe the current roadmap:
   synthesized representations may count as objects and enter judgments.
 - **Not equivalent to:** A taxonomy label, database category, or universally
   valid rule merely declared by the implementation.
-- **Status:** **Interpretive / Analogical**; **Decision required**. The
-  first model need not implement all twelve categories.
+- **Status:** **Interpretive / Analogical**; **Foundation**. The minimal
+  category-inspired constraints fixed by
+  [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md) cover
+  unity/plurality, persistence, and lawful succession only where needed; they
+  do not implement all twelve categories.
 - **Primary anchors:** [A79-83/B104-116](sources/kant/critique-a.md#a79); [B129-169](sources/kant/deduction-b.md#b129).
 
 ### Schema (*Schema*)
@@ -297,7 +321,8 @@ Implementation labels describe the current roadmap:
   between a concept or category and a temporally structured representation.
 - **Not equivalent to:** A database schema, a static template, a prototype
   image, or an arbitrary feature extractor.
-- **Status:** **Interpretive / Analogical**; **Decision required**.
+- **Status:** **Interpretive / Analogical**; **Foundation** as fixed by
+  [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md).
 - **Primary anchors:** [A137-142/B176-181](sources/kant/critique-a.md#a137).
 
 ### Rule (*Regel*)
@@ -309,7 +334,8 @@ Implementation labels describe the current roadmap:
   result, and authority are inspectable.
 - **Not equivalent to:** Any line of program logic or an exception-free law of
   the external world.
-- **Status:** **Analogical**; **Foundation**.
+- **Status:** **Analogical**; **Foundation**. Rule authority follows
+  [ADR 0004](docs/decisions/0004-limit-outcomes-and-rule-authority.md).
 - **Primary anchors:** [A69/B94](sources/kant/critique-a.md#a69); [A126](sources/kant/deduction-a.md#a126); [A132/B171](sources/kant/critique-a.md#a132).
 
 ## Operations
@@ -332,7 +358,8 @@ Implementation labels describe the current roadmap:
 - **Kantbot role:** A possible reception-stage operation that segments and
   orders presented elements into a sequence available for retention.
 - **Not equivalent to:** Input validation or parsing alone.
-- **Status:** **Interpretive / Analogical**; **Decision required**. This
+- **Status:** **Interpretive / Analogical**; **Foundation** in the A/B hybrid
+  default fixed by [ADR 0002](docs/decisions/0002-a-b-synthesis.md). This
   threefold account is especially prominent in the A-edition deduction.
 - **Primary anchor:** [A98-100](sources/kant/deduction-a.md#a98).
 
@@ -344,7 +371,8 @@ Implementation labels describe the current roadmap:
   presentations available during synthesis of a sequence.
 - **Not equivalent to:** Exact record replay, unrestricted memory retrieval, or
   probabilistic association by itself.
-- **Status:** **Interpretive / Analogical**; **Decision required**.
+- **Status:** **Interpretive / Analogical**; **Foundation** in the A/B hybrid
+  default fixed by [ADR 0002](docs/decisions/0002-a-b-synthesis.md).
 - **Primary anchors:** [A100-102](sources/kant/deduction-a.md#a100); compare [B151-152](sources/kant/deduction-b.md#b151).
 
 ### Synthesis of recognition in a concept
@@ -355,7 +383,8 @@ Implementation labels describe the current roadmap:
   elements as belonging to one candidate and makes conceptual determination
   possible.
 - **Not equivalent to:** Classification accuracy or object tracking alone.
-- **Status:** **Interpretive / Analogical**; **Decision required**.
+- **Status:** **Interpretive / Analogical**; **Foundation** in the A/B hybrid
+  default fixed by [ADR 0002](docs/decisions/0002-a-b-synthesis.md).
 - **Primary anchors:** [A103-110](sources/kant/deduction-a.md#a103).
 
 ### Schematism (*Schematismus*)
@@ -367,7 +396,8 @@ Implementation labels describe the current roadmap:
   fails, or remains ambiguous.
 - **Not equivalent to:** Schema validation or ordinary pattern matching without
   a mediating architectural role.
-- **Status:** **Interpretive / Analogical**; **Decision required**.
+- **Status:** **Interpretive / Analogical**; **Foundation** as fixed by
+  [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md).
 - **Primary anchors:** [A137-147/B176-187](sources/kant/critique-a.md#a137).
 
 ### Concept application / subsumption
@@ -422,9 +452,10 @@ the first model.
   unifies representations in judgments. They are not output formats.
 - **Categories:** Pure concepts corresponding to those functions and directed
   toward objects of intuition in general. They are not a domain taxonomy.
-- **Kantbot status:** **Interpretive / Analogical**; **Decision
-  required**. Any adopted category must alter constraints or observable
-  behavior, not merely rename a familiar operation.
+- **Kantbot status:** **Interpretive / Analogical**; **Foundation** under
+  [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md). Any adopted
+  category-inspired constraint must alter behavior, not merely rename a
+  familiar operation.
 - **Primary anchors:** [A70-76/B95-101](sources/kant/critique-a.md#a70); [A79-83/B104-116](sources/kant/critique-a.md#a79).
 
 ## Epistemic status and limits
@@ -458,8 +489,9 @@ the first model.
   conditions and scope have been satisfied within the model.
 - **Not equivalent to:** High confidence, majority agreement, factual truth in
   every possible context, or successful execution.
-- **Status:** **Interpretive / Analogical**; **Foundation** as a constraint, with
-  its exact test **Decision required**.
+- **Status:** **Interpretive / Analogical**; **Foundation**. Its initial test is
+  the combined licensing and unity check fixed by
+  [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md).
 - **Primary anchors:** [A89-90/B122-123](sources/kant/critique-a.md#a89); [B140-142](sources/kant/deduction-b.md#b140).
 
 ### Objective unity
@@ -471,7 +503,9 @@ the first model.
   must be attributable to one coherent state under shared rules.
 - **Not equivalent to:** Deduplication, internal consistency alone, or a single
   memory address.
-- **Status:** **Analogical**; **Decision required**.
+- **Status:** **Analogical**; **Foundation**. The cycle-wide provenance and
+  scope test is fixed by
+  [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md).
 - **Primary anchors:** [B139-142](sources/kant/deduction-b.md#b139).
 
 ### A priori / a posteriori
@@ -521,8 +555,10 @@ the first model.
   without adding known objects.
 - **Not equivalent to:** Required versus optional configuration, or enforced
   versus advisory lint rules.
-- **Status:** **Interpretive / Analogical**; distinction is **Foundation**, while
-  regulative reasoning is **Deferred** to Phase 4.
+- **Status:** **Interpretive / Analogical**; the authority distinction is
+  **Foundation** under
+  [ADR 0004](docs/decisions/0004-limit-outcomes-and-rule-authority.md), while
+  active regulative reasoning is **Deferred** to Phase 4.
 - **Primary anchors:** [A179-180/B222-223](sources/kant/critique-a.md#a179); [A509-515/B537-543](sources/kant/critique-a.md#a509); [A642-668/B670-696](sources/kant/critique-a.md#a642).
 
 ### Phenomenon / noumenon (*Phaenomenon / Noumenon*)
@@ -607,6 +643,22 @@ The serialized material accepted by an interface. Parsing input may produce
 observations, but the transport format has no cognitive status of its own.
 **Claim label: Engineering.**
 
+### Presented element
+
+A minimal shared-boundary representation derived from an observation. It keeps
+source, episode, ordering, and provenance identity available for comparison but
+has no licensed object identity, concept, or variant-specific cognitive status.
+It is not automatically an intuition. **Claim label: Engineering.**
+
+### Variant projection
+
+An explicit transformation from shared presented elements into the
+representations required by one declared philosophical architecture. It must
+add or validate variant-specific structure, invariants, and behavioral
+conditions; changing only a type or display label does not count. The accepted
+Kantian projection produces intuitions under its sensibility and form criteria.
+**Claim label: Engineering and interpretive.**
+
 ### Cognitive state
 
 The versioned collection of representations, transformations, applicable
@@ -680,25 +732,27 @@ philosophical assumption. Variants must declare their claim labels and should
 be compared through behavior and traces, not only through terminology.
 **Claim label: Engineering.**
 
-## Open glossary decisions
+## Phase 1 glossary decisions
 
-The glossary makes disagreements visible but does not settle these Phase 1
-questions:
+The glossary keeps both the remaining disagreement and accepted answers
+visible:
 
-1. Does the first model treat sensibility as genuinely analogous to intuition,
-   or use the weaker language of constrained presentation throughout?
-2. Is synthesis divided into apprehension, reproduction, and recognition, or
-   is that threefold account retained only as an optional A-edition variant?
-3. Which categories are necessary for the toy world, and what observable
-   behavior distinguishes each adopted category from an ordinary data rule?
-4. Is the power of judgment a distinct component, an interface, or a family of
-   policies governing concept application?
-5. What functional unity constraint can be modeled without implying machine
-   consciousness or reducing apperception to state consistency?
-6. Which rules are constitutive of an object for the model, and which merely
-   guide inquiry?
-7. What separates ambiguity, uncertainty, conflict, failed synthesis, failed
-   concept application, and transcendental overreach in executable terms?
+1. **Accepted:** [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md)
+   preserves a minimal shared presented-element boundary and requires explicit
+   variant projections; the accepted Kantian variant uses `intuition`
+   theory-internally.
+2. **Accepted:** [ADR 0002](docs/decisions/0002-a-b-synthesis.md) uses
+   apprehension, reproduction, and recognition in an A/B hybrid default, with
+   a behaviorally meaningful B-led variant.
+3. **Accepted:** [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md)
+   fixes the minimal category-inspired constraints, schematized applicability,
+   power-of-judgment role, and cycle-wide unity check.
+4. **Accepted:** [ADR 0004](docs/decisions/0004-limit-outcomes-and-rule-authority.md)
+   distinguishes constitutive, regulative, and engineering rule authority and
+   the initial typed limit outcomes.
+5. **Deferred:** reason's active regulative inquiry and transcendental overreach
+   remain Phase 4 work even though their reserved rule and outcome fields are
+   constrained by ADR 0004.
 
 ## Editorial rule
 

@@ -8,12 +8,20 @@ question is:
 > What might artificial intelligence look like if its organization were
 > constrained by Kant's account of cognition?
 
-The project treats this question neither as a recipe for recreating a human
-mind nor as a decorative vocabulary for familiar machine-learning techniques.
-It treats philosophy as an architectural constraint. Kant's distinctions—such
-as receptivity and spontaneity, intuition and concept, understanding and
-reason, constitutive and regulative use—should make a difference to how the
-system is built and how its behavior can be interpreted.
+The project treats this question neither as a guaranteed recipe for recreating
+a human mind nor as decorative vocabulary for familiar machine-learning
+techniques. It treats Kant's account as an executable hypothesis about
+cognition. If that account is correct and sufficiently complete, increasingly
+faithful implementations should approach corresponding structures and
+behaviors of human cognition in bounded settings. If they do not, the mismatch
+gives philosophical criticism a more concrete object.
+
+Kant's distinctions—such as receptivity and spontaneity, intuition and concept,
+understanding and reason, constitutive and regulative use—therefore constrain
+both architecture and evaluation. Using those terms inside a declared Kantian
+model does not by itself claim that the model has succeeded, is conscious, or
+is a human mind; refusing the terms solely to avoid that misunderstanding would
+also weaken the experiment.
 
 The name *Kantbot* is provisional and playful. The inquiry is not.
 
@@ -42,7 +50,9 @@ cognitive roles:
 Code gives these claims consequences. It forces us to specify interfaces,
 state, failure modes, and observable behavior. Where the philosophy permits
 multiple interpretations, alternative implementations can make the
-disagreement concrete and experimentally comparable.
+disagreement concrete and experimentally comparable. Later critiques can then
+alter the architecture and test whether they improve or worsen its approach to
+the relevant features of cognition.
 
 ## Objectives
 
@@ -127,7 +137,8 @@ plainly whenever that is the case.
 
 ## Standard of success
 
-The first success is not human-level intelligence. It is a small, runnable,
+The first success is not human-level intelligence. It is the first controlled
+step toward testing the stronger hypothesis: a small, runnable,
 well-documented system in which:
 
 - inputs are transformed into judgments through distinct, inspectable stages;

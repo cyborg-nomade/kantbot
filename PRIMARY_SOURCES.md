@@ -55,49 +55,49 @@ cognition. It is the minimum primary-source packet for Phase 1.
 
 ### What is presented to the model?
 
-| Question | Primary passages | Constraint supplied by the text | What remains a project decision |
+| Question | Primary passages | Constraint supplied by the text | Project decision or remaining question |
 | --- | --- | --- | --- |
-| What counts as being given? | [A19-20/B33-34](sources/kant/critique-a.md#a19) | Sensibility is receptive; intuition is the immediate way an object is given | Whether structured program input is a strong analogy to intuition or should be called constrained presentation |
+| What counts as being given? | [A19-20/B33-34](sources/kant/critique-a.md#a19) | Sensibility is receptive; intuition is the immediate way an object is given | [ADR 0001](docs/decisions/0001-variant-scoped-receptive-terminology.md) preserves shared presented elements and requires explicit variant projections; the accepted Kantian variant uses `intuition` under declared role criteria |
 | What is a manifold? | [A77-79/B102-104](sources/kant/critique-a.md#a77) | A manifold is supplied for synthesis and does not organize itself into cognition | Its computational boundaries, granularity, and temporal extent |
 | What makes an intuition empirical? | [A20/B34](sources/kant/critique-a.md#a20) | Empirical intuition includes sensation and presents an appearance | Whether the toy world models anything analogous to affection or sensation |
 | What role do space and time play? | [A22-25/B37-41](sources/kant/critique-a.md#a22), [A30-32/B46-49](sources/kant/critique-a.md#a30) | They are forms of sensible intuition rather than empirical properties abstracted from objects | Whether the first model implements spatial form, temporal form, both, or a weaker ordering constraint |
 
 ### How does a candidate object become possible?
 
-| Question | Primary passages | Constraint supplied by the text | What remains a project decision |
+| Question | Primary passages | Constraint supplied by the text | Project decision or remaining question |
 | --- | --- | --- | --- |
 | Why is synthesis required? | [A77-83/B102-116](sources/kant/critique-a.md#a77) | Cognition requires putting a manifold together and representing its unity | Which transformations count as synthesis rather than ordinary aggregation |
-| Should synthesis have three stages? | [A98-110](sources/kant/deduction-a.md#a98) | The A Deduction distinguishes apprehension, reproduction, and recognition | Whether this becomes the default architecture or an explicit A-edition variant |
-| What does imagination contribute? | [A120-126](sources/kant/deduction-a.md#a120), [B151-152](sources/kant/deduction-b.md#b151) | Imagination synthesizes the sensible manifold and mediates sensibility and understanding | Whether it is a component, an operation shared across stages, or a family of policies |
-| What makes the result an object rather than a bundle? | [A103-110](sources/kant/deduction-a.md#a103), [B137-142](sources/kant/deduction-b.md#b137) | Object relation requires rule-governed unity rather than arbitrary association | The executable identity and unity tests for candidate objects or events |
+| Should synthesis have three stages? | [A98-110](sources/kant/deduction-a.md#a98) | The A Deduction distinguishes apprehension, reproduction, and recognition | [ADR 0002](docs/decisions/0002-a-b-synthesis.md) uses the threefold analysis in an A/B hybrid default and preserves a behaviorally meaningful B-led variant |
+| What does imagination contribute? | [A120-126](sources/kant/deduction-a.md#a120), [B151-152](sources/kant/deduction-b.md#b151) | Imagination synthesizes the sensible manifold and mediates sensibility and understanding | [ADR 0002](docs/decisions/0002-a-b-synthesis.md) makes imagination the shared synthesis boundary, with understanding supplying or constraining its rules |
+| What makes the result an object rather than a bundle? | [A103-110](sources/kant/deduction-a.md#a103), [B137-142](sources/kant/deduction-b.md#b137) | Object relation requires rule-governed unity rather than arbitrary association | [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md) requires explicit identity, constitutive-unity, applicability, and cycle-wide unity conditions |
 
 ### What licenses concepts and judgments?
 
-| Question | Primary passages | Constraint supplied by the text | What remains a project decision |
+| Question | Primary passages | Constraint supplied by the text | Project decision or remaining question |
 | --- | --- | --- | --- |
-| What is the understanding's role? | [A68-69/B93-94](sources/kant/critique-a.md#a68) | Understanding is discursive, works through concepts, and is characterized through judgment | Its software boundary relative to imagination and judgment |
-| What is a category? | [A79-83/B104-116](sources/kant/critique-a.md#a79), [B143-146](sources/kant/deduction-b.md#b143) | Categories are pure functions of unity that condition the synthesis of sensible intuitions | Which, if any, must be implemented and what behavior distinguishes them from generic rules |
+| What is the understanding's role? | [A68-69/B93-94](sources/kant/critique-a.md#a68) | Understanding is discursive, works through concepts, and is characterized through judgment | [ADRs 0002](docs/decisions/0002-a-b-synthesis.md) and [0003](docs/decisions/0003-object-and-judgment-licensing.md) separate rule supply, synthesis, applicability, and commitment while allowing shared implementation boundaries |
+| What is a category? | [A79-83/B104-116](sources/kant/critique-a.md#a79), [B143-146](sources/kant/deduction-b.md#b143) | Categories are pure functions of unity that condition the synthesis of sensible intuitions | [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md) adopts only category-inspired unity/plurality, persistence, and scenario-dependent lawful-succession constraints with observable work |
 | Why do categories require a deduction? | [A84-95/B116-129](sources/kant/critique-a.md#a84) | A priori concepts require a justification of their objective validity and legitimate range | What evidence warrants each adopted category or category-like constraint in the model |
-| What is a judgment? | [A68-70/B93-95](sources/kant/critique-a.md#a68), [B140-142](sources/kant/deduction-b.md#b140) | Judgment relates cognitions through the objective unity of apperception | Whether judgment is a distinct component, an interface, or the result of concept application |
-| How are concepts applied to appearances? | [A132/B171](sources/kant/critique-a.md#a132), [A137-147/B176-187](sources/kant/critique-a.md#a137) | Schematism supplies a mediating procedure and restricts categories to sensible conditions | What an inspectable schema is and which applicability failures it must expose |
+| What is a judgment? | [A68-70/B93-95](sources/kant/critique-a.md#a68), [B140-142](sources/kant/deduction-b.md#b140) | Judgment relates cognitions through the objective unity of apperception | [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md) keeps application results, proposed judgments, unity checks, and committed judgments semantically distinct |
+| How are concepts applied to appearances? | [A132/B171](sources/kant/critique-a.md#a132), [A137-147/B176-187](sources/kant/critique-a.md#a137) | Schematism supplies a mediating procedure and restricts categories to sensible conditions | [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md) requires inspectable temporal procedures that expose successful, failed, and undecided conditions |
 
 ### What makes cognition objectively valid?
 
-| Question | Primary passages | Constraint supplied by the text | What remains a project decision |
+| Question | Primary passages | Constraint supplied by the text | Project decision or remaining question |
 | --- | --- | --- | --- |
-| What is the unity of apperception? | [A107-110](sources/kant/deduction-a.md#a107), [B131-136](sources/kant/deduction-b.md#b131) | Representations must be combinable in one self-consciousness for cognition | What functional unity can be modeled without implying consciousness or a metaphysical self |
-| What is objective unity? | [B137-142](sources/kant/deduction-b.md#b137) | Objective validity depends on necessary unity in synthesis, not contingent association | The test by which a trace demonstrates more than internal consistency |
+| What is the unity of apperception? | [A107-110](sources/kant/deduction-a.md#a107), [B131-136](sources/kant/deduction-b.md#b131) | Representations must be combinable in one self-consciousness for cognition | [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md) adopts a cycle-wide provenance and scope check without treating it as proof of consciousness or a metaphysical self |
+| What is objective unity? | [B137-142](sources/kant/deduction-b.md#b137) | Objective validity depends on necessary unity in synthesis, not contingent association | [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md) requires compatible identity, rule authority, scope, and provenance across a proposed judgment's grounds |
 | Why do categories apply to experience? | [B143-148](sources/kant/deduction-b.md#b143), [B159-169](sources/kant/deduction-b.md#b159) | Their legitimate use is tied to objects of possible sensible experience | What counts as the toy world's analogue of possible experience |
-| What is cognition rather than thought alone? | [B146-148](sources/kant/deduction-b.md#b146), [A220/B267](sources/kant/critique-a.md#a220) | A concept without a corresponding intuition may be thinkable but does not thereby yield cognition of an object | How the system distinguishes a candidate, a thought, a judgment, and a licensed object claim |
+| What is cognition rather than thought alone? | [B146-148](sources/kant/deduction-b.md#b146), [A220/B267](sources/kant/critique-a.md#a220) | A concept without a corresponding intuition may be thinkable but does not thereby yield cognition of an object | [ADR 0003](docs/decisions/0003-object-and-judgment-licensing.md) distinguishes candidates, application results, proposed judgments, committed judgments, and their warrants |
 
 ### Where must the system stop?
 
-| Question | Primary passages | Constraint supplied by the text | What remains a project decision |
+| Question | Primary passages | Constraint supplied by the text | Project decision or remaining question |
 | --- | --- | --- | --- |
-| What is the boundary of possible cognition? | [B146-169](sources/kant/deduction-b.md#b146), [A235-260/B294-315](sources/kant/critique-a.md#a235) | Categories yield cognition only under conditions in which an object can be given | Which missing conditions cause refusal rather than uncertainty or low confidence |
-| What is a noumenon or thing in itself doing here? | [A249-260](sources/kant/critique-a.md#a249), [B306-309](sources/kant/second-edition-excerpts.md#b306) | These concepts mark limits; they do not license positive cognition outside sensible intuition | How to represent a boundary without inventing hidden ground-truth objects |
-| What is transcendental illusion? | [A293-298/B349-355](sources/kant/critique-a.md#a293), [A311-320/B367-377](sources/kant/critique-a.md#a311) | Reason is naturally drawn toward claims exceeding possible experience | Which executable failures genuinely model overreach rather than ordinary error |
-| What is constitutive rather than regulative? | [A179-180/B222-223](sources/kant/critique-a.md#a179), [A509-515/B537-543](sources/kant/critique-a.md#a509) | Constitutive principles determine objects of experience; regulative principles direct inquiry without constituting an object | How rules declare their authority and how traces prevent regulative aims from becoming object claims |
+| What is the boundary of possible cognition? | [B146-169](sources/kant/deduction-b.md#b146), [A235-260/B294-315](sources/kant/critique-a.md#a235) | Categories yield cognition only under conditions in which an object can be given | [ADR 0004](docs/decisions/0004-limit-outcomes-and-rule-authority.md) distinguishes non-presentability, synthesis and application failures, unity conflict, withholding, commitment, and overreach |
+| What is a noumenon or thing in itself doing here? | [A249-260](sources/kant/critique-a.md#a249), [B306-309](sources/kant/second-edition-excerpts.md#b306) | These concepts mark limits; they do not license positive cognition outside sensible intuition | [ADR 0004](docs/decisions/0004-limit-outcomes-and-rule-authority.md) permits hidden scenario state only for external evaluation, never as cognitive warrant or a noumenal layer |
+| What is transcendental illusion? | [A293-298/B349-355](sources/kant/critique-a.md#a293), [A311-320/B367-377](sources/kant/critique-a.md#a311) | Reason is naturally drawn toward claims exceeding possible experience | [ADR 0004](docs/decisions/0004-limit-outcomes-and-rule-authority.md) reserves overreach for traceable scope or authority violations; active reason remains deferred to Phase 4 |
+| What is constitutive rather than regulative? | [A179-180/B222-223](sources/kant/critique-a.md#a179), [A509-515/B537-543](sources/kant/critique-a.md#a509) | Constitutive principles determine objects of experience; regulative principles direct inquiry without constituting an object | [ADR 0004](docs/decisions/0004-limit-outcomes-and-rule-authority.md) types rule authority and prohibits regulative results from supplying object-level grounds |
 
 ## Edition-sensitive fault lines
 
@@ -122,10 +122,11 @@ These are the places where Phase 1 must make a visible choice instead of citing
    boundaries should check the B material rather than relying on the A wording
    alone.
 
-The default Phase 1 reading should use both deductions: the A text for its
-analysis of synthesis and the B text for its account of objective unity and
-category application. If their different emphases produce different executable
-behavior, the alternatives should become named architectural variants.
+The accepted default in
+[ADR 0002](docs/decisions/0002-a-b-synthesis.md) uses both deductions: the A
+text for its analysis of synthesis and the B text for its account of objective
+unity and category application. When their different emphases produce different
+executable behavior, the alternatives become named architectural variants.
 
 ## Deferred but relevant sources
 

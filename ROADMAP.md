@@ -61,7 +61,8 @@ Questions to resolve:
 
 Deliverables:
 
-- a prose specification of faculties, representations, and cognitive flow;
+- a [prose specification of faculties, representations, and cognitive
+  flow](PHILOSOPHICAL_SPECIFICATION.md);
 - diagrams of component boundaries and transformations;
 - worked examples traced by hand from observation to judgment;
 - decision records for disputed or especially consequential readings;
