@@ -10,7 +10,8 @@ enough to fix that contract; the companion
 [cognitive-architecture diagrams](COGNITIVE_ARCHITECTURE.md) expose its
 boundaries and transformations, and the companion
 [hand-worked traces](WORKED_EXAMPLES.md) instantiate its success and limit
-paths. The later behavioral-prediction catalog will test and refine it.
+paths. The [behavioral-prediction catalog](BEHAVIORAL_PREDICTIONS.md) states
+the controlled contrasts that later implementations must expose.
 
 [ADRs 0001–0004](docs/decisions/README.md#index) are Accepted and govern
 receptive terminology, the synthesis default, judgment licensing, and cognitive
@@ -453,8 +454,9 @@ as cognitive warrant.
 
 ## Required behavioral consequences
 
-**Engineering.** The separate Phase 1 prediction catalog will supply full
-scenarios. This specification already requires the following observable
+**Engineering.** The separate
+[Phase 1 prediction catalog](BEHAVIORAL_PREDICTIONS.md) supplies controlled
+scenarios and falsifiers. This specification requires the following observable
 differences:
 
 1. Reordering an episode can change a persistence or succession judgment even
@@ -487,7 +489,10 @@ The companion [worked examples](WORKED_EXAMPLES.md) instantiate the cognitive
 flow without fixing Phase 2 serialization or algorithms. The companion
 [diagrams](COGNITIVE_ARCHITECTURE.md) visualize the semantic contract without
 turning it into Phase 2 types or services. The remaining omissions belong to
-later Roadmap deliverables and Phase 2. This specification also does not claim
+Phase 2 and later Roadmap deliverables; the
+[prediction catalog](BEHAVIORAL_PREDICTIONS.md) fixes comparison behavior
+without choosing test syntax or confidence mathematics. This specification
+also does not claim
 to resolve scholarly disputes about the deductions, imagination, schematism,
 or apperception.
 

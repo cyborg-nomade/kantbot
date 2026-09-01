@@ -8,7 +8,9 @@ semantic components, ownership boundaries, representation changes, licensing
 gates, and typed limit paths required by the accepted Phase 1 decisions. It
 does not define Phase 2 data structures, APIs, processes, or deployment units.
 The [hand-worked traces](WORKED_EXAMPLES.md) instantiate these paths in a
-concrete toy world.
+concrete toy world, and the
+[behavioral-prediction catalog](BEHAVIORAL_PREDICTIONS.md) states how their
+causal differences must appear in controlled comparisons.
 
 The diagrams are normative where they restate the specification and
 [ADRs 0001–0004](docs/decisions/README.md#index). Their layout is only

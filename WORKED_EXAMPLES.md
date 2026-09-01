@@ -17,7 +17,8 @@ canonical types, algorithms, or scenario format that Phase 2 must define.
 Each example ends at the strongest licensed result. A non-judgment is therefore
 a successful trace when it correctly exposes failed conditions, alternatives,
 scope, and authority. Phase 2 can use these traces as formal-model fixtures;
-Phase 3 can turn them into deterministic integration tests.
+Phase 3 can turn them into deterministic integration tests following the
+[behavioral-prediction catalog](BEHAVIORAL_PREDICTIONS.md).
 
 ## Shared toy world and frozen configuration
 
@@ -54,6 +55,7 @@ stationary or left-moving object candidate; only `S-right` decides whether the
 empirical predicate `moving-right` applies. Neither rule may use the evaluator's
 hidden object identifier.
 
+<a id="trace-1"></a>
 ## Trace 1 — A committed rightward-motion judgment
 
 ### Episode
@@ -101,6 +103,7 @@ The judgment is licensed because every stage contributes a distinct required
 ground. A classifier that merely notices the three amber patches may reach the
 same sentence, but it has not reproduced this warrant.
 
+<a id="trace-2"></a>
 ## Trace 2 — The same episode under the B-led synthesis variant
 
 [ADR 0002](docs/decisions/0002-a-b-synthesis.md) requires a B-led variant only
@@ -129,6 +132,7 @@ The variants are observably different but comparable:
 If a B-led implementation merely renames a generic combination step while
 omitting retention or objective-unity evidence, it is not this variant.
 
+<a id="trace-3"></a>
 ## Trace 3 — Rival identity syntheses remain ambiguous
 
 ### Episode
@@ -157,6 +161,7 @@ single object candidate and not the highest-scoring path. The ambiguity is
 structural even if an implementation assigns equal or unequal confidence to
 the branches.
 
+<a id="trace-4"></a>
 ## Trace 4 — Object formation succeeds but the concept does not apply
 
 ### Episode
@@ -181,6 +186,7 @@ This trace separates object formation from predication. The stationary marker
 does not cease to be an object candidate merely because `moving-right` fails,
 and successful object identity cannot force a failed concept to apply.
 
+<a id="trace-5"></a>
 ## Trace 5 — Application succeeds on alternatives, but judgment is withheld
 
 This trace continues the two alternatives from Trace 3 rather than stopping at
@@ -202,6 +208,7 @@ judgment: both branch-relative applications succeeded, but no one object
 candidate can ground a singular commitment. Agreement on a predicate does not
 erase disagreement about its subject.
 
+<a id="trace-6"></a>
 ## Trace 6 — The final unity check rejects merged alternatives
 
 This adversarial continuation uses the same episode as Traces 3 and 5. It tests
@@ -223,6 +230,7 @@ judgment can belong to one compatible cognitive cycle. The normal path in
 Trace 5 withholds before constructing this defective proposal; this trace shows
 why the final check must still exist.
 
+<a id="trace-7"></a>
 ## Trace 7 — A true hidden label still cannot ground a judgment
 
 Use the successful object candidate from Trace 1. The evaluator additionally

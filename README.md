@@ -27,6 +27,7 @@ examples, predictions, and formal interfaces.
 | [Roadmap](ROADMAP.md) | The sequence from philosophical groundwork to a usable release |
 | [Cognitive architecture](COGNITIVE_ARCHITECTURE.md) | Component boundaries, transformations, licensing gates, and variant comparison |
 | [Worked examples](WORKED_EXAMPLES.md) | Hand-traced success, ambiguity, applicability, unity, withholding, and overreach cases |
+| [Behavioral predictions](BEHAVIORAL_PREDICTIONS.md) | Controlled contrasts that distinguish the architecture from a simpler pipeline |
 | [Research questions](RESEARCH_QUESTIONS.md) | The questions Phase 1 must answer and the project's explicit non-goals |
 | [Glossary](GLOSSARY.md) | Kant's terms, their computational interpretations, and the boundary between them |
 | [Primary-source map](PRIMARY_SOURCES.md) | The passages that constrain the initial architecture |
@@ -45,6 +46,7 @@ reading or impose a consequential project constraint belong in
 .
 ├── docs/decisions/       Decision-record index and template
 ├── sources/kant/         Public-domain primary texts with linkable A/B anchors
+├── BEHAVIORAL_PREDICTIONS.md Controlled architectural comparisons
 ├── CLAIMS.md             Claims and their project status
 ├── COGNITIVE_ARCHITECTURE.md Component and transformation diagrams
 ├── CONTRIBUTING.md       Delivery, documentation, and review conventions
