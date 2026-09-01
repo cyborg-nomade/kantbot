@@ -64,7 +64,7 @@ Deliverables:
 - a [prose specification of faculties, representations, and cognitive
   flow](PHILOSOPHICAL_SPECIFICATION.md);
 - [diagrams of component boundaries and transformations](COGNITIVE_ARCHITECTURE.md);
-- worked examples traced by hand from observation to judgment;
+- [worked examples traced by hand from observation to judgment](WORKED_EXAMPLES.md);
 - decision records for disputed or especially consequential readings;
 - a list of behavioral predictions that distinguish this architecture from a
   simpler pipeline.

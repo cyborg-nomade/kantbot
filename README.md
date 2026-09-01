@@ -26,6 +26,7 @@ examples, predictions, and formal interfaces.
 | [Manifest](MANIFEST.md) | The project's purpose, commitments, and standard of success |
 | [Roadmap](ROADMAP.md) | The sequence from philosophical groundwork to a usable release |
 | [Cognitive architecture](COGNITIVE_ARCHITECTURE.md) | Component boundaries, transformations, licensing gates, and variant comparison |
+| [Worked examples](WORKED_EXAMPLES.md) | Hand-traced success, ambiguity, applicability, unity, withholding, and overreach cases |
 | [Research questions](RESEARCH_QUESTIONS.md) | The questions Phase 1 must answer and the project's explicit non-goals |
 | [Glossary](GLOSSARY.md) | Kant's terms, their computational interpretations, and the boundary between them |
 | [Primary-source map](PRIMARY_SOURCES.md) | The passages that constrain the initial architecture |
@@ -52,7 +53,8 @@ reading or impose a consequential project constraint belong in
 ├── MANIFEST.md           Purpose and standing commitments
 ├── PRIMARY_SOURCES.md    Architecture questions mapped to passages
 ├── RESEARCH_QUESTIONS.md Phase 1 agenda and scope boundaries
-└── ROADMAP.md            Phases, deliverables, and exit criteria
+├── ROADMAP.md            Phases, deliverables, and exit criteria
+└── WORKED_EXAMPLES.md    Hand-worked cognitive traces
 ```
 
 This layout should grow only when a new kind of artifact needs a stable home.
