@@ -8,8 +8,9 @@ receive, produce, and claim before choosing data structures or algorithms. It
 answers [RQ-01 through RQ-07](RESEARCH_QUESTIONS.md#research-questions) only far
 enough to fix that contract; the companion
 [cognitive-architecture diagrams](COGNITIVE_ARCHITECTURE.md) expose its
-boundaries and transformations, while later hand-worked traces and the
-behavioral-prediction catalog will test and refine it.
+boundaries and transformations, and the companion
+[hand-worked traces](WORKED_EXAMPLES.md) instantiate its success and limit
+paths. The later behavioral-prediction catalog will test and refine it.
 
 [ADRs 0001–0004](docs/decisions/README.md#index) are Accepted and govern
 receptive terminology, the synthesis default, judgment licensing, and cognitive
@@ -481,8 +482,9 @@ its vocabulary does not yet implement this specification.
 ## Deliberate omissions and follow-up work
 
 **Engineering.** This document does not define serialized types, interfaces,
-complete hand-worked examples, algorithms, confidence mathematics, learning
-rules, or a full category table. The companion
+algorithms, confidence mathematics, learning rules, or a full category table.
+The companion [worked examples](WORKED_EXAMPLES.md) instantiate the cognitive
+flow without fixing Phase 2 serialization or algorithms. The companion
 [diagrams](COGNITIVE_ARCHITECTURE.md) visualize the semantic contract without
 turning it into Phase 2 types or services. The remaining omissions belong to
 later Roadmap deliverables and Phase 2. This specification also does not claim
