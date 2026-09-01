@@ -1,11 +1,22 @@
 # Contributing to Kantbot
 
-Kantbot welcomes philosophical criticism, source corrections, worked
-examples, specifications, and code. A useful contribution makes its grounds
-and project consequences visible; it does not need to resolve every
-interpretive dispute.
+Kantbot is a publicly readable research project maintained by its owner and
+explicitly invited collaborators. It does not accept unsolicited patches,
+pull requests, source corrections, documentation, examples, specifications,
+or code. Public visibility is an invitation to read, inspect, cite, and
+criticize the work, not an open call for collaborative development.
 
-## Before proposing a change
+GitHub is configured so that only collaborators can open pull requests against
+the canonical repository. Issues, Discussions, Projects, and the wiki are not
+public contribution channels. Creating a fork under GitHub's Terms of Service
+does not grant rights beyond those terms or the rights supplied independently
+by applicable law. See the [copyright and access notice](COPYRIGHT.md).
+
+The workflow below governs maintainers and people who have been explicitly
+invited to collaborate. Do not submit unsolicited changes through another
+channel to circumvent the repository controls.
+
+## Before a maintainer proposes a change
 
 1. Locate the relevant phase and deliverable in the [Roadmap](ROADMAP.md).
 2. Check the [glossary](GLOSSARY.md) for established vocabulary and open
@@ -17,7 +28,7 @@ interpretive dispute.
 5. Decide whether the change requires a
    [decision record](docs/decisions/README.md#when-to-write-a-record).
 
-## Delivery workflow
+## Maintainer delivery workflow
 
 Each itemized Roadmap to-do is an independently reviewable unit:
 
