@@ -9,12 +9,16 @@ answers [RQ-01 through RQ-07](RESEARCH_QUESTIONS.md#research-questions) only far
 enough to fix that contract; the later Phase 1 diagrams, hand-worked traces, and
 behavioral-prediction catalog will test and refine it.
 
-The choices here remain **proposed** until the linked decision records are
-accepted. They must not be treated as Kant's uniquely correct architecture.
-Definitions retain the senses fixed in the [glossary](GLOSSARY.md), source
-routing comes from the [primary-source map](PRIMARY_SOURCES.md), and stable
-cross-document commitments retain their status in the
-[claims register](CLAIMS.md).
+[ADRs 0002–0004](docs/decisions/README.md#index) are Accepted and govern the
+synthesis default, judgment licensing, and cognitive limits. The terminology
+decision in [ADR 0001](docs/decisions/0001-receptive-representation-terminology.md)
+remains Proposed. This draft therefore uses `constrained presentation` and
+`presented element` as editorial placeholders rather than settled public type
+names. None of the decisions should be treated as Kant's uniquely correct
+architecture. Definitions retain the senses fixed in the
+[glossary](GLOSSARY.md), source routing comes from the
+[primary-source map](PRIMARY_SOURCES.md), and stable cross-document commitments
+retain their status in the [claims register](CLAIMS.md).
 
 ## How to read the claim labels
 
@@ -42,6 +46,12 @@ open-world perception, natural-language input, learned concepts, practical
 reason, or machine consciousness ([K-021](CLAIMS.md#k-021),
 [K-025](CLAIMS.md#k-025)).
 
+**Engineering.** The architecture is also an executable hypothesis: increasing
+fidelity should approach corresponding features of human cognition if the
+selected account is correct and sufficiently complete ([K-027](CLAIMS.md#k-027)).
+Using Kantian terminology inside a declared model can express that intended
+role without counting as evidence that the model has already succeeded.
+
 **Interpretive.** The default combines the A Deduction's analysis of synthesis
 with the B Deduction's account of objective unity, judgment, and the restriction
 of category use to possible experience ([K-010](CLAIMS.md#k-010)). This is an
@@ -65,13 +75,15 @@ that record but performs no cognitive synthesis. An **episode** bounds the
 observations available to one cycle and declares whether order is total,
 partial, or unavailable.
 
-**Analogical.** Reception transforms valid observations into a **constrained
-presentation**: particular content ordered under the model's configured form.
-Implementation documents use this weaker term rather than calling program data
-an intuition. It preserves the receptive-before-conceptual distinction in
-[K-001](CLAIMS.md#k-001) and [K-015](CLAIMS.md#k-015) while denying that an API
-is human sensibility or that serialized input is literally intuition. See
-[ADR 0001](docs/decisions/0001-constrained-presentation.md).
+**Analogical.** Reception transforms valid observations into a **receptive
+representation**: particular content ordered under the model's configured form.
+This draft provisionally calls that representation a `constrained presentation`.
+[ADR 0001](docs/decisions/0001-receptive-representation-terminology.md) remains
+open among calling it an `intuition` as theory-internal terminology, retaining
+the weaker name, making `intuition` a criterion-governed status, or using
+variant-scoped vocabularies. Every option must preserve the
+receptive-before-conceptual distinction in [K-001](CLAIMS.md#k-001) and expose
+the role criteria required by [K-015](CLAIMS.md#k-015).
 
 ### Form and manifold
 
@@ -445,14 +457,15 @@ learning rules, or a full category table. Those belong to later Roadmap
 deliverables and Phase 2. It also does not claim to resolve scholarly disputes
 about the deductions, imagination, schematism, or apperception.
 
-Before this specification becomes authoritative, maintainers should review the
-four proposed decisions:
+The decision records governing this specification are:
 
-- [ADR 0001: Use constrained presentation at the input boundary](docs/decisions/0001-constrained-presentation.md)
+- [ADR 0001: Name the receptive representation](docs/decisions/0001-receptive-representation-terminology.md)
 - [ADR 0002: Use an A/B hybrid synthesis default](docs/decisions/0002-a-b-synthesis.md)
 - [ADR 0003: Separate object formation, applicability, and judgment licensing](docs/decisions/0003-object-and-judgment-licensing.md)
 - [ADR 0004: Make limit outcomes and rule authority behaviorally distinct](docs/decisions/0004-limit-outcomes-and-rule-authority.md)
 
-If the records are accepted, their affected claims should be made Current and
-linked in the [claims register](CLAIMS.md) before merge, as required by the
+ADRs 0002–0004 are Accepted and their affected claims are Current and linked in
+the [claims register](CLAIMS.md). ADR 0001 remains Proposed; its final
+terminology and K-015 status must be updated before Phase 2 freezes public type
+names, following the
 [decision-record lifecycle](docs/decisions/README.md#status-lifecycle).

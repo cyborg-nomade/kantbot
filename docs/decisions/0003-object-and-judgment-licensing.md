@@ -1,7 +1,7 @@
 # ADR 0003: Separate object formation, applicability, and judgment licensing
 
-- **Status:** Proposed
-- **Date:** 2026-08-31
+- **Status:** Accepted
+- **Date:** 2026-09-01
 - **Deciders:** Kantbot maintainers
 - **Related questions:** [RQ-03](../../RESEARCH_QUESTIONS.md#rq-03--what-makes-a-representation-count-as-an-object), [RQ-04](../../RESEARCH_QUESTIONS.md#rq-04--how-are-concepts-applied-and-judgments-licensed), [RQ-05](../../RESEARCH_QUESTIONS.md#rq-05--what-functional-unity-can-the-model-require)
 - **Related claims:** [K-005](../../CLAIMS.md#k-005), [K-006](../../CLAIMS.md#k-006), [K-007](../../CLAIMS.md#k-007), [K-008](../../CLAIMS.md#k-008), [K-011](../../CLAIMS.md#k-011), [K-012](../../CLAIMS.md#k-012), [K-013](../../CLAIMS.md#k-013), [K-017](../../CLAIMS.md#k-017), [K-018](../../CLAIMS.md#k-018)
@@ -95,6 +95,6 @@ ground the commitment.
 
 ## Follow-up
 
-If accepted, make K-011, K-012, K-013, K-017, and K-018 Current and link this
-record from their grounds. Later Phase 1 deliverables must supply success,
-ambiguity, applicability-failure, and unity-conflict traces.
+K-011, K-012, K-013, K-017, and K-018 are Current and link this record from
+their grounds. Later Phase 1 deliverables must supply success, ambiguity,
+applicability-failure, and unity-conflict traces.

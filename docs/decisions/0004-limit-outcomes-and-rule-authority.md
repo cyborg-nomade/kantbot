@@ -1,7 +1,7 @@
 # ADR 0004: Make limit outcomes and rule authority behaviorally distinct
 
-- **Status:** Proposed
-- **Date:** 2026-08-31
+- **Status:** Accepted
+- **Date:** 2026-09-01
 - **Deciders:** Kantbot maintainers
 - **Related questions:** [RQ-06](../../RESEARCH_QUESTIONS.md#rq-06--how-will-the-model-represent-the-limits-of-cognition)
 - **Related claims:** [K-009](../../CLAIMS.md#k-009), [K-014](../../CLAIMS.md#k-014), [K-019](../../CLAIMS.md#k-019), [K-020](../../CLAIMS.md#k-020), [K-023](../../CLAIMS.md#k-023)
@@ -92,7 +92,7 @@ or synthesis conditions are absent.
 
 ## Follow-up
 
-If accepted, make K-020 Current and link this record from its grounds. Keep
-K-019 Deferred until Phase 4 implements reason, while using this record to
-constrain the reserved overreach status. Phase 2 must define the typed result
-and rule-authority fields.
+K-020 is Current and links this record from its grounds. K-019 remains Deferred
+until Phase 4 implements reason, while this record constrains the reserved
+overreach status. Phase 2 must define the typed result and rule-authority
+fields.

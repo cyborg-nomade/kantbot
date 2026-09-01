@@ -1,7 +1,7 @@
 # ADR 0002: Use an A/B hybrid synthesis default
 
-- **Status:** Proposed
-- **Date:** 2026-08-31
+- **Status:** Accepted
+- **Date:** 2026-09-01
 - **Deciders:** Kantbot maintainers
 - **Related questions:** [RQ-02](../../RESEARCH_QUESTIONS.md#rq-02--what-work-belongs-to-synthesis-and-imagination), [RQ-07](../../RESEARCH_QUESTIONS.md#rq-07--which-disagreements-deserve-executable-variants)
 - **Related claims:** [K-002](../../CLAIMS.md#k-002), [K-003](../../CLAIMS.md#k-003), [K-004](../../CLAIMS.md#k-004), [K-010](../../CLAIMS.md#k-010), [K-016](../../CLAIMS.md#k-016), [K-024](../../CLAIMS.md#k-024)
@@ -95,6 +95,6 @@ still show why the manifold is combined under objective-unity constraints.
 
 ## Follow-up
 
-If accepted, make K-010 and K-016 Current and link this record from their
-grounds. The diagram and worked-example deliverables must show both the default
-and the behaviorally significant variant.
+K-010 and K-016 are Current and link this record from their grounds. The diagram
+and worked-example deliverables must show both the default and the behaviorally
+significant variant.
