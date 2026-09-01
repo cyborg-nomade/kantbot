@@ -1,6 +1,6 @@
 # ADR 0006: Choose the canonical model representation
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-09-01
 - **Deciders:** Kantbot maintainers
 - **Related questions:** None; this record governs the executable representation of already accepted Phase 1 semantics
@@ -330,15 +330,11 @@ type machinery.
 | F: Smalltalk/Pharo | Pure object/message model foregrounds state, powers, and conditions | Simple surface syntax and exceptional live inspection; unfamiliar environment | Confusing software objects or inheritance with Kantian objecthood and subsumption |
 | G: Haskell | Pure transformations, algebraic states, and the clearest lambda-calculus bridge | Concise domain declarations but the steepest conceptual threshold for non-programmers | Formal elegance obscuring traces, operational order, or audience access |
 
-## Proposed decision
+## Decision
 
 Choose **Option C: strict, frozen Pydantic models in Python**.
 
-This is a working recommendation only. While this record remains Proposed, it
-does not authorize the implementation or establish Python or Pydantic as a
-project standard.
-
-If accepted, the canonical semantic source of truth will be a project-owned
+The canonical semantic source of truth will be a project-owned
 hierarchy of Pydantic domain models with these non-optional safeguards:
 
 1. strict validation, forbidden extra fields, and frozen models by default;
@@ -360,18 +356,26 @@ smaller experimental loop. It also delays making a transport schema or a future
 trace-viewer language the owner of the internal semantics.
 
 Options F and G make the paradigm itself more philosophically expressive than
-Option C. Option F is the strongest choice if testing an object/message reading
-of Kant should govern the implementation architecture. Option G is the
+Option C. Option F would be the strongest choice if an object/message reading
+of Kant governed the implementation architecture. Option G would be the
 strongest choice if proximity to pure transformations and lambda-calculus
-semantics should govern it. Option C remains the working recommendation because
-it can express both an object-oriented façade and pure transformation functions
-without making either analogy a language-level commitment, while imposing the
-lowest combined burden on non-programmer readability, boundary validation, and
-early revision. That flexibility is also a cost: the project would need to make
-its computational interpretation explicit in architecture and traces rather
-than receiving it from the language.
+semantics governed it. Option C is chosen because it can use both
+object-oriented value types and pure transformation functions without making
+either analogy a language-level commitment, while imposing the lowest combined
+burden on non-programmer readability, boundary validation, and early revision.
+The maintainer's existing familiarity with Python further reduces the cost of
+inspecting and revising the executable interpretation.
 
-## Consequences if accepted
+Kantbot will use Python's object orientation for immutable domain values whose
+invariants and queries belong with the represented value. It will use a
+functional style for cognitive transformations: explicit inputs, newly
+returned values, no mutation of prior representations, and effects kept at
+external adapters. It will avoid deep inheritance, one class per alleged
+faculty, hidden mutable state, and point-free or metaprogramming-heavy styles.
+The computational interpretation must remain explicit in architecture and
+traces rather than being inferred from the language alone.
+
+## Consequences
 
 - Python and Pydantic become required development dependencies for the first
   executable model.
@@ -387,7 +391,7 @@ than receiving it from the language.
 - The later role-interface and state-transition Roadmap items must use these
   domain models without moving their cross-stage rules into parsing hooks.
 
-## Observable consequences if accepted
+## Observable consequences
 
 - Constructing a committed judgment without its licensing grounds is rejected;
   a proposed judgment with the appropriate incomplete state remains valid.
@@ -407,16 +411,12 @@ than receiving it from the language.
 
 ## Follow-up
 
-After maintainer selection:
-
-1. Change this record to Accepted and revise the proposed decision if another
-   option is chosen.
-2. Add only the minimum language and dependency scaffolding needed for this
+1. Add only the minimum language and dependency scaffolding needed for this
    Roadmap item.
-3. Implement the canonical semantic structures and their local invariants.
-4. Cross-link affected Phase 1 documents without rewriting their accepted
+2. Implement the canonical semantic structures and their local invariants.
+3. Cross-link affected Phase 1 documents without rewriting their accepted
    distinctions.
-5. Defer full role interfaces, state transitions, property tests, and the
+4. Defer full role interfaces, state transitions, property tests, and the
    deterministic toy world to their own independently reviewable Roadmap work.
 
 Primary engineering references for the compared capabilities are the official

@@ -12,6 +12,8 @@ boundaries and transformations, and the companion
 [hand-worked traces](WORKED_EXAMPLES.md) instantiate its success and limit
 paths. The [behavioral-prediction catalog](BEHAVIORAL_PREDICTIONS.md) states
 the controlled contrasts that later implementations must expose.
+The Phase 2 [canonical data structures](CANONICAL_DATA_STRUCTURES.md) are the
+first executable implementation of this contract.
 
 [ADRs 0001–0004](docs/decisions/README.md#index) are Accepted and govern
 receptive terminology, the synthesis default, judgment licensing, and cognitive

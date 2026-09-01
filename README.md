@@ -14,10 +14,12 @@ which inputs can be synthesized into candidate objects, concepts can be
 applied, judgments can be licensed or withheld, and every result exposes its
 grounds and limits.
 
-The repository contains the Phase 0 foundations and the first Phase 1
-philosophical specification. There is no runnable model yet; the remaining
-Phase 1 work will make that specification concrete through diagrams, worked
-examples, predictions, and formal interfaces.
+The repository contains the Phase 0 foundations, the completed Phase 1
+philosophical specification, and the first Phase 2 executable artifact:
+canonical immutable data structures and local invariants. The model does not
+yet execute a complete cognitive cycle; interfaces, transitions, complete
+provenance validation, property tests, and the deterministic toy world remain
+separate Phase 2 work.
 
 ## Start here
 
@@ -26,6 +28,7 @@ examples, predictions, and formal interfaces.
 | [Manifest](MANIFEST.md) | The project's purpose, commitments, and standard of success |
 | [Roadmap](ROADMAP.md) | The sequence from philosophical groundwork to a usable release |
 | [Cognitive architecture](COGNITIVE_ARCHITECTURE.md) | Component boundaries, transformations, licensing gates, and variant comparison |
+| [Canonical data structures](CANONICAL_DATA_STRUCTURES.md) | Executable semantic values, local invariants, and their philosophical boundaries |
 | [Worked examples](WORKED_EXAMPLES.md) | Hand-traced success, ambiguity, applicability, unity, withholding, and overreach cases |
 | [Behavioral predictions](BEHAVIORAL_PREDICTIONS.md) | Controlled contrasts that distinguish the architecture from a simpler pipeline |
 | [Research questions](RESEARCH_QUESTIONS.md) | The questions Phase 1 must answer and the project's explicit non-goals |
@@ -45,8 +48,11 @@ reading or impose a consequential project constraint belong in
 ```text
 .
 ├── docs/decisions/       Decision-record index and template
+├── src/kantbot/model/    Immutable canonical semantic values
+├── tests/                Local invariant and outcome-union tests
 ├── sources/kant/         Public-domain primary texts with linkable A/B anchors
 ├── BEHAVIORAL_PREDICTIONS.md Controlled architectural comparisons
+├── CANONICAL_DATA_STRUCTURES.md Readable map to the executable model
 ├── CLAIMS.md             Claims and their project status
 ├── COGNITIVE_ARCHITECTURE.md Component and transformation diagrams
 ├── CONTRIBUTING.md       Delivery, documentation, and review conventions
@@ -56,9 +62,12 @@ reading or impose a consequential project constraint belong in
 ├── PRIMARY_SOURCES.md    Architecture questions mapped to passages
 ├── RESEARCH_QUESTIONS.md Phase 1 agenda and scope boundaries
 ├── ROADMAP.md            Phases, deliverables, and exit criteria
-└── WORKED_EXAMPLES.md    Hand-worked cognitive traces
+├── WORKED_EXAMPLES.md    Hand-worked cognitive traces
+└── pyproject.toml        Python dependencies and development checks
 ```
 
 This layout should grow only when a new kind of artifact needs a stable home.
-Implementation structure, language, packaging, and test commands will be added
-after the philosophical and formal specifications constrain those choices.
+The executable model uses Python and strict, frozen Pydantic values under
+[ADR 0006](docs/decisions/0006-canonical-model-representation.md). Run its
+checks with `uv run ruff check src tests` and `uv run pytest` after
+`uv sync --dev`.
