@@ -65,7 +65,8 @@ Deliverables:
   flow](PHILOSOPHICAL_SPECIFICATION.md);
 - [diagrams of component boundaries and transformations](COGNITIVE_ARCHITECTURE.md);
 - [worked examples traced by hand from observation to judgment](WORKED_EXAMPLES.md);
-- decision records for disputed or especially consequential readings;
+- [decision records](docs/decisions/README.md#index) for disputed or especially
+  consequential readings;
 - a [catalog of behavioral predictions](BEHAVIORAL_PREDICTIONS.md) that
   distinguishes this architecture from a simpler pipeline.
 
