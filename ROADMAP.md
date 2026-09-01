@@ -66,8 +66,8 @@ Deliverables:
 - [diagrams of component boundaries and transformations](COGNITIVE_ARCHITECTURE.md);
 - [worked examples traced by hand from observation to judgment](WORKED_EXAMPLES.md);
 - decision records for disputed or especially consequential readings;
-- a list of behavioral predictions that distinguish this architecture from a
-  simpler pipeline.
+- a [catalog of behavioral predictions](BEHAVIORAL_PREDICTIONS.md) that
+  distinguishes this architecture from a simpler pipeline.
 
 Exit criterion: two implementers could build recognizably equivalent toy
 models from the specification, and each design choice has a declared status.
