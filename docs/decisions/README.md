@@ -71,5 +71,6 @@ is supposed to matter to model behavior.
 | [0002](0002-a-b-synthesis.md) | Use an A/B hybrid synthesis default | Accepted |
 | [0003](0003-object-and-judgment-licensing.md) | Separate object formation, applicability, and judgment licensing | Accepted |
 | [0004](0004-limit-outcomes-and-rule-authority.md) | Make limit outcomes and rule authority behaviorally distinct | Accepted |
+| [0005](0005-publish-readable-source-with-closed-contributions.md) | Publish readable source with closed contributions | Accepted |
 
 The [record template](0000-template.md) is not itself a decision.
