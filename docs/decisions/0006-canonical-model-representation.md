@@ -48,7 +48,9 @@ The representation must support:
 - local validation close to each type without pretending that graph-wide or
   transition-wide invariants are merely field constraints;
 - readable definitions that can be reviewed alongside philosophical documents;
-  and
+- a legible account of whether cognition is being modeled as interacting
+  objects, composition of functions, or an explicit transition system, so the
+  programming paradigm remains available for philosophical criticism; and
 - rapid revision while the executable interpretation is still experimental.
 
 No criterion alone decides the matter. Semantic fidelity and inspectability are
@@ -86,13 +88,22 @@ Program values stand for roles in the implemented account of cognition. A
 class named `Concept`, for example, is the model's operational concept role; it
 is not a claim that a library class exhausts human conceptual capacity. The
 chosen technology must not itself be treated as a psychological or
-transcendental explanation.
+transcendental explanation. Equally, representing a cognitive cycle as a pure
+function or small-step machine would make a computational reading unusually
+explicit but would not prove that human cognition is exhausted by lambda
+calculus or Turing-computable processes.
+
+The paradigm is nevertheless philosophically material. An object-oriented
+model foregrounds objects, encapsulated conditions, and message-mediated
+behavior. A functional model foregrounds transformations, composition, and
+immutable values. Those are different computational presentations of the
+accepted architecture and may expose different strengths or distortions.
 
 ### Engineering
 
 The first model benefits from executable validation, exhaustive handling of
 tagged alternatives, immutable values, and a machine-readable interchange
-description. It also benefits from keeping domain definitions near the Python
+description. It also benefits from keeping domain definitions near the
 experiments and tests likely to exercise them. Graph-wide conditions—such as
 provenance reachability, legal stage transitions, and absence of evaluator-only
 state from cognitive warrant—should be checked by an explicit validation layer
@@ -207,11 +218,12 @@ exhaustive handling must be enforced in compilation and tests.
 Define the canonical domain as Rust structs and enums, derive serialization
 with Serde, and use exhaustive pattern matching for every alternative.
 
-The strongest argument for this option is the strongest construction-time
-model of the five. Rust enums naturally encode states with variant-specific
-payloads, exhaustive matching exposes omitted cases, values are immutable by
-default, and Serde offers explicit tagged representations. The compiler would
-prevent broad classes of illegal or incomplete handling before tests run.
+The strongest argument for this option is one of the strongest
+construction-time models considered here. Rust enums naturally encode states
+with variant-specific payloads, exhaustive matching exposes omitted cases,
+values are immutable by default, and Serde offers explicit tagged
+representations. The compiler would prevent broad classes of illegal or
+incomplete handling before tests run.
 
 The costs are iteration time and contributor accessibility. Domain changes
 would require more ownership, trait, lifetime, and build decisions than the
@@ -224,17 +236,99 @@ If chosen, domain enums must remain separate from transport DTOs where Serde
 annotations would distort semantics, and compiler-level exhaustiveness must be
 supplemented by explicit provenance and transition validators.
 
+### Option F: Use pure object-oriented Smalltalk in Pharo
+
+Define each canonical role as a Pharo object with private state and behavior
+exposed through messages. Use classes for families of cognitive roles, message
+sends for admissible operations, and object protocols for the conditions under
+which synthesis, application, or commitment may proceed.
+
+The strongest argument for this option is not merely that Kant discusses
+objects. Pharo's uniform model—everything is an object and computation proceeds
+by message sending—would let the implementation ask whether cognition is
+illuminated by interacting bearers of state and powers. Encapsulation could
+keep a proposed judgment from granting itself commitment, while messages such
+as `applyTo:` or `licenseWith:` could make conditions of operation readable in
+nearly grammatical form. Pharo also offers an unusually immediate, inspectable
+environment in which a non-programmer can open a live object, inspect its state,
+and follow a message through the system.
+
+That philosophical fit can also mislead. A Kantian object of cognition is an
+achievement of synthesis and licensing, not simply an already available
+software object. Making every faculty, rule, trace node, and external input an
+object may blur that difference. Class inheritance can suggest that conceptual
+subsumption is ordinary taxonomic inheritance, and assigning behavior to one
+receiver can conceal relations whose authority depends on several roles and a
+whole provenance graph.
+
+The engineering tradeoff is likewise sharp. Pharo is dynamically typed, so it
+cannot statically require exhaustive handling of all ten outcomes or prevent an
+invalid message combination. Immutable value graphs, strict boundary parsing,
+tagged JSON, and schema publication would require project conventions and
+additional libraries. Its image-centered live environment is excellent for
+exploration but less familiar than plain files and conventional command-line
+tooling to many readers and automation systems.
+
+If chosen, Kantian `ObjectCandidate` values must remain distinct from the
+ubiquitous implementation objects; inheritance must not encode philosophical
+subsumption without an explicit decision; canonical values must expose no
+mutating protocol; construction and deserialization must pass through checked
+factories; and tests must enumerate every terminal outcome because the language
+will not enforce exhaustiveness.
+
+### Option G: Use pure functional Haskell
+
+Define canonical states with algebraic data types and newtypes, represent
+alternatives as sum types, and express the cognitive cycle as composition of
+pure functions over immutable values. Keep external input, persistence, and
+display effects at the program boundary. An explicit later transition model
+could be written as a pure step function from state and input to a new state,
+typed outcome, and provenance contribution.
+
+The strongest argument for this option is the formal bridge. Haskell is a pure
+functional language whose kernel is closely related to lambda calculus.
+Referential transparency would make each licensed transformation repeatable,
+while algebraic data types and pattern matching give the ten terminal outcomes
+and variant interpretations exact, exhaustive forms. The distinction between
+cognitive warrant and evaluator-only state could appear in function signatures
+rather than relying only on runtime discipline. Pure functions also make
+properties about identity, determinism, and provenance natural statements for
+later property testing.
+
+This option would make the project's computational hypothesis especially
+visible, but it would not settle it. Lambda-calculus expressibility concerns
+the implementation, not the truth or completeness of Kant's account. Haskell's
+non-strict evaluation also differs from an explicit Turing-machine-like order
+of steps; the model would still need to record an intentional operational
+sequence rather than infer cognition's temporal order from evaluation order.
+
+The principal cost is readability at the chosen audience boundary. Algebraic
+data declarations can be concise and close to philosophical taxonomies, but
+type variables, higher-order functions, type classes, monads, and laziness add
+a substantial learning threshold for readers without programming experience.
+Ordinary algebraic types do not by themselves enforce every semantic invariant,
+and JSON decoding, located validation errors, and schema generation require
+libraries and explicit instances. Recursive provenance with stable identity is
+still a graph problem rather than a free consequence of purity.
+
+If chosen, the public domain module must use a deliberately small Haskell
+subset; effects must remain at adapters; partial functions and implicit
+exceptions must be prohibited in canonical transformations; transition order
+must be represented explicitly; and explanatory traces must accompany concise
+compositions so readability is not sacrificed to point-free style or advanced
+type machinery.
+
 ## Comparison
 
-| Criterion | A: JSON Schema | B: Dataclasses | C: Pydantic | D: TypeScript/Zod | E: Rust/Serde |
-| --- | --- | --- | --- | --- | --- |
-| Semantic alternatives | Expressible, verbose | Expressible | Direct | Direct | Strongest |
-| Runtime boundary validation | Strong locally | Manual | Strong locally | Strong locally | Strong after deserialization |
-| Immutable value graphs | Runtime-dependent | By convention plus frozen fields | By convention plus frozen models | Requires runtime care | Strong default |
-| Interchange description | Canonical | Manual | Generated | Library-dependent | Library-dependent |
-| Inspectability for experiments | Schema plus runtime | High | High | High | High, but more ceremony |
-| Early revision cost | Medium/high | Low initially, rising with codecs | Low/medium | Medium | Highest |
-| Principal risk | Schema/runtime drift | Hand-built validation drift | Framework defaults or magic | Premature web/toolchain commitment | Premature systems-language commitment |
+| Option | Semantic and formal strength | Accessibility and experimentation | Principal risk |
+| --- | --- | --- | --- |
+| A: JSON Schema | Language-neutral structural contract | Publicly inspectable, but requires a second executable representation | Schema/runtime drift and transport concerns governing semantics |
+| B: Python dataclasses | Explicit domain values with minimal abstraction | Low initial threshold; hand-written validation and codecs grow quickly | Validation and serialization drift |
+| C: Python/Pydantic | Direct tagged alternatives with runtime validation | Low/medium threshold and fast experimental loop | Framework defaults, shallow immutability, or validation magic |
+| D: TypeScript/Zod | Direct discriminated unions at static and runtime levels | Familiar web ecosystem; positions a future trace viewer well | Premature commitment to web-oriented tooling |
+| E: Rust/Serde | Strongest construction-time and exhaustive state model | Highest implementation ceremony for the current bounded experiment | Systems concerns dominating philosophical revision |
+| F: Smalltalk/Pharo | Pure object/message model foregrounds state, powers, and conditions | Simple surface syntax and exceptional live inspection; unfamiliar environment | Confusing software objects or inheritance with Kantian objecthood and subsumption |
+| G: Haskell | Pure transformations, algebraic states, and the clearest lambda-calculus bridge | Concise domain declarations but the steepest conceptual threshold for non-programmers | Formal elegance obscuring traces, operational order, or audience access |
 
 ## Proposed decision
 
@@ -264,6 +358,18 @@ revision and inspectable runtime enforcement. It intentionally accepts a
 dependency and weaker compile-time guarantees than Rust in exchange for a
 smaller experimental loop. It also delays making a transport schema or a future
 trace-viewer language the owner of the internal semantics.
+
+Options F and G make the paradigm itself more philosophically expressive than
+Option C. Option F is the strongest choice if testing an object/message reading
+of Kant should govern the implementation architecture. Option G is the
+strongest choice if proximity to pure transformations and lambda-calculus
+semantics should govern it. Option C remains the working recommendation because
+it can express both an object-oriented façade and pure transformation functions
+without making either analogy a language-level commitment, while imposing the
+lowest combined burden on non-programmer readability, boundary validation, and
+early revision. That flexibility is also a cost: the project would need to make
+its computational interpretation explicit in architecture and traces rather
+than receiving it from the language.
 
 ## Consequences if accepted
 
@@ -320,5 +426,9 @@ Primary engineering references for the compared capabilities are the official
 [TypeScript union documentation](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html),
 [Zod API documentation](https://zod.dev/api),
 [Rust enum documentation](https://doc.rust-lang.org/book/ch06-00-enums.html),
-[Serde enum documentation](https://serde.rs/enum-representations.html), and the
+[Serde enum documentation](https://serde.rs/enum-representations.html),
+[Pharo object-model documentation](https://books.pharo.org/updated-pharo-by-example/pdf/2018-09-29-UpdatedPharoByExample.pdf),
+[Haskell language report](https://www.haskell.org/onlinereport/intro.html),
+[Aeson JSON documentation](https://hackage.haskell.org/package/aeson/docs/Data-Aeson.html),
+[QuickCheck documentation](https://hackage.haskell.org/package/QuickCheck/docs/Test-QuickCheck.html), and the
 [JSON Schema reference](https://json-schema.org/understanding-json-schema/reference).
