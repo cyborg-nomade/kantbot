@@ -6,7 +6,9 @@ This document defines the philosophical contract for Kantbot's first cognitive
 cycle. Its audience is the implementer who must decide what each stage may
 receive, produce, and claim before choosing data structures or algorithms. It
 answers [RQ-01 through RQ-07](RESEARCH_QUESTIONS.md#research-questions) only far
-enough to fix that contract; the later Phase 1 diagrams, hand-worked traces, and
+enough to fix that contract; the companion
+[cognitive-architecture diagrams](COGNITIVE_ARCHITECTURE.md) expose its
+boundaries and transformations, while later hand-worked traces and the
 behavioral-prediction catalog will test and refine it.
 
 [ADRs 0001–0004](docs/decisions/README.md#index) are Accepted and govern
@@ -479,10 +481,13 @@ its vocabulary does not yet implement this specification.
 ## Deliberate omissions and follow-up work
 
 **Engineering.** This document does not define serialized types, interfaces,
-diagrams, complete hand-worked examples, algorithms, confidence mathematics,
-learning rules, or a full category table. Those belong to later Roadmap
-deliverables and Phase 2. It also does not claim to resolve scholarly disputes
-about the deductions, imagination, schematism, or apperception.
+complete hand-worked examples, algorithms, confidence mathematics, learning
+rules, or a full category table. The companion
+[diagrams](COGNITIVE_ARCHITECTURE.md) visualize the semantic contract without
+turning it into Phase 2 types or services. The remaining omissions belong to
+later Roadmap deliverables and Phase 2. This specification also does not claim
+to resolve scholarly disputes about the deductions, imagination, schematism,
+or apperception.
 
 The decision records governing this specification are:
 
