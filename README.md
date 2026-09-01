@@ -25,6 +25,7 @@ examples, predictions, and formal interfaces.
 | --- | --- |
 | [Manifest](MANIFEST.md) | The project's purpose, commitments, and standard of success |
 | [Roadmap](ROADMAP.md) | The sequence from philosophical groundwork to a usable release |
+| [Cognitive architecture](COGNITIVE_ARCHITECTURE.md) | Component boundaries, transformations, licensing gates, and variant comparison |
 | [Research questions](RESEARCH_QUESTIONS.md) | The questions Phase 1 must answer and the project's explicit non-goals |
 | [Glossary](GLOSSARY.md) | Kant's terms, their computational interpretations, and the boundary between them |
 | [Primary-source map](PRIMARY_SOURCES.md) | The passages that constrain the initial architecture |
@@ -44,6 +45,7 @@ reading or impose a consequential project constraint belong in
 ├── docs/decisions/       Decision-record index and template
 ├── sources/kant/         Public-domain primary texts with linkable A/B anchors
 ├── CLAIMS.md             Claims and their project status
+├── COGNITIVE_ARCHITECTURE.md Component and transformation diagrams
 ├── CONTRIBUTING.md       Delivery, documentation, and review conventions
 ├── COPYRIGHT.md          Rights, access, and participation policy
 ├── GLOSSARY.md           Philosophical and implementation vocabulary
