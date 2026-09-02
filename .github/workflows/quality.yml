@@ -43,6 +43,9 @@ jobs:
       - name: Lint
         run: uv run ruff check .
 
+      - name: Check role interfaces
+        run: uv run mypy
+
       - name: Test with branch coverage
         run: uv run coverage run -m pytest -W error
 
