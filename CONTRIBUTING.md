@@ -99,6 +99,19 @@ the boundary.
   stable, applicable Sonar rule is not covered by Ruff, prefer a small
   repository-owned check over relying on one maintainer's editor state.
 
+The `Quality` GitHub Actions workflow runs the same formatting, lint, and test
+checks for pull requests and `main`, produces branch-coverage data, and sends
+the source and coverage report to the public SonarQube Cloud project. Run its
+local equivalent with:
+
+```text
+uv sync --locked --all-groups
+uv run ruff format --check .
+uv run ruff check .
+uv run coverage run -m pytest -W error
+uv run coverage report
+```
+
 These conventions apply the Zen of Python's preference for explicit,
 readable code without treating aphorisms as substitutes for concrete review.
 
