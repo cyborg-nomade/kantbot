@@ -80,8 +80,9 @@ invariants, and testable transitions without yet optimizing for intelligence.
 
 Deliverables:
 
-- canonical data structures for observations, manifolds, synthesized
-  representations, concepts, judgments, reasons, and limits;
+- [canonical data structures](CANONICAL_DATA_STRUCTURES.md) for observations,
+  manifolds, synthesized representations, concepts, judgments, reasons, and
+  limits;
 - explicit interfaces between cognitive roles;
 - a state-transition model for one cognitive cycle;
 - a structured provenance format that records every transformation;

@@ -77,6 +77,31 @@ claims register.
 Minor editorial changes, source transcription corrections, and local,
 reversible implementation details normally do not need a record.
 
+## Python readability and static analysis
+
+Python should remain legible to readers who are following the philosophical
+model rather than studying programming technique. Follow the object-oriented
+and functional division in
+[ADR 0006](docs/decisions/0006-canonical-model-representation.md#decision):
+keep local invariants and queries with immutable domain values, express
+transformations with explicit inputs and returned values, and keep effects at
+the boundary.
+
+- Prefer explicit control flow over nested conditional expressions or dense
+  expression-level branching.
+- Prefer descriptive intermediate names when they expose a philosophical or
+  validation decision.
+- Avoid deep inheritance, hidden mutation, clever metaprogramming, and
+  point-free constructions that obscure the traceable operation.
+- Run the repository's complete Ruff configuration and tests before pushing;
+  do not narrow or suppress a rule merely to make a warning disappear.
+- Treat SonarQube for IDE findings on changed files as review findings. When a
+  stable, applicable Sonar rule is not covered by Ruff, prefer a small
+  repository-owned check over relying on one maintainer's editor state.
+
+These conventions apply the Zen of Python's preference for explicit,
+readable code without treating aphorisms as substitutes for concrete review.
+
 ## Review checklist
 
 Before requesting review, check that:
