@@ -15,11 +15,11 @@ applied, judgments can be licensed or withheld, and every result exposes its
 grounds and limits.
 
 The repository contains the Phase 0 foundations, the completed Phase 1
-philosophical specification, and the first Phase 2 executable artifact:
-canonical immutable data structures and local invariants. The model does not
-yet execute a complete cognitive cycle; interfaces, transitions, complete
-provenance validation, property tests, and the deterministic toy world remain
-separate Phase 2 work.
+philosophical specification, Phase 2's canonical immutable data structures, and
+explicit callable contracts between cognitive roles. The model does not yet
+execute a complete cognitive cycle; transitions, complete provenance
+validation, property tests, and the deterministic toy world remain separate
+Phase 2 work.
 
 ## Start here
 
@@ -29,6 +29,7 @@ separate Phase 2 work.
 | [Roadmap](ROADMAP.md) | The sequence from philosophical groundwork to a usable release |
 | [Cognitive architecture](COGNITIVE_ARCHITECTURE.md) | Component boundaries, transformations, licensing gates, and variant comparison |
 | [Canonical data structures](CANONICAL_DATA_STRUCTURES.md) | Executable semantic values, local invariants, and their philosophical boundaries |
+| [Cognitive role interfaces](ROLE_INTERFACES.md) | Typed inputs, outputs, refusal paths, and ownership boundaries between roles |
 | [Worked examples](WORKED_EXAMPLES.md) | Hand-traced success, ambiguity, applicability, unity, withholding, and overreach cases |
 | [Behavioral predictions](BEHAVIORAL_PREDICTIONS.md) | Controlled contrasts that distinguish the architecture from a simpler pipeline |
 | [Research questions](RESEARCH_QUESTIONS.md) | The questions Phase 1 must answer and the project's explicit non-goals |
@@ -50,6 +51,7 @@ reading or impose a consequential project constraint belong in
 ├── docs/decisions/       Decision-record index and template
 ├── src/kantbot/model/    Immutable canonical semantic values
 ├── tests/                Local invariant and outcome-union tests
+├── typechecks/           Static witnesses for callable role contracts
 ├── sources/kant/         Public-domain primary texts with linkable A/B anchors
 ├── BEHAVIORAL_PREDICTIONS.md Controlled architectural comparisons
 ├── CANONICAL_DATA_STRUCTURES.md Readable map to the executable model
@@ -61,6 +63,7 @@ reading or impose a consequential project constraint belong in
 ├── MANIFEST.md           Purpose and standing commitments
 ├── PRIMARY_SOURCES.md    Architecture questions mapped to passages
 ├── RESEARCH_QUESTIONS.md Phase 1 agenda and scope boundaries
+├── ROLE_INTERFACES.md    Executable contracts between cognitive roles
 ├── ROADMAP.md            Phases, deliverables, and exit criteria
 ├── WORKED_EXAMPLES.md    Hand-worked cognitive traces
 └── pyproject.toml        Python dependencies and development checks

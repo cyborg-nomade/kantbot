@@ -253,7 +253,7 @@ TerminalOutcome = Annotated[
     Field(discriminator="kind"),
 ]
 
-_TERMINAL_OUTCOME_ADAPTER = TypeAdapter(TerminalOutcome)
+_TERMINAL_OUTCOME_ADAPTER: TypeAdapter[TerminalOutcome] = TypeAdapter(TerminalOutcome)
 
 
 def validate_terminal_outcome(value: object) -> TerminalOutcome:
