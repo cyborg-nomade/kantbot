@@ -1,6 +1,7 @@
 """Executable checks for the local invariants of the canonical values."""
 
 from types import SimpleNamespace
+from typing import NamedTuple
 
 import pytest
 from pydantic import ValidationError
@@ -40,6 +41,18 @@ from kantbot.model import (
     validate_terminal_outcome,
     validate_terminal_outcome_json,
 )
+
+EXPECTED_OUTCOME_COUNT = 10
+
+
+class _LimitDetails(NamedTuple):
+    missing: tuple[str, ...] = ()
+    conflicts: tuple[str, ...] = ()
+    alternatives: tuple[str, ...] = ()
+    violations: tuple[AuthorityViolation, ...] = ()
+
+
+_EMPTY_LIMIT_DETAILS = _LimitDetails()
 
 
 def test_successful_trace_preserves_every_semantic_gate(
@@ -269,11 +282,7 @@ def test_reason_is_representable_but_only_reserved_and_regulative(
 def _context(
     successful_trace: SimpleNamespace,
     kind: OutcomeKind,
-    *,
-    missing: tuple[str, ...] = (),
-    conflicts: tuple[str, ...] = (),
-    alternatives: tuple[str, ...] = (),
-    violations: tuple[AuthorityViolation, ...] = (),
+    details: _LimitDetails = _EMPTY_LIMIT_DETAILS,
 ) -> OutcomeContext:
     scope = successful_trace.scope
     configuration = successful_trace.configuration
@@ -287,8 +296,8 @@ def _context(
                     kind=GroundKind.EXTERNAL_INPUT,
                 ),
             ),
-            alternatives=alternatives,
-            unmet_conditions=missing,
+            alternatives=details.alternatives,
+            unmet_conditions=details.missing,
             scope=scope,
             configuration=configuration,
         ),
@@ -297,10 +306,10 @@ def _context(
             strongest_licensed=kind,
             scope=scope,
             boundary=f"boundary for {kind.value}",
-            missing_condition_ids=missing,
-            conflict_ids=conflicts,
-            alternative_ids=alternatives,
-            authority_violations=violations,
+            missing_condition_ids=details.missing,
+            conflict_ids=details.conflicts,
+            alternative_ids=details.alternatives,
+            authority_violations=details.violations,
         ),
     )
 
@@ -329,7 +338,7 @@ def test_all_ten_outcomes_are_distinct_and_round_trip(
             context=_context(
                 successful_trace,
                 OutcomeKind.NOT_PRESENTABLE,
-                missing=("temporal-form",),
+                _LimitDetails(missing=("temporal-form",)),
             ),
             presented_element_ids=("pe-1",),
             failed_condition_ids=("temporal-form",),
@@ -345,7 +354,7 @@ def test_all_ten_outcomes_are_distinct_and_round_trip(
             context=_context(
                 successful_trace,
                 OutcomeKind.SYNTHESIS_AMBIGUOUS,
-                alternatives=("candidate-a", "candidate-b"),
+                _LimitDetails(alternatives=("candidate-a", "candidate-b")),
             ),
             candidate_representation_ids=("candidate-a", "candidate-b"),
         ),
@@ -354,7 +363,7 @@ def test_all_ten_outcomes_are_distinct_and_round_trip(
             context=_context(
                 successful_trace,
                 OutcomeKind.CONCEPT_NOT_APPLICABLE,
-                missing=("positive-change",),
+                _LimitDetails(missing=("positive-change",)),
             ),
             object_candidate_id="object-1",
             application_result_id="application-failed",
@@ -365,7 +374,7 @@ def test_all_ten_outcomes_are_distinct_and_round_trip(
             context=_context(
                 successful_trace,
                 OutcomeKind.APPLICATION_UNDERDETERMINED,
-                missing=("third-position",),
+                _LimitDetails(missing=("third-position",)),
             ),
             object_candidate_id="object-1",
             application_result_id="application-underdetermined",
@@ -376,7 +385,7 @@ def test_all_ten_outcomes_are_distinct_and_round_trip(
             context=_context(
                 successful_trace,
                 OutcomeKind.UNITY_CONFLICT,
-                conflicts=("branch-conflict",),
+                _LimitDetails(conflicts=("branch-conflict",)),
             ),
             proposed_judgment_id="proposal-conflicted",
             conflict_ids=("branch-conflict",),
@@ -386,7 +395,7 @@ def test_all_ten_outcomes_are_distinct_and_round_trip(
             context=_context(
                 successful_trace,
                 OutcomeKind.JUDGMENT_WITHHELD,
-                missing=("licensed-subject",),
+                _LimitDetails(missing=("licensed-subject",)),
             ),
             strongest_representation_ids=("application-a", "application-b"),
             unmet_condition_ids=("licensed-subject",),
@@ -397,14 +406,14 @@ def test_all_ten_outcomes_are_distinct_and_round_trip(
             context=_context(
                 successful_trace,
                 OutcomeKind.OVERREACH,
-                violations=(evaluator_violation,),
+                _LimitDetails(violations=(evaluator_violation,)),
             ),
             rejected_claim="object-1 is the evaluator's hidden object 7",
             violations=(evaluator_violation,),
         ),
     )
 
-    assert len(OutcomeKind) == 10
+    assert len(OutcomeKind) == EXPECTED_OUTCOME_COUNT
     assert {outcome.kind for outcome in outcomes} == set(OutcomeKind)
 
     for outcome in outcomes:

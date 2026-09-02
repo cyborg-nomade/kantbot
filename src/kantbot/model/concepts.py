@@ -91,19 +91,12 @@ class ApplicationResult(SemanticModel):
         has_undecided = any(
             item.status is ConditionStatus.UNDECIDED for item in required
         )
-        all_satisfied = all(
-            item.status is ConditionStatus.SATISFIED for item in required
-        )
-
-        expected = (
-            ApplicationStatus.NOT_APPLICABLE
-            if has_failed
-            else ApplicationStatus.UNDERDETERMINED
-            if has_undecided
-            else ApplicationStatus.APPLICABLE
-            if all_satisfied
-            else None
-        )
+        if has_failed:
+            expected = ApplicationStatus.NOT_APPLICABLE
+        elif has_undecided:
+            expected = ApplicationStatus.UNDERDETERMINED
+        else:
+            expected = ApplicationStatus.APPLICABLE
         if self.status is not expected:
             raise ValueError(
                 f"application status {self.status.value!r} does not match "
