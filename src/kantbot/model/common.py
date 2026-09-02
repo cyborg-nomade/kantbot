@@ -5,6 +5,8 @@ from typing import Annotated, Self
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+# This alias validates lexical form only.  A complete trace owns semantic
+# identity, kind resolution, and evaluator-boundary checks.
 Identifier = Annotated[
     str,
     Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]*$"),
@@ -135,7 +137,12 @@ class Condition(SemanticModel):
 
 
 class CognitiveGround(SemanticModel):
-    """A reference that is admissible in cognitive provenance."""
+    """A typed reference that may be resolved as cognitive provenance.
+
+    Local construction checks its declared kind and authority.  Only the
+    complete-trace validator can prove that the identifier resolves to one
+    canonical node of that kind and not to evaluator-only state.
+    """
 
     ground_id: Identifier
     kind: GroundKind
@@ -172,7 +179,11 @@ class ConditionResult(SemanticModel):
 
 
 class EvaluatorReference(SemanticModel):
-    """A hidden-world reference available only to external evaluation."""
+    """A hidden-world reference available only to external evaluation.
+
+    It may be reported when diagnosing an authority violation, but it cannot
+    resolve as a ``CognitiveGround`` in a valid complete trace.
+    """
 
     evaluator_reference_id: Identifier
     description: NonEmptyText

@@ -342,7 +342,8 @@ hierarchy of Pydantic domain models with these non-optional safeguards:
 3. checked public constructors only, with validation bypass prohibited in
    production model paths;
 4. stable semantic identifiers separated from display labels and storage
-   positions;
+   positions, with each provenance-targetable entity resolving under one
+   graph-wide semantic identity;
 5. local field and object invariants in model validation;
 6. graph-wide, authority-flow, evaluator-boundary, and transition invariants in
    a separate explicit validation layer; and
@@ -381,6 +382,9 @@ traces rather than being inferred from the language alone.
   executable model.
 - The canonical model package will own a common configuration base and semantic
   identifiers; ad hoc dictionaries will not cross trusted model boundaries.
+- `Identifier` validates lexical form rather than conferring a semantic kind.
+  Cross-node fields remain references so shared provenance stays a graph rather
+  than becoming duplicated nested values.
 - Invalid local states fail at construction with structured errors.
 - Generated schemas can support review and later interchange, but consumers
   must not assume they encode whole-graph or transition validity.
@@ -405,9 +409,10 @@ traces rather than being inferred from the language alone.
 - Serializing, validating, and reconstructing a value preserves its semantic
   identity, variant, alternatives, scope, configuration identity, and
   authority.
-- Separate semantic validation rejects a provenance graph that imports
-  evaluator-only hidden state even when every individual node is locally
-  well-formed.
+- Separate semantic validation rejects unresolved references, declared kinds
+  that disagree with their target, incompatible entities that reuse one
+  semantic identifier, and any provenance graph that imports evaluator-only
+  hidden state even when every individual node is locally well-formed.
 
 ## Follow-up
 

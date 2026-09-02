@@ -55,6 +55,32 @@ whole model:
 all references form a reachable, acyclic, cycle-wide graph. The later structured
 provenance item will connect and validate these records under K-022.
 
+### Identity and reference integrity
+
+**Engineering.** `Identifier` constrains only the readable lexical form shared
+by semantic identifiers. It does not make every identifier interchangeable or
+prove that a referenced entity exists. A `CognitiveGround` is instead a typed
+reference: its identity is paired with the cognitive kind and, for rules, the
+authority that the reference claims.
+
+Every entity that can be targeted by provenance will be registered under one
+semantic identifier within a complete trace. The structured-provenance
+validator must enforce the following graph-wide contract:
+
+1. one semantic identifier resolves to exactly one registered entity;
+2. a cognitive reference resolves to an existing entity of its declared kind;
+3. repeated references may identify the same entity, but incompatible entity
+   definitions may not reuse its identifier; and
+4. an evaluator-only entity may be named in a limit or authority-violation
+   report but cannot resolve as a cognitive ground or appear in the ancestry of
+   a licensed judgment.
+
+This contract deliberately keeps graph edges as typed references instead of
+embedding complete antecedent objects. Embedding would copy shared nodes into a
+nested tree and would still require a separate rule to detect conflicting
+copies. Tuples make collections immutable; they do not by themselves establish
+reference identity or integrity.
+
 ## Values along the cognitive path
 
 The modules follow the order of the specified cognitive path so that a reader
