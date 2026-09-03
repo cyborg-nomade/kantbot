@@ -15,7 +15,9 @@ causal differences must appear in controlled comparisons.
 The diagrams are normative where they restate the specification and
 [ADRs 0001–0004](docs/decisions/README.md#index). Their role boundaries are
 formalized by the Phase 2
-[callable interfaces](ROLE_INTERFACES.md#boundary-map); their layout is only
+[callable interfaces](ROLE_INTERFACES.md#boundary-map), and their legal order
+and terminal paths are formalized by the
+[state-transition model](STATE_TRANSITION_MODEL.md). Their layout is only
 explanatory. If a diagram appears to conflict with an accepted decision or the
 prose licensing conditions, the decision record and prose condition govern.
 

@@ -48,8 +48,8 @@ and the identity contract in the
 
 The result unions expose refusal and ambiguity as ordinary typed results rather
 than exceptions. They do not prescribe the cycle's branching or decide when an
-application status becomes terminal; the next Roadmap item owns that transition
-model.
+application status becomes terminal; the
+[state-transition model](STATE_TRANSITION_MODEL.md) owns those decisions.
 
 ## Understanding as supplied constraints
 
@@ -85,15 +85,18 @@ open.
   already crossed that boundary; invalid external data becomes `input-error`.
 - Reason has no active callable interface in the first cycle. Its representable
   but reserved value remains governed by Phase 4.
-- These protocols do not instantiate or order a cycle. The next item will make
-  legal transitions and terminalization explicit.
+- These protocols do not instantiate or order a cycle. The separate
+  [transition layer](STATE_TRANSITION_MODEL.md) makes legal transitions and
+  terminalization explicit without changing role ownership.
 - No protocol supplies an implementation algorithm. Later variants may replace
   an operation while preserving its boundary and comparable trace evidence.
 
 ## Verification
 
 Mypy checks concrete function signatures against every public protocol in
-[`typechecks/role_interfaces.py`](typechecks/role_interfaces.py). Runtime tests
-check the understanding repertoire's authority, scope, concept, condition, and
-identity invariants. Ruff, pytest, coverage, and SonarQube remain the shared
-repository checks.
+[`typechecks/role_interfaces.py`](typechecks/role_interfaces.py) and checks
+their legal composition in
+[`typechecks/cycle_transitions.py`](typechecks/cycle_transitions.py). Runtime
+tests check the understanding repertoire's authority, scope, concept,
+condition, and identity invariants. Ruff, pytest, coverage, and SonarQube remain
+the shared repository checks.

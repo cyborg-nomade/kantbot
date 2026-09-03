@@ -16,10 +16,10 @@ grounds and limits.
 
 The repository contains the Phase 0 foundations, the completed Phase 1
 philosophical specification, Phase 2's canonical immutable data structures, and
-explicit callable contracts between cognitive roles. The model does not yet
-execute a complete cognitive cycle; transitions, complete provenance
-validation, property tests, and the deterministic toy world remain separate
-Phase 2 work.
+explicit callable contracts between cognitive roles. It now also defines the
+legal immutable transitions and terminal paths for one cognitive cycle. The
+model does not yet execute the role algorithms; complete provenance validation,
+property tests, and the deterministic toy world remain separate Phase 2 work.
 
 ## Start here
 
@@ -30,6 +30,7 @@ Phase 2 work.
 | [Cognitive architecture](COGNITIVE_ARCHITECTURE.md) | Component boundaries, transformations, licensing gates, and variant comparison |
 | [Canonical data structures](CANONICAL_DATA_STRUCTURES.md) | Executable semantic values, local invariants, and their philosophical boundaries |
 | [Cognitive role interfaces](ROLE_INTERFACES.md) | Typed inputs, outputs, refusal paths, and ownership boundaries between roles |
+| [State-transition model](STATE_TRANSITION_MODEL.md) | Legal cognitive stages, branching, terminalization, and cross-stage validation |
 | [Worked examples](WORKED_EXAMPLES.md) | Hand-traced success, ambiguity, applicability, unity, withholding, and overreach cases |
 | [Behavioral predictions](BEHAVIORAL_PREDICTIONS.md) | Controlled contrasts that distinguish the architecture from a simpler pipeline |
 | [Research questions](RESEARCH_QUESTIONS.md) | The questions Phase 1 must answer and the project's explicit non-goals |
@@ -50,8 +51,9 @@ reading or impose a consequential project constraint belong in
 .
 ├── docs/decisions/       Decision-record index and template
 ├── src/kantbot/model/    Immutable canonical semantic values
-├── tests/                Local invariant and outcome-union tests
-├── typechecks/           Static witnesses for callable role contracts
+├── src/kantbot/transitions.py Pure checked cognitive-cycle transitions
+├── tests/                Local invariant, transition, and outcome-union tests
+├── typechecks/           Static witnesses for role and transition contracts
 ├── sources/kant/         Public-domain primary texts with linkable A/B anchors
 ├── BEHAVIORAL_PREDICTIONS.md Controlled architectural comparisons
 ├── CANONICAL_DATA_STRUCTURES.md Readable map to the executable model
@@ -65,6 +67,7 @@ reading or impose a consequential project constraint belong in
 ├── RESEARCH_QUESTIONS.md Phase 1 agenda and scope boundaries
 ├── ROLE_INTERFACES.md    Executable contracts between cognitive roles
 ├── ROADMAP.md            Phases, deliverables, and exit criteria
+├── STATE_TRANSITION_MODEL.md Legal states and terminal paths for one cycle
 ├── WORKED_EXAMPLES.md    Hand-worked cognitive traces
 └── pyproject.toml        Python dependencies and development checks
 ```
@@ -72,5 +75,5 @@ reading or impose a consequential project constraint belong in
 This layout should grow only when a new kind of artifact needs a stable home.
 The executable model uses Python and strict, frozen Pydantic values under
 [ADR 0006](docs/decisions/0006-canonical-model-representation.md). Run its
-checks with `uv run ruff check src tests` and `uv run pytest` after
+checks with `uv run ruff check .`, `uv run mypy`, and `uv run pytest` after
 `uv sync --dev`.
