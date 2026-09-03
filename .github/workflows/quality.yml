@@ -43,7 +43,7 @@ jobs:
       - name: Lint
         run: uv run ruff check .
 
-      - name: Check role interfaces
+      - name: Check static contracts
         run: uv run mypy
 
       - name: Test with branch coverage
