@@ -499,6 +499,13 @@ def record_recognition(
         )
         return _terminal(current, CycleBoundary.RECOGNITION, result)
     if isinstance(result, SynthesisAmbiguous):
+        _require(
+            result.context.derivation.has_ground(
+                current.retained_sequence.retained_sequence_id,
+                GroundKind.RETAINED_SEQUENCE,
+            ),
+            "recognition ambiguity must identify the current retained sequence",
+        )
         return _terminal(current, CycleBoundary.RECOGNITION, result)
 
     _require(bool(result), "recognition must return at least one candidate")

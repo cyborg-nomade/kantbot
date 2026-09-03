@@ -74,6 +74,17 @@ reading or impose a consequential project constraint belong in
 
 This layout should grow only when a new kind of artifact needs a stable home.
 The executable model uses Python and strict, frozen Pydantic values under
-[ADR 0006](docs/decisions/0006-canonical-model-representation.md). Run its
-checks with `uv run ruff check .`, `uv run mypy`, and `uv run pytest` after
-`uv sync --dev`.
+[ADR 0006](docs/decisions/0006-canonical-model-representation.md). Run the
+enforced local quality checks with:
+
+```text
+uv sync --locked --all-groups
+uv run ruff format --check .
+uv run ruff check .
+uv run mypy
+uv run coverage run -m pytest -W error
+uv run coverage report
+```
+
+See the [maintainer quality conventions](CONTRIBUTING.md#python-readability-and-static-analysis)
+for the CI and SonarQube analysis boundary.

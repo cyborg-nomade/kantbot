@@ -108,8 +108,9 @@ Roadmap item will resolve and validate that graph.
 | `CommitmentCompleted` | Matching `JudgmentCommitted` | `judgment-committed` after critique |
 
 `record_recognition` has two explicit treatments of alternatives. It can stop
-with `synthesis-ambiguous`, or it can return several candidate states for the
-branch-relative continuation illustrated by
+with `synthesis-ambiguous` whose derivation identifies the current retained
+sequence with a `retained-sequence` ground, or it can return several candidate
+states for the branch-relative continuation illustrated by
 [Worked Example Trace 5](WORKED_EXAMPLES.md#trace-5). Continued rivals must name
 one another as alternatives. `withhold_rival_applications` later converges such
 successful paths only as `judgment-withheld` unless some declared constitutive

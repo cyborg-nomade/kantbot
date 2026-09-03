@@ -39,6 +39,7 @@ from kantbot.transitions import (
     CycleTerminated,
     InvalidTransition,
     JudgmentProposed,
+    RetentionCompleted,
     dump_cycle_state,
     open_cycle,
     record_application,
@@ -314,12 +315,19 @@ def test_recognition_can_stop_at_ambiguity_or_fork_explicit_paths(
         context=_outcome_context(
             trace,
             OutcomeKind.SYNTHESIS_AMBIGUOUS,
-            _OutcomeDetails(alternatives=("candidate-a", "candidate-b")),
+            _OutcomeDetails(
+                ground_id=trace.retained.retained_sequence_id,
+                ground_kind=GroundKind.RETAINED_SEQUENCE,
+                alternatives=("candidate-a", "candidate-b"),
+            ),
         ),
         candidate_representation_ids=("candidate-a", "candidate-b"),
     )
     terminal = record_recognition(retained, ambiguity)
     assert isinstance(terminal, CycleTerminated)
+    assert terminal.boundary is CycleBoundary.RECOGNITION
+    assert terminal.outcome == ambiguity
+    assert validate_cycle_state_json(dump_cycle_state(terminal)) == terminal
 
     candidate_type = trace.candidate.__class__
     common = trace.candidate.model_dump(
@@ -343,6 +351,45 @@ def test_recognition_can_stop_at_ambiguity_or_fork_explicit_paths(
         "candidate-a",
         "candidate-b",
     ]
+
+
+@pytest.mark.parametrize(
+    ("ground_id", "ground_kind"),
+    [
+        ("another-retained-sequence", GroundKind.RETAINED_SEQUENCE),
+        ("retained-1", GroundKind.OBSERVATION),
+        ("external-episode-1", GroundKind.EXTERNAL_INPUT),
+    ],
+)
+def test_recognition_rejects_ambiguity_without_current_typed_retention_ground(
+    successful_trace: SimpleNamespace,
+    ground_id: str,
+    ground_kind: GroundKind,
+) -> None:
+    """Matching scope and configuration cannot substitute for retention linkage."""
+
+    trace = successful_trace
+    retained = RetentionCompleted(
+        cycle_id="cycle-ambiguity-linkage",
+        context=_role_context(trace),
+        retained_sequence=trace.retained,
+    )
+    ambiguity = SynthesisAmbiguous(
+        outcome_id="outcome-unlinked-ambiguity",
+        context=_outcome_context(
+            trace,
+            OutcomeKind.SYNTHESIS_AMBIGUOUS,
+            _OutcomeDetails(
+                ground_id=ground_id,
+                ground_kind=ground_kind,
+                alternatives=("candidate-a", "candidate-b"),
+            ),
+        ),
+        candidate_representation_ids=("candidate-a", "candidate-b"),
+    )
+
+    with pytest.raises(InvalidTransition, match="current retained sequence"):
+        record_recognition(retained, ambiguity)
 
 
 @pytest.mark.parametrize(
