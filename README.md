@@ -17,9 +17,10 @@ grounds and limits.
 The repository contains the Phase 0 foundations, the completed Phase 1
 philosophical specification, Phase 2's canonical immutable data structures, and
 explicit callable contracts between cognitive roles. It now also defines the
-legal immutable transitions and terminal paths for one cognitive cycle. The
-model does not yet execute the role algorithms; complete provenance validation,
-property tests, and the deterministic toy world remain separate Phase 2 work.
+legal immutable transitions and terminal paths for one cognitive cycle, plus a
+structured trace format with graph-wide provenance validation. The model does
+not yet execute the role algorithms; property tests and the deterministic toy
+world remain separate Phase 2 work.
 
 ## Start here
 
@@ -31,6 +32,7 @@ property tests, and the deterministic toy world remain separate Phase 2 work.
 | [Canonical data structures](CANONICAL_DATA_STRUCTURES.md) | Executable semantic values, local invariants, and their philosophical boundaries |
 | [Cognitive role interfaces](ROLE_INTERFACES.md) | Typed inputs, outputs, refusal paths, and ownership boundaries between roles |
 | [State-transition model](STATE_TRANSITION_MODEL.md) | Legal cognitive stages, branching, terminalization, and cross-stage validation |
+| [Structured provenance](STRUCTURED_PROVENANCE.md) | Versioned traces, typed identity resolution, evidence ancestry, and evaluator isolation |
 | [Worked examples](WORKED_EXAMPLES.md) | Hand-traced success, ambiguity, applicability, unity, withholding, and overreach cases |
 | [Behavioral predictions](BEHAVIORAL_PREDICTIONS.md) | Controlled contrasts that distinguish the architecture from a simpler pipeline |
 | [Research questions](RESEARCH_QUESTIONS.md) | The questions Phase 1 must answer and the project's explicit non-goals |
@@ -51,9 +53,10 @@ reading or impose a consequential project constraint belong in
 .
 ├── docs/decisions/       Decision-record index and template
 ├── src/kantbot/model/    Immutable canonical semantic values
+├── src/kantbot/provenance/ Versioned traces and validated read-only graphs
 ├── src/kantbot/transitions.py Pure checked cognitive-cycle transitions
-├── tests/                Local invariant, transition, and outcome-union tests
-├── typechecks/           Static witnesses for role and transition contracts
+├── tests/                Invariant, transition, provenance, and outcome tests
+├── typechecks/           Static witnesses for role, transition, and graph contracts
 ├── sources/kant/         Public-domain primary texts with linkable A/B anchors
 ├── BEHAVIORAL_PREDICTIONS.md Controlled architectural comparisons
 ├── CANONICAL_DATA_STRUCTURES.md Readable map to the executable model
@@ -68,6 +71,7 @@ reading or impose a consequential project constraint belong in
 ├── ROLE_INTERFACES.md    Executable contracts between cognitive roles
 ├── ROADMAP.md            Phases, deliverables, and exit criteria
 ├── STATE_TRANSITION_MODEL.md Legal states and terminal paths for one cycle
+├── STRUCTURED_PROVENANCE.md Trace format and graph-validation boundaries
 ├── WORKED_EXAMPLES.md    Hand-worked cognitive traces
 └── pyproject.toml        Python dependencies and development checks
 ```

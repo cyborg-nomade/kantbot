@@ -11,10 +11,11 @@ representation is governed by
 [ADR 0006](docs/decisions/0006-canonical-model-representation.md).
 
 **Engineering.** This Roadmap item defines values and local construction
-invariants. It does not yet define the interfaces between cognitive roles, run
-a cognitive cycle, validate a complete provenance graph, add property tests, or
-implement the deterministic toy world. Those are the remaining independently
-reviewable Phase 2 items.
+invariants. The [role interfaces](ROLE_INTERFACES.md),
+[state transitions](STATE_TRANSITION_MODEL.md), and
+[provenance validation](STRUCTURED_PROVENANCE.md) are separate Phase 2 layers.
+Property tests and the deterministic toy world remain independently reviewable
+items; cognitive role algorithms belong to Phase 3.
 
 ## How the Python model uses objects and functions
 
@@ -52,8 +53,9 @@ whole model:
 | `Derivation` | Carries immediate grounds, operation, alternatives, unmet conditions, scope, and configuration |
 
 `Derivation` is local provenance attached to one value. It does not claim that
-all references form a reachable, acyclic, cycle-wide graph. The later structured
-provenance item will connect and validate these records under K-022.
+all references form a reachable, acyclic, cycle-wide graph. The separate
+[structured provenance layer](STRUCTURED_PROVENANCE.md) connects and validates
+these records under K-022.
 
 ### Identity and reference integrity
 
@@ -63,9 +65,9 @@ prove that a referenced entity exists. A `CognitiveGround` is instead a typed
 reference: its identity is paired with the cognitive kind and, for rules, the
 authority that the reference claims.
 
-Every entity that can be targeted by provenance will be registered under one
+Every entity that can be targeted by provenance is registered under one
 semantic identifier within a complete trace. The structured-provenance
-validator must enforce the following graph-wide contract:
+validator enforces the following graph-wide contract:
 
 1. one semantic identifier resolves to exactly one registered entity;
 2. a cognitive reference resolves to an existing entity of its declared kind;
@@ -198,8 +200,9 @@ limit reports.
 
 These are local construction invariants. The absence of evaluator state from a
 warrant is structural, but proving reachability from presented observations or
-compatibility across a complete trace belongs to the later provenance and
-state-transition validators.
+compatibility across a complete trace belongs to the separate
+[provenance](STRUCTURED_PROVENANCE.md) and
+[state-transition](STATE_TRANSITION_MODEL.md) validators.
 
 ## Verification
 

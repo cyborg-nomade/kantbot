@@ -85,7 +85,8 @@ Deliverables:
   limits;
 - [explicit interfaces between cognitive roles](ROLE_INTERFACES.md);
 - a [state-transition model for one cognitive cycle](STATE_TRANSITION_MODEL.md);
-- a structured provenance format that records every transformation;
+- a [structured provenance format](STRUCTURED_PROVENANCE.md) that records every
+  transformation;
 - invariants and property tests for philosophical and software constraints;
 - one deterministic toy world with reproducible observation sequences.
 

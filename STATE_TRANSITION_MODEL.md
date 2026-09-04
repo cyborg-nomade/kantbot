@@ -79,8 +79,8 @@ reported as though it arose directly from application.
 
 Snapshots carry only the strongest current artifact rather than nesting the
 entire history. Earlier artifacts remain connected by their typed derivation
-references. This avoids duplicating a provenance graph as a tree; the next
-Roadmap item will resolve and validate that graph.
+references. This avoids duplicating a provenance graph as a tree; the separate
+[provenance layer](STRUCTURED_PROVENANCE.md) resolves and validates that graph.
 
 ## Legal transitions
 
@@ -131,8 +131,8 @@ exceptions.
 
 This layer checks only facts available from adjacent states. Complete
 reachability, semantic-ID resolution, authority flow, and evaluator-state
-exclusion require the structured provenance validator in the next Roadmap
-item.
+exclusion require the separate
+[structured provenance validator](STRUCTURED_PROVENANCE.md).
 
 ## Trade-offs and later revision
 

@@ -192,8 +192,8 @@ class EvaluatorReference(SemanticModel):
 class Derivation(SemanticModel):
     """Local provenance carried by one derived semantic value.
 
-    The later provenance Roadmap item will connect these local records into a
-    validated graph.  This value intentionally does not claim graph closure.
+    The separate provenance package connects these records into a validated
+    graph. This value intentionally does not claim graph closure.
     """
 
     operation: NonEmptyText
