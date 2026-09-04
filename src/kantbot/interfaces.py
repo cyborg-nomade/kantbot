@@ -120,8 +120,8 @@ class UnderstandingRepertoire(SemanticModel):
 class ProvenanceView(Protocol):
     """Read-only graph capabilities required by downstream roles.
 
-    The later structured-provenance item will provide the concrete graph and
-    its validation.  This boundary exposes no evaluator-reference lookup.
+    The separate provenance package supplies the concrete validated graph.
+    This boundary exposes no evaluator-reference lookup.
     """
 
     def resolves(self, ground: CognitiveGround, /) -> bool:

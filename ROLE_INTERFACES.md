@@ -24,8 +24,8 @@ the immutable canonical values defined in the preceding Roadmap item.
 
 Every operation receives its `Scope` and `ConfigurationIdentity` explicitly.
 Operations that must inspect earlier grounds receive a read-only
-`ProvenanceView`; none receives an evaluator-state lookup. The later provenance
-item may choose its graph representation provided that it implements this view
+`ProvenanceView`; none receives an evaluator-state lookup. The separate
+[provenance graph](STRUCTURED_PROVENANCE.md) implements this view
 and the identity contract in the
 [canonical structures](CANONICAL_DATA_STRUCTURES.md#identity-and-reference-integrity).
 
@@ -72,12 +72,12 @@ typed cognitive ground, retrieve immediate cognitive grounds, and retrieve an
 entity's scope and configuration. It intentionally supplies no mutation,
 storage position, unrestricted node access, or evaluator-reference lookup.
 
-This interface does not itself prove graph closure. The structured-provenance
-Roadmap item must still reject unresolved or mistyped grounds, incompatible ID
-reuse, unreachable transformations, and evaluator-only ancestry. Restricting
-the read interface prevents downstream roles from depending on a concrete graph
-library or acquiring hidden evaluator state while that implementation remains
-open.
+This interface does not itself prove graph closure. The
+[structured-provenance validator](STRUCTURED_PROVENANCE.md#checks-performed)
+rejects unresolved or mistyped grounds, incompatible ID reuse, missing sensible
+ancestry, and evaluator-only evidence. Restricting the read interface keeps
+downstream roles independent of concrete graph storage and exposes no hidden
+evaluator lookup; it is not a sandbox against hostile Python code.
 
 ## Deliberate absences
 
