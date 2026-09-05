@@ -14,8 +14,9 @@ representation is governed by
 invariants. The [role interfaces](ROLE_INTERFACES.md),
 [state transitions](STATE_TRANSITION_MODEL.md), and
 [provenance validation](STRUCTURED_PROVENANCE.md) are separate Phase 2 layers.
-Property tests and the deterministic toy world remain independently reviewable
-items; cognitive role algorithms belong to Phase 3.
+The [property-test suite](INVARIANTS_AND_PROPERTY_TESTS.md) is another separate
+layer. The deterministic toy world remains independently reviewable; cognitive
+role algorithms belong to Phase 3.
 
 ## How the Python model uses objects and functions
 
@@ -215,8 +216,9 @@ uv run pytest
 ```
 
 The unit tests construct one compact successful chain, exercise the main local
-rejections, and round-trip all ten terminal variants through JSON. They are
-example-based invariant tests, not the property-test Roadmap deliverable. Ruff
+rejections, and round-trip all ten terminal variants through JSON. The separate
+[generated properties](INVARIANTS_AND_PROPERTY_TESTS.md) vary scalar content,
+condition statuses, authority declarations, and other invariant domains. Ruff
 also applies complexity and Pylint-derived maintainability rules. A small
 source-level test enforces Sonar's prohibition on nested conditional expressions,
 which Ruff does not currently cover.
