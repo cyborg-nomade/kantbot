@@ -18,9 +18,9 @@ The repository contains the Phase 0 foundations, the completed Phase 1
 philosophical specification, Phase 2's canonical immutable data structures, and
 explicit callable contracts between cognitive roles. It now also defines the
 legal immutable transitions and terminal paths for one cognitive cycle, plus a
-structured trace format with graph-wide provenance validation. The model does
-not yet execute the role algorithms; property tests and the deterministic toy
-world remain separate Phase 2 work.
+structured trace format with graph-wide provenance validation, and generated
+invariant tests tied to declared claims. The model does not yet execute the
+role algorithms; the deterministic toy world remains separate Phase 2 work.
 
 ## Start here
 
@@ -33,6 +33,7 @@ world remain separate Phase 2 work.
 | [Cognitive role interfaces](ROLE_INTERFACES.md) | Typed inputs, outputs, refusal paths, and ownership boundaries between roles |
 | [State-transition model](STATE_TRANSITION_MODEL.md) | Legal cognitive stages, branching, terminalization, and cross-stage validation |
 | [Structured provenance](STRUCTURED_PROVENANCE.md) | Versioned traces, typed identity resolution, evidence ancestry, and evaluator isolation |
+| [Invariants and property tests](INVARIANTS_AND_PROPERTY_TESTS.md) | Generated domains, claim-to-property coverage, and deliberate testing gaps |
 | [Worked examples](WORKED_EXAMPLES.md) | Hand-traced success, ambiguity, applicability, unity, withholding, and overreach cases |
 | [Behavioral predictions](BEHAVIORAL_PREDICTIONS.md) | Controlled contrasts that distinguish the architecture from a simpler pipeline |
 | [Research questions](RESEARCH_QUESTIONS.md) | The questions Phase 1 must answer and the project's explicit non-goals |
@@ -65,6 +66,7 @@ reading or impose a consequential project constraint belong in
 ├── CONTRIBUTING.md       Delivery, documentation, and review conventions
 ├── COPYRIGHT.md          Rights, access, and participation policy
 ├── GLOSSARY.md           Philosophical and implementation vocabulary
+├── INVARIANTS_AND_PROPERTY_TESTS.md Generated test strategy and constraint map
 ├── MANIFEST.md           Purpose and standing commitments
 ├── PRIMARY_SOURCES.md    Architecture questions mapped to passages
 ├── RESEARCH_QUESTIONS.md Phase 1 agenda and scope boundaries

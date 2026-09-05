@@ -190,5 +190,6 @@ canonical chain and exercises closure, read-only lookup, all terminal kinds,
 prefixes, serialization, evaluator isolation, identity conflicts, circular
 evidence, alternatives, and invalid commitment ancestry.
 [`typechecks/provenance.py`](typechecks/provenance.py) checks compatibility with
-the accepted `ProvenanceView` contract. These are deterministic example tests,
-not the next Roadmap item's property-based test suite.
+the accepted `ProvenanceView` contract. The separate
+[property-test suite](INVARIANTS_AND_PROPERTY_TESTS.md) generates evidence
+cycles, registration orders, evaluator-ground kinds, and reception content.

@@ -87,7 +87,8 @@ Deliverables:
 - a [state-transition model for one cognitive cycle](STATE_TRANSITION_MODEL.md);
 - a [structured provenance format](STRUCTURED_PROVENANCE.md) that records every
   transformation;
-- invariants and property tests for philosophical and software constraints;
+- [invariants and property tests](INVARIANTS_AND_PROPERTY_TESTS.md) for
+  philosophical and software constraints;
 - one deterministic toy world with reproducible observation sequences.
 
 The formal model should preserve alternative interpretations behind explicit
