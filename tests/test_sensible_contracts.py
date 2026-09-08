@@ -68,9 +68,13 @@ def _blue_input(trace: ProvenanceTrace) -> ProvenanceTrace:
     )
     return _change(
         trace,
-        observations=(_change(trace.observations[0], content=content),),
-        presented_elements=(_change(trace.presented_elements[0], content=content),),
-        intuitions=(_change(trace.intuitions[0], content=content),),
+        observations=tuple(
+            _change(item, content=content) for item in trace.observations
+        ),
+        presented_elements=tuple(
+            _change(item, content=content) for item in trace.presented_elements
+        ),
+        intuitions=tuple(_change(item, content=content) for item in trace.intuitions),
     )
 
 
@@ -150,11 +154,16 @@ def test_content_preservation_includes_scalar_types(
         presented_content = replacement
     trace = _change(
         _before_application(complete_trace),
-        observations=(_change(complete_trace.observations[0], content=original),),
-        presented_elements=(
-            _change(complete_trace.presented_elements[0], content=presented_content),
+        observations=tuple(
+            _change(item, content=original) for item in complete_trace.observations
         ),
-        intuitions=(_change(complete_trace.intuitions[0], content=replacement),),
+        presented_elements=tuple(
+            _change(item, content=presented_content)
+            for item in complete_trace.presented_elements
+        ),
+        intuitions=tuple(
+            _change(item, content=replacement) for item in complete_trace.intuitions
+        ),
     )
     with pytest.raises(InvalidProvenance, match=r"shared reception|projection replay"):
         ProvenanceGraph(trace)
@@ -185,7 +194,11 @@ def test_intuition_cannot_invent_content_even_with_valid_parent_ids(
 ) -> None:
     intuition = _blue_input(complete_trace).intuitions[0]
     with pytest.raises(InvalidProvenance, match="projection replay"):
-        ProvenanceGraph(_change(complete_trace, intuitions=(intuition,)))
+        ProvenanceGraph(
+            _change(
+                complete_trace, intuitions=(intuition, *complete_trace.intuitions[1:])
+            )
+        )
 
 
 @pytest.mark.parametrize(

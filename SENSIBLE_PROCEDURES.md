@@ -60,9 +60,9 @@ judgment.
 | Check | Executable requirement | Sensible limitation |
 | --- | --- | --- |
 | `FieldEquals` | Every sample's named field equals a fixed empirical value, including its scalar type | No samples or an absent field is undecided; `True` is not numeric `1` |
-| `FieldConstant` | The field retains the same typed value across the ordered sequence | Requires a temporal form and an explicit sample minimum (default two) |
+| `FieldConstant` | The field retains the same typed value across the ordered sequence | Requires a temporal form and at least two samples (default two) |
 | `StrictIncrease` | Numeric field values strictly increase at every adjacent sample | Requires temporal form, at least two samples, and numeric values; booleans are not numbers here |
-| `TemporalOrder` | Enough samples occupy strictly increasing positions | Requires temporal form and an explicit sample minimum |
+| `TemporalOrder` | Enough samples occupy strictly increasing positions | Requires temporal form and at least two samples (default two) |
 
 All temporal procedures check the actual registered `FormKind.TEMPORAL` and its
 availability to every input. They never sort inputs. Unavailable temporal form
@@ -76,9 +76,15 @@ preserve subsequence order. Simultaneous positions can be represented in a
 manifold but cannot satisfy these initial strictly successive procedures.
 Registration order in the trace's top-level collections remains irrelevant.
 
-`FieldConstant(minimum_samples=1)` explicitly permits a singleton identity
-check; it cannot license persistence beyond that singleton. The compact base
-fixture uses this restricted case. Multi-sample tests require two or more.
+`FieldConstant` and `TemporalOrder` reject declarations with a sample minimum
+below two. With only one actual sample, a valid temporal procedure returns
+undecided and cannot license objecthood. The base success fixture now carries
+two observed moments, with both preserved in the warrant and replay evidence.
+A single observation may still be projected or tested with `FieldEquals`;
+being presentable does not itself establish constancy or succession.
+
+This is an engineering evidence floor for these initial procedures, not a
+claim that every possible Kantian category requires two empirical observations.
 Neither field constancy nor numerical increase alone establishes substance or
 causality. Those adequacy questions remain visible under the adopted
 [philosophical specification](PHILOSOPHICAL_SPECIFICATION.md#power-of-judgment-and-schematism-applicability).
@@ -127,6 +133,9 @@ questions, not conclusions to be hidden by successful serialization or tests.
   families, typed content lookup, authority, missing data, and certification.
 - [Temporal licenses](tests/test_temporal_licenses.py): separate pre-object
   identity failure and post-object motion failure over multiple observations.
+- [Minimum temporal evidence](tests/test_temporal_minimum.py): singleton
+  declarations are rejected, singleton evaluations remain undecided, and a
+  singleton candidate cannot reuse a temporal object license.
 - A generated numerical-order property compares `StrictIncrease` against an
   independent pairwise arithmetic oracle.
 

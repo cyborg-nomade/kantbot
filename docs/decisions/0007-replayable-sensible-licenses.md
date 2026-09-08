@@ -107,6 +107,10 @@ Propose **Option C**, implemented in this corrective branch:
 4. Bind each schema's procedure to **all** its concept conditions, including
    optional ones. Category-inspired use requires an actual temporal check,
    not just a temporal form label. Check nested condition authority at use.
+   The initial constancy and temporal-order checks require at least two
+   samples: a singleton cannot witness a comparison across moments. This
+   evidence minimum is an engineering constraint on the chosen procedures,
+   not a general philosophical claim about all category application.
 5. Replay object and application results against the referenced candidate's
    actual intuitions. Require exact condition IDs, required flags, statuses,
    and sensible evidence. Explanatory prose is not executable authority.
@@ -146,6 +150,8 @@ schemata and comparative variants remain meaningful later work.
   retaining the same valid color-based identity license (BP-001-style probe).
 - Breaking the declared color invariant prevents objecthood before empirical
   application. Removing a result's sensible evidence prevents certification.
+- A singleton remains presentable, but its temporal results are undecided;
+  declarations that lower the temporal sample minimum to one are rejected.
 
 ## Follow-up
 

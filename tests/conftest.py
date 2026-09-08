@@ -79,7 +79,7 @@ def derivation(
 
 
 def make_successful_trace() -> SimpleNamespace:
-    """One compact committed trace, used as values rather than an execution."""
+    """Two observed moments license the hand-authored temporal success trace."""
 
     scope = Scope(
         scope_id="scope-episode-1",
@@ -92,30 +92,36 @@ def make_successful_trace() -> SimpleNamespace:
         configuration_id="config-1",
         variant_id="kant-ab-default",
     )
-    observation = Observation(
-        observation_id="obs-1",
-        episode_id="episode-1",
-        position=0,
-        source="strip-camera",
-        content=(
-            ContentField(name="color", value="amber"),
-            ContentField(name="x", value=0),
-        ),
-        quality=ObservationQuality.COMPLETE,
+    observations = tuple(
+        Observation(
+            observation_id=f"obs-{index + 1}",
+            episode_id="episode-1",
+            position=index,
+            source="strip-camera",
+            content=(
+                ContentField(name="color", value="amber"),
+                ContentField(name="x", value=0),
+            ),
+            quality=ObservationQuality.COMPLETE,
+        )
+        for index in range(2)
     )
-    presented = PresentedElement(
-        presented_element_id="pe-1",
-        observation_id=observation.observation_id,
-        episode_id=observation.episode_id,
-        position=observation.position,
-        source=observation.source,
-        content=observation.content,
-        derivation=derivation(
-            "shared reception",
-            (ground("obs-1", GroundKind.OBSERVATION),),
-            scope,
-            configuration,
-        ),
+    presented_elements = tuple(
+        PresentedElement(
+            presented_element_id=f"pe-{index + 1}",
+            observation_id=item.observation_id,
+            episode_id=item.episode_id,
+            position=item.position,
+            source=item.source,
+            content=item.content,
+            derivation=derivation(
+                "shared reception",
+                (ground(item.observation_id, GroundKind.OBSERVATION),),
+                scope,
+                configuration,
+            ),
+        )
+        for index, item in enumerate(observations)
     )
     temporal_form = Form(
         form_id="time-total",
@@ -131,32 +137,39 @@ def make_successful_trace() -> SimpleNamespace:
         conditions=("singular", "preconceptual", "temporal-order"),
         procedure=FieldProjection(fields=("color", "x")),
     )
-    intuition = Intuition(
-        intuition_id="intuition-1",
-        presented_element_id=presented.presented_element_id,
-        projection_id=projection.projection_id,
-        episode_id=presented.episode_id,
-        position=presented.position,
-        content=presented.content,
-        form_ids=(temporal_form.form_id,),
-        derivation=derivation(
-            "Kantian variant projection",
-            (
-                ground("pe-1", GroundKind.PRESENTED_ELEMENT),
-                ground("projection-kant-ab", GroundKind.VARIANT_PROJECTION),
+    intuitions = tuple(
+        Intuition(
+            intuition_id=f"intuition-{index + 1}",
+            presented_element_id=item.presented_element_id,
+            projection_id=projection.projection_id,
+            episode_id=item.episode_id,
+            position=item.position,
+            content=item.content,
+            form_ids=(temporal_form.form_id,),
+            derivation=derivation(
+                "Kantian variant projection",
+                (
+                    ground(item.presented_element_id, GroundKind.PRESENTED_ELEMENT),
+                    ground("projection-kant-ab", GroundKind.VARIANT_PROJECTION),
+                ),
+                scope,
+                configuration,
             ),
-            scope,
-            configuration,
-        ),
+        )
+        for index, item in enumerate(presented_elements)
+    )
+    intuition_ids = tuple(item.intuition_id for item in intuitions)
+    sensible_evidence = tuple(
+        ground(item, GroundKind.INTUITION) for item in intuition_ids
     )
     manifold = ManifoldOfIntuition(
         manifold_id="manifold-1",
         episode_id="episode-1",
-        intuition_ids=(intuition.intuition_id,),
+        intuition_ids=intuition_ids,
         form_ids=(temporal_form.form_id,),
         derivation=derivation(
             "manifold formation",
-            (ground("intuition-1", GroundKind.INTUITION),),
+            sensible_evidence,
             scope,
             configuration,
         ),
@@ -164,11 +177,12 @@ def make_successful_trace() -> SimpleNamespace:
     retained = RetainedSequence(
         retained_sequence_id="retained-1",
         manifold_id=manifold.manifold_id,
-        items=(
+        items=tuple(
             RetainedIntuition(
-                intuition_id=intuition.intuition_id,
+                intuition_id=item,
                 status=RetentionStatus.CURRENT,
-            ),
+            )
+            for item in intuition_ids
         ),
         derivation=derivation(
             "apprehension",
@@ -182,7 +196,7 @@ def make_successful_trace() -> SimpleNamespace:
     candidate = CandidateRepresentation(
         candidate_representation_id="candidate-1",
         retained_sequence_id=retained.retained_sequence_id,
-        intuition_ids=(intuition.intuition_id,),
+        intuition_ids=intuition_ids,
         policy=SynthesisPolicy.A_ANALYSIS_B_CONSTRAINT,
         identity_rule_ids=(identity_ground.ground_id,),
         constitutive_rule_ids=(unity_rule_ground.ground_id,),
@@ -202,14 +216,14 @@ def make_successful_trace() -> SimpleNamespace:
         required=True,
         status=ConditionStatus.SATISFIED,
         explanation="identity is preserved in the bounded sequence",
-        evidence=(ground("intuition-1", GroundKind.INTUITION),),
+        evidence=sensible_evidence,
     )
     constitutive_result = ConditionResult(
         condition_id="local-unity-passes",
         required=True,
         status=ConditionStatus.SATISFIED,
         explanation="the candidate uses one compatible branch",
-        evidence=(ground("intuition-1", GroundKind.INTUITION),),
+        evidence=sensible_evidence,
     )
     object_candidate = ObjectCandidate(
         object_candidate_id="object-1",
@@ -264,7 +278,7 @@ def make_successful_trace() -> SimpleNamespace:
         required=True,
         status=ConditionStatus.SATISFIED,
         explanation="the inspected formed content carries amber",
-        evidence=(ground("intuition-1", GroundKind.INTUITION),),
+        evidence=sensible_evidence,
     )
     application = ApplicationResult(
         application_result_id="application-1",
@@ -285,7 +299,9 @@ def make_successful_trace() -> SimpleNamespace:
         ),
     )
     warrant = AssembledWarrant(
-        observation_grounds=(ground("obs-1", GroundKind.OBSERVATION),),
+        observation_grounds=tuple(
+            ground(item.observation_id, GroundKind.OBSERVATION) for item in observations
+        ),
         presentation_form_ids=(temporal_form.form_id,),
         projection_grounds=(
             ground("projection-kant-ab", GroundKind.VARIANT_PROJECTION),
@@ -380,7 +396,7 @@ def make_successful_trace() -> SimpleNamespace:
         Rule(
             rule_id="I-1",
             name="bounded identity",
-            description="preserve x within this singleton; no persistence beyond it",
+            description="preserve x across the two observed moments only",
             authority=RuleAuthority.CONSTITUTIVE,
             kind=RuleKind.IDENTITY,
             scope=scope,
@@ -394,11 +410,7 @@ def make_successful_trace() -> SimpleNamespace:
             ),
             sensible_procedure=SensibleProcedure(
                 temporal_form_id="time-total",
-                checks=(
-                    FieldConstant(
-                        condition_id="identity-passes", field="x", minimum_samples=1
-                    ),
-                ),
+                checks=(FieldConstant(condition_id="identity-passes", field="x"),),
             ),
         ),
         Rule(
@@ -426,10 +438,13 @@ def make_successful_trace() -> SimpleNamespace:
         rules=rules,
         scope=scope,
         configuration=configuration,
-        observation=observation,
-        presented=presented,
+        observations=observations,
+        presented_elements=presented_elements,
+        intuitions=intuitions,
+        observation=observations[0],
+        presented=presented_elements[0],
         projection=projection,
-        intuition=intuition,
+        intuition=intuitions[0],
         manifold=manifold,
         retained=retained,
         candidate=candidate,
@@ -461,14 +476,14 @@ def complete_trace(successful_trace: SimpleNamespace) -> ProvenanceTrace:
         cycle_id="cycle-1",
         scope=t.scope,
         configuration=t.configuration,
-        observations=(t.observation,),
+        observations=t.observations,
         forms=t.projection.required_forms,
         projections=(t.projection,),
         rules=t.rules,
         concepts=(t.concept,),
         schemas=(t.schema,),
-        presented_elements=(t.presented,),
-        intuitions=(t.intuition,),
+        presented_elements=t.presented_elements,
+        intuitions=t.intuitions,
         manifolds=(t.manifold,),
         retained_sequences=(t.retained,),
         candidates=(t.candidate,),

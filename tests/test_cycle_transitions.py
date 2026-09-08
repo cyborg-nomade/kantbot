@@ -112,9 +112,9 @@ def _outcome_context(
 
 def _reach_application(trace: SimpleNamespace) -> ConceptApplied:
     context = _role_context(trace)
-    opened = open_cycle("cycle-1", (trace.observation,), context)
-    presented = record_reception(opened, (trace.presented,))
-    projected = record_projection(presented, (trace.intuition,))
+    opened = open_cycle("cycle-1", trace.observations, context)
+    presented = record_reception(opened, trace.presented_elements)
+    projected = record_projection(presented, trace.intuitions)
     assert not isinstance(projected, CycleTerminated)
     manifold = record_manifold(projected, trace.manifold)
     retained = record_retention(manifold, trace.retained)
@@ -183,9 +183,9 @@ def test_every_nonterminal_snapshot_round_trips_through_the_state_union(
     complete_trace: ProvenanceTrace,
 ) -> None:
     trace = successful_trace
-    opened = open_cycle("cycle-1", (trace.observation,), _role_context(trace))
-    presented = record_reception(opened, (trace.presented,))
-    projected = record_projection(presented, (trace.intuition,))
+    opened = open_cycle("cycle-1", trace.observations, _role_context(trace))
+    presented = record_reception(opened, trace.presented_elements)
+    projected = record_projection(presented, trace.intuitions)
     assert not isinstance(projected, CycleTerminated)
     manifold = record_manifold(projected, trace.manifold)
     retained = record_retention(manifold, trace.retained)
@@ -275,9 +275,9 @@ def test_synthesis_failure_stops_at_its_actual_boundary(
 ) -> None:
     trace = successful_trace
     context = _role_context(trace)
-    opened = open_cycle("cycle-synthesis", (trace.observation,), context)
-    presented = record_reception(opened, (trace.presented,))
-    projected = record_projection(presented, (trace.intuition,))
+    opened = open_cycle("cycle-synthesis", trace.observations, context)
+    presented = record_reception(opened, trace.presented_elements)
+    projected = record_projection(presented, trace.intuitions)
     assert not isinstance(projected, CycleTerminated)
     manifold = record_manifold(projected, trace.manifold)
     failure = SynthesisFailed(
@@ -308,9 +308,9 @@ def test_recognition_can_stop_at_ambiguity_or_fork_explicit_paths(
 ) -> None:
     trace = successful_trace
     context = _role_context(trace)
-    opened = open_cycle("cycle-branches", (trace.observation,), context)
-    presented = record_reception(opened, (trace.presented,))
-    projected = record_projection(presented, (trace.intuition,))
+    opened = open_cycle("cycle-branches", trace.observations, context)
+    presented = record_reception(opened, trace.presented_elements)
+    projected = record_projection(presented, trace.intuitions)
     assert not isinstance(projected, CycleTerminated)
     manifold = record_manifold(projected, trace.manifold)
     retained = record_retention(manifold, trace.retained)

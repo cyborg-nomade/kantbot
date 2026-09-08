@@ -188,7 +188,11 @@ def test_circular_evidence_is_rejected_even_when_nodes_validate(
     with pytest.raises(InvalidProvenance, match="circular evidence"):
         ProvenanceGraph(
             _change(
-                complete_trace, intuitions=(_change(intuition, derivation=circular),)
+                complete_trace,
+                intuitions=(
+                    _change(intuition, derivation=circular),
+                    *complete_trace.intuitions[1:],
+                ),
             )
         )
 
@@ -419,9 +423,15 @@ def test_every_terminal_kind_can_be_stored_with_closed_references(
         )
         trace = _change(
             trace,
-            observations=(_change(trace.observations[0], content=content),),
-            presented_elements=(_change(trace.presented_elements[0], content=content),),
-            intuitions=(_change(trace.intuitions[0], content=content),),
+            observations=tuple(
+                _change(item, content=content) for item in trace.observations
+            ),
+            presented_elements=tuple(
+                _change(item, content=content) for item in trace.presented_elements
+            ),
+            intuitions=tuple(
+                _change(item, content=content) for item in trace.intuitions
+            ),
             projections=(projection,),
         )
     if kind is OutcomeKind.OVERREACH:

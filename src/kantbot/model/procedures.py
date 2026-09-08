@@ -32,7 +32,7 @@ class FieldConstant(SemanticModel):
     operation: Literal["field-constant"] = "field-constant"
     condition_id: Identifier
     field: Identifier
-    minimum_samples: Annotated[int, Field(ge=1)] = 2
+    minimum_samples: Annotated[int, Field(ge=2)] = 2
 
 
 class StrictIncrease(SemanticModel):
@@ -49,7 +49,7 @@ class TemporalOrder(SemanticModel):
 
     operation: Literal["temporal-order"] = "temporal-order"
     condition_id: Identifier
-    minimum_samples: Annotated[int, Field(ge=1)] = 1
+    minimum_samples: Annotated[int, Field(ge=2)] = 2
 
 
 type SensibleCheck = Annotated[
