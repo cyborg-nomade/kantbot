@@ -1,6 +1,6 @@
 # ADR 0007: Require replayable sensible licenses
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-09-08
 - **Deciders:** Kantbot maintainers
 - **Related questions:** [RQ-01](../../RESEARCH_QUESTIONS.md#rq-01--what-can-be-given-to-the-model), [RQ-03](../../RESEARCH_QUESTIONS.md#rq-03--what-makes-a-representation-count-as-an-object), [RQ-04](../../RESEARCH_QUESTIONS.md#rq-04--how-are-concepts-applied-and-judgments-licensed)
@@ -18,9 +18,10 @@ and grounds but not the sensible contents needed to apply a schema.
 
 These are defects in the executable hypothesis, not reasons to abandon its
 Kantian terminology or cognitive ambition. The maintainer authorized corrective
-implementation before the deterministic toy-world item. This record proposes
-the cross-cutting implementation choice for review; it does not claim that the
-full cognitive cycle or the theory of schematism has been implemented.
+implementation before the deterministic toy-world item. This record adopts
+the cross-cutting implementation choice approved by the maintainer; it does
+not claim that the full cognitive cycle or the theory of schematism has been
+implemented.
 
 ## Grounds and claim status
 
@@ -92,7 +93,7 @@ Kantian concept into them.
 
 ## Decision
 
-Propose **Option C**, implemented in this corrective branch:
+Adopt **Option C**, approved with PR #18 on 2026-09-08:
 
 1. Extend `ProvenanceView` with typed intuition, candidate, rule, and form
    lookups. Keep semantic reference IDs and the evaluator boundary.
@@ -155,8 +156,6 @@ schemata and comparative variants remain meaningful later work.
 
 ## Follow-up
 
-- Maintainer review of this record and its implementation; mark Accepted only
-  after approval and before merge.
 - Keep the deterministic toy world as the next independent Roadmap item.
 - In Phase 3, implement role policies and translate computed failures into
   explicit refusal paths; revisit the finite instruction vocabulary when a

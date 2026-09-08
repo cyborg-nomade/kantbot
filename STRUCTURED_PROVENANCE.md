@@ -16,7 +16,7 @@ remain governed by ADRs [0001–0004](docs/decisions/README.md#index).
 
 The graph checks structural provenance and replays supported
 [sensible procedures](SENSIBLE_PROCEDURES.md), following the corrective
-implementation proposed in [ADR 0007](docs/decisions/0007-replayable-sensible-licenses.md).
+implementation accepted in [ADR 0007](docs/decisions/0007-replayable-sensible-licenses.md).
 It does not implement the complete cognitive roles, prove a proposition's
 modality or external truth, or replace the cycle-wide unity policy. The
 deterministic toy world remains a separate Roadmap item.

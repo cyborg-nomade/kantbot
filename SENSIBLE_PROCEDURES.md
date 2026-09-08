@@ -3,7 +3,7 @@
 ## Scope
 
 **Engineering.** The corrective Phase 2 implementation associated with
-[proposed ADR 0007](docs/decisions/0007-replayable-sensible-licenses.md) makes
+[accepted ADR 0007](docs/decisions/0007-replayable-sensible-licenses.md) makes
 declared sensible licenses replayable. It strengthens the existing contracts;
 it does not implement the next toy-world item or the complete Phase 3 cycle.
 
