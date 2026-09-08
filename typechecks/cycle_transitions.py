@@ -18,6 +18,7 @@ from kantbot.model import (
     UnityCheck,
 )
 from kantbot.model.common import Identifier
+from kantbot.provenance import ProvenanceGraph
 from kantbot.transitions import (
     CandidateRecognized,
     CommitmentCompleted,
@@ -62,7 +63,9 @@ class SuccessfulPathValues(NamedTuple):
     outcome: JudgmentCommitted
 
 
-def compose_successful_path(values: SuccessfulPathValues) -> CycleTerminated:
+def compose_successful_path(
+    values: SuccessfulPathValues, provenance: ProvenanceGraph
+) -> CycleTerminated:
     """Demonstrate stage narrowing for adapters that orchestrate the roles."""
 
     opened = open_cycle(values.cycle_id, values.observations, values.context)
@@ -94,7 +97,7 @@ def compose_successful_path(values: SuccessfulPathValues) -> CycleTerminated:
     assert isinstance(unity_result, UnityAccepted)
     united: UnityAccepted = unity_result
 
-    commitment_result = record_commitment(united, values.judgment)
+    commitment_result = record_commitment(united, values.judgment, provenance)
     assert isinstance(commitment_result, CommitmentCompleted)
     committed: CommitmentCompleted = commitment_result
-    return record_critique(committed, values.outcome)
+    return record_critique(committed, values.outcome, provenance)

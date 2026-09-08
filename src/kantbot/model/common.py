@@ -109,22 +109,25 @@ class ContentField(SemanticModel):
     value: ScalarValue
 
 
+def same_content(
+    left: tuple[ContentField, ...], right: tuple[ContentField, ...]
+) -> bool:
+    """Compare supplied values without Python's bool/int/float equality coercion."""
+
+    if len(left) != len(right):
+        return False
+    return all(
+        a.name == b.name and type(a.value) is type(b.value) and a.value == b.value
+        for a, b in zip(left, right, strict=True)
+    )
+
+
 class Form(SemanticModel):
     """A declared form under which presented content is ordered."""
 
     form_id: Identifier
     kind: FormKind
     description: NonEmptyText
-
-
-class Rule(SemanticModel):
-    """A named rule together with its authority and declared scope."""
-
-    rule_id: Identifier
-    name: NonEmptyText
-    description: NonEmptyText
-    authority: RuleAuthority
-    scope: Scope
 
 
 class Condition(SemanticModel):

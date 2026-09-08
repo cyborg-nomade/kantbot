@@ -129,10 +129,18 @@ withholding, and overreach are ordinary immutable return values. Transition
 functions preserve them in `CycleTerminated`; they do not raise them as
 exceptions.
 
-This layer checks only facts available from adjacent states. Complete
-reachability, semantic-ID resolution, authority flow, and evaluator-state
-exclusion require the separate
-[structured provenance validator](STRUCTURED_PROVENANCE.md).
+Early recorders check facts available from adjacent states; their snapshots do
+not independently certify an entire history. Successful `record_commitment`
+and `record_critique` now also require a `ProvenanceGraph` for the same cycle,
+scope, configuration, and exact registered judgment (and reported outcome).
+That graph supplies reachability, authority checks, and
+[sensible-procedure replay](SENSIBLE_PROCEDURES.md).
+
+Construct the complete trace including the proposed committed artifact, validate
+it, then pass the resulting graph to these two recorders. This is acyclic
+validation: graph construction depends on canonical values, not transition
+snapshots. Failed validation does not license a commitment. Parsing a serialized
+snapshot still checks local shape only; it is not a substitute for certification.
 
 ## Trade-offs and later revision
 

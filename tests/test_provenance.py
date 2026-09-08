@@ -1,7 +1,6 @@
 """Closed graph identities, evidence, alternatives, and wire boundaries."""
 
 from dataclasses import FrozenInstanceError
-from types import SimpleNamespace
 
 import pytest
 from pydantic import ValidationError
@@ -14,8 +13,10 @@ from kantbot.model import (
     CognitiveGround,
     ConceptNotApplicable,
     ConditionStatus,
+    ContentField,
     Derivation,
     EvaluatorReference,
+    FieldProjection,
     GroundKind,
     InputError,
     JudgmentWithheld,
@@ -52,46 +53,6 @@ def _change[T: SemanticModel](value: T, **updates: object) -> T:
 
 def _ground(entity_id: str, kind: GroundKind) -> CognitiveGround:
     return CognitiveGround(ground_id=entity_id, kind=kind)
-
-
-@pytest.fixture
-def complete_trace(successful_trace: SimpleNamespace) -> ProvenanceTrace:
-    """Register every referenced resource and every canonical transformation."""
-
-    t = successful_trace
-    rules = tuple(
-        Rule(
-            rule_id=rule_id,
-            name=rule_id,
-            description="declared experiment rule",
-            authority=RuleAuthority.CONSTITUTIVE,
-            scope=t.scope,
-        )
-        for rule_id in ("I-1", "U-1")
-    )
-    return ProvenanceTrace(
-        cycle_id="cycle-1",
-        scope=t.scope,
-        configuration=t.configuration,
-        observations=(t.observation,),
-        forms=t.projection.required_forms,
-        projections=(t.projection,),
-        rules=rules,
-        concepts=(t.concept,),
-        schemas=(t.schema,),
-        presented_elements=(t.presented,),
-        intuitions=(t.intuition,),
-        manifolds=(t.manifold,),
-        retained_sequences=(t.retained,),
-        candidates=(t.candidate,),
-        object_candidates=(t.object_candidate,),
-        applications=(t.application,),
-        proposals=(t.proposal,),
-        unity_checks=(t.unity_check,),
-        judgments=(t.judgment,),
-        limit_reports=(t.limit_report,),
-        outcomes=(t.committed_outcome,),
-    )
 
 
 def _prefix(trace: ProvenanceTrace) -> ProvenanceTrace:
@@ -446,6 +407,23 @@ def test_every_terminal_kind_can_be_stored_with_closed_references(
         trace = _change(
             trace, applications=(application,), proposals=(), unity_checks=()
         )
+        content = (
+            ContentField(name="color", value="blue"),
+            ContentField(name="x", value=0),
+        )
+        if kind is OutcomeKind.APPLICATION_UNDERDETERMINED:
+            content = (ContentField(name="x", value=0),)
+        projection = _change(
+            trace.projections[0],
+            procedure=FieldProjection(fields=tuple(item.name for item in content)),
+        )
+        trace = _change(
+            trace,
+            observations=(_change(trace.observations[0], content=content),),
+            presented_elements=(_change(trace.presented_elements[0], content=content),),
+            intuitions=(_change(trace.intuitions[0], content=content),),
+            projections=(projection,),
+        )
     if kind is OutcomeKind.OVERREACH:
         hidden = EvaluatorReference(
             evaluator_reference_id="hidden-1", description="evaluator-only label"
@@ -575,6 +553,6 @@ def test_wire_validation_rejects_unknown_versions_and_fields(
 ) -> None:
     data = complete_trace.model_dump(mode="python")
     with pytest.raises(ValidationError):
-        validate_provenance({**data, "format_version": 2})
+        validate_provenance({**data, "format_version": 1})
     with pytest.raises(ValidationError, match="extra_forbidden"):
         validate_provenance({**data, "hidden_world": {}})

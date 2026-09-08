@@ -46,7 +46,7 @@ class ProvenanceTrace(SemanticModel):
     as execution order. Observation position and derivations own that meaning.
     """
 
-    format_version: Literal[1] = 1
+    format_version: Literal[2] = 2
     cycle_id: Identifier
     scope: Scope
     configuration: ConfigurationIdentity

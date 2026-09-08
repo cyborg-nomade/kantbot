@@ -8,10 +8,12 @@ from pydantic import ValidationError
 from kantbot.interfaces import UnderstandingRepertoire
 from kantbot.model import (
     Condition,
+    FieldEquals,
     Rule,
     RuleAuthority,
     Schema,
     Scope,
+    SensibleProcedure,
 )
 
 
@@ -71,7 +73,13 @@ def test_understanding_rejects_schema_for_an_unavailable_concept(
         schema_id="S-foreign",
         concept_id="foreign-concept",
         name="foreign schema",
-        procedure="a procedure whose concept is absent",
+        procedure=SensibleProcedure(
+            checks=(
+                FieldEquals(
+                    condition_id="foreign-condition", field="color", expected="amber"
+                ),
+            )
+        ),
         condition_ids=("foreign-condition",),
         sensible_form_ids=("time-total",),
         scope=successful_trace.scope,
@@ -101,7 +109,13 @@ def test_understanding_rejects_schema_conditions_absent_from_its_concept(
         schema_id="S-unknown-condition",
         concept_id=successful_trace.concept.concept_id,
         name="invalid condition schema",
-        procedure="attempt to use an undeclared condition",
+        procedure=SensibleProcedure(
+            checks=(
+                FieldEquals(
+                    condition_id="unknown-condition", field="color", expected="amber"
+                ),
+            )
+        ),
         condition_ids=(unknown_condition.condition_id,),
         sensible_form_ids=("time-total",),
         scope=successful_trace.scope,

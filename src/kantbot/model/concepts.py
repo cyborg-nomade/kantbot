@@ -18,6 +18,12 @@ from kantbot.model.common import (
     SemanticModel,
     require_unique,
 )
+from kantbot.model.procedures import SensibleProcedure
+
+
+class ConceptKind(StrEnum):
+    EMPIRICAL = "empirical"
+    CATEGORY_INSPIRED = "category-inspired"
 
 
 class Concept(SemanticModel):
@@ -25,6 +31,7 @@ class Concept(SemanticModel):
 
     concept_id: Identifier
     name: NonEmptyText
+    kind: ConceptKind
     applicability_conditions: tuple[Condition, ...] = Field(min_length=1)
     inferential_consequences: tuple[NonEmptyText, ...] = ()
     scope: Scope
@@ -45,7 +52,7 @@ class Schema(SemanticModel):
     schema_id: Identifier
     concept_id: Identifier
     name: NonEmptyText
-    procedure: NonEmptyText
+    procedure: SensibleProcedure
     condition_ids: tuple[Identifier, ...] = Field(min_length=1)
     sensible_form_ids: tuple[Identifier, ...] = Field(min_length=1)
     scope: Scope
@@ -55,7 +62,24 @@ class Schema(SemanticModel):
     def references_are_unique(self) -> Self:
         require_unique(self.condition_ids, "schema condition IDs")
         require_unique(self.sensible_form_ids, "sensible form IDs")
+        if set(self.condition_ids) != set(self.procedure.condition_ids):
+            raise ValueError("schema conditions must match its procedure checks")
+        temporal_form_id = self.procedure.temporal_form_id
+        if (
+            temporal_form_id is not None
+            and temporal_form_id not in self.sensible_form_ids
+        ):
+            raise ValueError("schema omits its procedure's temporal form")
         return self
+
+    def validate_concept(self, concept: Concept) -> None:
+        """Bind the selected procedure to this concept, not just a subset."""
+
+        if self.concept_id != concept.concept_id:
+            raise ValueError("schema belongs to another concept")
+        self.procedure.validate_conditions(concept.applicability_conditions)
+        if concept.kind is ConceptKind.CATEGORY_INSPIRED:
+            self.procedure.require_temporal_mediation()
 
 
 class ApplicationStatus(StrEnum):

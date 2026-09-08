@@ -14,10 +14,12 @@ of [K-023](CLAIMS.md#k-023), and the graph-validation boundary accepted in
 It introduces no new reading of Kant. Rules, representations, and licensing
 remain governed by ADRs [0001–0004](docs/decisions/README.md#index).
 
-The graph checks structural provenance. It does not implement the cognitive
-roles, determine whether a reported condition is true, prove a proposition's
-modality, or replace the cycle-wide unity policy. Property-based tests and the
-deterministic toy world remain separate Roadmap items.
+The graph checks structural provenance and replays supported
+[sensible procedures](SENSIBLE_PROCEDURES.md), following the corrective
+implementation proposed in [ADR 0007](docs/decisions/0007-replayable-sensible-licenses.md).
+It does not implement the complete cognitive roles, prove a proposition's
+modality or external truth, or replace the cycle-wide unity policy. The
+deterministic toy world remains a separate Roadmap item.
 
 ## Two validation boundaries
 
@@ -28,7 +30,7 @@ Python data or JSON
 ProvenanceTrace — canonical, strict, immutable record shape
         |
         v
-ProvenanceGraph — identity, typed links, context, evidence DAG, licensing checks
+ProvenanceGraph — identity, context, evidence DAG, sensible-procedure replay
         |
         +--> ProvenanceView — cognitive lookup only
         +--> dump_provenance — deterministic JSON for inspection and storage
@@ -55,10 +57,14 @@ def checked_trace_json(received_json: str) -> str:
 
 Invalid data raises at validation; a successful result can also be passed to a
 role expecting `ProvenanceView`. The complete fixture in the
-[provenance tests](tests/test_provenance.py) shows how to register a trace from
+[shared fixtures](tests/conftest.py) shows how to register a trace from
 canonical Python values.
 
-## Format version 1
+## Format version 2
+
+Version 2 requires executable projection and schema procedures, explicit
+concept kinds, and temporally mediated object rules. Version 1 is rejected;
+see the [explicit rebuilding requirements](SENSIBLE_PROCEDURES.md#version-2-and-limits).
 
 The envelope contains `format_version`, `cycle_id`, one `Scope`, and one
 `ConfigurationIdentity`. Its immutable tuples register canonical values by
@@ -86,10 +92,12 @@ another value embeds a copy. Every embedded copy must equal the registered
 value. Registration is unique; multiple references to one registered value are
 allowed. Incompatible copies or ID reuse across semantic kinds are rejected.
 
-Tuple order is preserved by serialization but is not execution order. Temporal
-position belongs to observations and intuitions; causal order belongs to the
-evidence graph. The [transition model](STATE_TRANSITION_MODEL.md) still governs
-legal operational sequencing. This format is not a scheduler or an event log.
+Top-level registration order is preserved by serialization but is not execution
+order. Temporal position belongs to observations and intuitions; manifold,
+retention, and candidate sequences preserve that order. Procedure replay uses
+the candidate's declared sequence without sorting it. Causal order belongs to
+the evidence graph. The [transition model](STATE_TRANSITION_MODEL.md) still
+governs legal operational sequencing; this is not a scheduler or event log.
 
 ## Evidence, alternatives, and diagnostic labels
 
@@ -106,11 +114,11 @@ as alternatives without creating circular evidence. A committed judgment may
 retain those alternatives as metadata; it cannot merge rival candidates into
 its own ancestry.
 
-Condition IDs, conflict IDs, source labels, episode IDs, and variant labels are
-not automatically independent cognitive nodes. Missing conditions and conflicts
-remain diagnostic labels. Typed entity references, form IDs, and limit-report
-IDs are resolved according to their declared roles rather than treating every
-string as an interchangeable graph edge.
+Condition IDs are scoped declarations bound to a rule or concept and its
+procedure; they are not independent cognitive nodes. Conflict IDs, source
+labels, episode IDs, and variant labels are also not automatically graph nodes.
+Missing conditions and conflicts remain diagnostic labels. Typed entity
+references, form IDs, and limit-report IDs are resolved by their declared roles.
 
 ## Checks performed
 
@@ -123,10 +131,14 @@ string as an interchangeable graph edge.
 - Evidence is acyclic. Sensible derivatives have ancestry through an intuition
   and admitted presentation, not merely a raw-input or resource node.
 - Shared reception preserves supplied content, source, and position. Projection
-  and manifold forms are available; retention and candidate membership agree.
-- Schemata refer to declared concepts and conditions. Applications cover their
-  concept's condition declarations and sensible forms; proposals agree with the
-  applicable object/concept/schema result.
+  replays its selected fields and supported criteria under temporal form;
+  manifold, retention, and candidate ordering and membership agree.
+- Selected identity and category-inspired rules declare temporal procedures.
+  Their object-licensing results are replayed against the selected intuitions.
+- Schemata cover all their concept's conditions and sensible forms; application
+  results are replayed with exact sensible evidence. Nested condition authority
+  cannot exceed the constitutive boundary. Proposals agree with the applicable
+  object/concept/schema result.
 - Commitment preserves the proposal, assembled warrant, registered successful
   unity check, and nonblocking limit report. Required synthesis, observation,
   and projection ancestry appears in the warrant. Committed ancestry cannot
@@ -136,18 +148,19 @@ string as an interchangeable graph edge.
   agree with actual failed or undecided conditions; ambiguity identifies its
   candidates and their one retained-sequence input.
 
-These checks cannot discover an undeclared alternative or tell whether an
-algorithm fabricated a condition result. They enforce recorded commitments;
-the later implementations and behavioral tests must establish that those
-commitments are causally produced by the cognitive roles.
+These checks reject results that disagree with supported procedure replay.
+They cannot discover undeclared alternatives, establish the philosophical
+adequacy of a procedure, or verify free-text explanations and propositions.
+Later role implementations and comparative behavioral tests remain necessary.
 
 ## Evaluator and failure boundary
 
-`ProvenanceGraph` implements the four read operations of `ProvenanceView`:
-`resolves`, `immediate_grounds`, `scope_for`, and `configuration_for`.
-Evaluator-only IDs return false from `resolves`; the three lookup operations
-raise `KeyError` for them, just as for missing cognitive IDs. The view has no
-mutation or evaluator lookup operation.
+`ProvenanceGraph` implements the eight read operations of
+[`ProvenanceView`](ROLE_INTERFACES.md#provenance-and-evaluator-boundary), including
+typed content and form lookup. Evaluator-only IDs return false from `resolves`;
+lookup operations raise `KeyError` for them, just as for missing IDs. Typed
+lookups also reject wrong cognitive kinds. The view has no mutation or evaluator
+lookup operation.
 
 An `Overreach` report may retain an `AuthorityViolation` naming a registered
 evaluator reference or a rule's actual authority. It records the rejected use
@@ -193,3 +206,6 @@ evidence, alternatives, and invalid commitment ancestry.
 the accepted `ProvenanceView` contract. The separate
 [property-test suite](INVARIANTS_AND_PROPERTY_TESTS.md) generates evidence
 cycles, registration orders, evaluator-ground kinds, and reception content.
+The [audit regressions](tests/test_sensible_contracts.py) and
+[multi-sample licenses](tests/test_temporal_licenses.py) verify that projection,
+objecthood, and applicability depend on actual content and temporal order.

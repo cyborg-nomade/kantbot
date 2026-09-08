@@ -13,12 +13,16 @@ from kantbot.model import (
     CommittedJudgment,
     CompleteWarrant,
     Concept,
+    ConceptKind,
     Condition,
     ConditionResult,
     ConditionStatus,
     ConfigurationIdentity,
     ContentField,
     Derivation,
+    FieldConstant,
+    FieldEquals,
+    FieldProjection,
     Form,
     FormKind,
     GroundKind,
@@ -38,13 +42,18 @@ from kantbot.model import (
     RetainedIntuition,
     RetainedSequence,
     RetentionStatus,
+    Rule,
     RuleAuthority,
+    RuleKind,
     Schema,
     Scope,
+    SensibleProcedure,
     SynthesisPolicy,
+    TemporalOrder,
     UnityCheck,
     VariantProjection,
 )
+from kantbot.provenance import ProvenanceTrace
 
 
 def ground(
@@ -69,8 +78,7 @@ def derivation(
     )
 
 
-@pytest.fixture
-def successful_trace() -> SimpleNamespace:
+def make_successful_trace() -> SimpleNamespace:
     """One compact committed trace, used as values rather than an execution."""
 
     scope = Scope(
@@ -120,7 +128,8 @@ def successful_trace() -> SimpleNamespace:
         name="Kantian sensible projection",
         representation_kind="intuition",
         required_forms=(temporal_form,),
-        conditions=("singular", "preconceptual"),
+        conditions=("singular", "preconceptual", "temporal-order"),
+        procedure=FieldProjection(fields=("color", "x")),
     )
     intuition = Intuition(
         intuition_id="intuition-1",
@@ -200,7 +209,7 @@ def successful_trace() -> SimpleNamespace:
         required=True,
         status=ConditionStatus.SATISFIED,
         explanation="the candidate uses one compatible branch",
-        evidence=(ground("candidate-1", GroundKind.CANDIDATE_REPRESENTATION),),
+        evidence=(ground("intuition-1", GroundKind.INTUITION),),
     )
     object_candidate = ObjectCandidate(
         object_candidate_id="object-1",
@@ -228,6 +237,7 @@ def successful_trace() -> SimpleNamespace:
     concept = Concept(
         concept_id="amber-colored",
         name="amber colored",
+        kind=ConceptKind.EMPIRICAL,
         applicability_conditions=(color_condition,),
         inferential_consequences=("the represented color is amber",),
         scope=scope,
@@ -237,7 +247,13 @@ def successful_trace() -> SimpleNamespace:
         schema_id="S-amber",
         concept_id=concept.concept_id,
         name="amber-content schema",
-        procedure="inspect the color carried by the formed particular",
+        procedure=SensibleProcedure(
+            checks=(
+                FieldEquals(
+                    condition_id="amber-content", field="color", expected="amber"
+                ),
+            ),
+        ),
         condition_ids=(color_condition.condition_id,),
         sensible_form_ids=(temporal_form.form_id,),
         scope=scope,
@@ -248,7 +264,7 @@ def successful_trace() -> SimpleNamespace:
         required=True,
         status=ConditionStatus.SATISFIED,
         explanation="the inspected formed content carries amber",
-        evidence=(ground("object-1", GroundKind.OBJECT_CANDIDATE),),
+        evidence=(ground("intuition-1", GroundKind.INTUITION),),
     )
     application = ApplicationResult(
         application_result_id="application-1",
@@ -360,7 +376,54 @@ def successful_trace() -> SimpleNamespace:
         judgment=judgment,
     )
 
+    rules = (
+        Rule(
+            rule_id="I-1",
+            name="bounded identity",
+            description="preserve x within this singleton; no persistence beyond it",
+            authority=RuleAuthority.CONSTITUTIVE,
+            kind=RuleKind.IDENTITY,
+            scope=scope,
+            conditions=(
+                Condition(
+                    condition_id="identity-passes",
+                    description="x remains stable",
+                    required=True,
+                    authority=RuleAuthority.CONSTITUTIVE,
+                ),
+            ),
+            sensible_procedure=SensibleProcedure(
+                temporal_form_id="time-total",
+                checks=(
+                    FieldConstant(
+                        condition_id="identity-passes", field="x", minimum_samples=1
+                    ),
+                ),
+            ),
+        ),
+        Rule(
+            rule_id="U-1",
+            name="temporal unity",
+            description="one temporally ordered bounded candidate",
+            authority=RuleAuthority.CONSTITUTIVE,
+            kind=RuleKind.CATEGORY_INSPIRED,
+            scope=scope,
+            conditions=(
+                Condition(
+                    condition_id="local-unity-passes",
+                    description="ordered sensible sequence",
+                    required=True,
+                    authority=RuleAuthority.CONSTITUTIVE,
+                ),
+            ),
+            sensible_procedure=SensibleProcedure(
+                temporal_form_id="time-total",
+                checks=(TemporalOrder(condition_id="local-unity-passes"),),
+            ),
+        ),
+    )
     return SimpleNamespace(
+        rules=rules,
         scope=scope,
         configuration=configuration,
         observation=observation,
@@ -381,4 +444,39 @@ def successful_trace() -> SimpleNamespace:
         limit_report=limit_report,
         judgment=judgment,
         committed_outcome=committed_outcome,
+    )
+
+
+@pytest.fixture
+def successful_trace() -> SimpleNamespace:
+    return make_successful_trace()
+
+
+@pytest.fixture
+def complete_trace(successful_trace: SimpleNamespace) -> ProvenanceTrace:
+    """Register all resources of the hand-authored, replayable committed trace."""
+
+    t = successful_trace
+    return ProvenanceTrace(
+        cycle_id="cycle-1",
+        scope=t.scope,
+        configuration=t.configuration,
+        observations=(t.observation,),
+        forms=t.projection.required_forms,
+        projections=(t.projection,),
+        rules=t.rules,
+        concepts=(t.concept,),
+        schemas=(t.schema,),
+        presented_elements=(t.presented,),
+        intuitions=(t.intuition,),
+        manifolds=(t.manifold,),
+        retained_sequences=(t.retained,),
+        candidates=(t.candidate,),
+        object_candidates=(t.object_candidate,),
+        applications=(t.application,),
+        proposals=(t.proposal,),
+        unity_checks=(t.unity_check,),
+        judgments=(t.judgment,),
+        limit_reports=(t.limit_report,),
+        outcomes=(t.committed_outcome,),
     )

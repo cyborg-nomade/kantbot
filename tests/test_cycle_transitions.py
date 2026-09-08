@@ -31,6 +31,7 @@ from kantbot.model import (
     UnityCheck,
     UnityConflict,
 )
+from kantbot.provenance import ProvenanceGraph, ProvenanceTrace
 from kantbot.transitions import (
     CandidateRecognized,
     ConceptApplied,
@@ -156,6 +157,7 @@ def _failed_application(
 
 def test_success_path_crosses_every_gate_and_round_trips(
     successful_trace: SimpleNamespace,
+    complete_trace: ProvenanceTrace,
 ) -> None:
     trace = successful_trace
     applied = _reach_application(trace)
@@ -163,9 +165,10 @@ def test_success_path_crosses_every_gate_and_round_trips(
     assert isinstance(proposed, JudgmentProposed)
     united = record_unity(proposed, trace.unity_check)
     assert not isinstance(united, CycleTerminated)
-    committed = record_commitment(united, trace.judgment)
+    provenance = ProvenanceGraph(complete_trace)
+    committed = record_commitment(united, trace.judgment, provenance)
     assert not isinstance(committed, CycleTerminated)
-    terminal = record_critique(committed, trace.committed_outcome)
+    terminal = record_critique(committed, trace.committed_outcome, provenance)
 
     assert terminal.stage is CycleStage.TERMINAL
     assert terminal.boundary is CycleBoundary.CRITIQUE
@@ -177,9 +180,10 @@ def test_success_path_crosses_every_gate_and_round_trips(
 
 def test_every_nonterminal_snapshot_round_trips_through_the_state_union(
     successful_trace: SimpleNamespace,
+    complete_trace: ProvenanceTrace,
 ) -> None:
     trace = successful_trace
-    opened = open_cycle("cycle-round-trip", (trace.observation,), _role_context(trace))
+    opened = open_cycle("cycle-1", (trace.observation,), _role_context(trace))
     presented = record_reception(opened, (trace.presented,))
     projected = record_projection(presented, (trace.intuition,))
     assert not isinstance(projected, CycleTerminated)
@@ -195,7 +199,9 @@ def test_every_nonterminal_snapshot_round_trips_through_the_state_union(
     assert isinstance(proposed, JudgmentProposed)
     united = record_unity(proposed, trace.unity_check)
     assert not isinstance(united, CycleTerminated)
-    committed = record_commitment(united, trace.judgment)
+    committed = record_commitment(
+        united, trace.judgment, ProvenanceGraph(complete_trace)
+    )
     assert not isinstance(committed, CycleTerminated)
 
     snapshots = (
@@ -549,6 +555,7 @@ def test_unity_exposes_conflict_and_overreach_without_repair(
 
 def test_commitment_may_still_withhold_after_successful_unity(
     successful_trace: SimpleNamespace,
+    complete_trace: ProvenanceTrace,
 ) -> None:
     trace = successful_trace
     applied = _reach_application(trace)
@@ -567,7 +574,7 @@ def test_commitment_may_still_withhold_after_successful_unity(
         unmet_condition_ids=("complete-warrant",),
     )
 
-    terminal = record_commitment(united, withheld)
+    terminal = record_commitment(united, withheld, ProvenanceGraph(complete_trace))
 
     assert isinstance(terminal, CycleTerminated)
     assert terminal.boundary is CycleBoundary.COMMITMENT

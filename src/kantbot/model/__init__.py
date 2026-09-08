@@ -17,7 +17,6 @@ from kantbot.model.common import (
     Form,
     FormKind,
     GroundKind,
-    Rule,
     RuleAuthority,
     Scope,
     SemanticModel,
@@ -26,6 +25,7 @@ from kantbot.model.concepts import (
     ApplicationResult,
     ApplicationStatus,
     Concept,
+    ConceptKind,
     Schema,
 )
 from kantbot.model.judgments import (
@@ -57,6 +57,14 @@ from kantbot.model.outcomes import (
     validate_terminal_outcome,
     validate_terminal_outcome_json,
 )
+from kantbot.model.procedures import (
+    FieldConstant,
+    FieldEquals,
+    FieldProjection,
+    SensibleProcedure,
+    StrictIncrease,
+    TemporalOrder,
+)
 from kantbot.model.reason import Reason, ReasonStatus
 from kantbot.model.reception import (
     Intuition,
@@ -66,6 +74,7 @@ from kantbot.model.reception import (
     PresentedElement,
     VariantProjection,
 )
+from kantbot.model.rules import Rule, RuleKind
 from kantbot.model.synthesis import (
     CandidateRepresentation,
     ObjectCandidate,
@@ -86,6 +95,7 @@ __all__ = [
     "CommittedJudgment",
     "CompleteWarrant",
     "Concept",
+    "ConceptKind",
     "ConceptNotApplicable",
     "Condition",
     "ConditionResult",
@@ -94,6 +104,9 @@ __all__ = [
     "ContentField",
     "Derivation",
     "EvaluatorReference",
+    "FieldConstant",
+    "FieldEquals",
+    "FieldProjection",
     "Form",
     "FormKind",
     "GroundKind",
@@ -121,12 +134,16 @@ __all__ = [
     "RetentionStatus",
     "Rule",
     "RuleAuthority",
+    "RuleKind",
     "Schema",
     "Scope",
     "SemanticModel",
+    "SensibleProcedure",
+    "StrictIncrease",
     "SynthesisAmbiguous",
     "SynthesisFailed",
     "SynthesisPolicy",
+    "TemporalOrder",
     "TerminalOutcome",
     "UnityCheck",
     "UnityConflict",
