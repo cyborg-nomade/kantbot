@@ -17,7 +17,9 @@ counterexample. Passing generated cases is evidence that the implementation
 preserves the stated invariant, not a proof that Kant's theory is correct or
 complete. This item introduces no new interpretation or cognitive algorithm.
 
-The deterministic toy world remains the final Phase 2 Roadmap item.
+The deterministic toy world remains the final Phase 2 Roadmap item. The
+subsequent [sensible-contract correction](SENSIBLE_PROCEDURES.md) adds executable
+procedure regressions without completing that item.
 
 ## Why these properties
 
@@ -68,11 +70,19 @@ The testing pyramid for the current formal model is deliberately shallow:
   kind, rival alternatives, cross-stage failures, and detailed commitment
   ancestry.
 
-There is no end-to-end cognitive algorithm to fuzz in Phase 2. Properties about
-recognition accuracy, schema procedure behavior, unity-policy soundness, or
-differences between interpretive variants would invent implementations that
-belong to Phase 3 or require the toy world. Phase 5 will need behavioral,
-baseline, and ablation evidence; this suite cannot stand in for that evaluation.
+There is no end-to-end cognitive algorithm to fuzz in Phase 2. The correction
+does now test a small executable procedure vocabulary: an independent numerical
+oracle checks successive increase, and named regressions cover the audit's
+counterexamples, missing inputs, nested authority, and graph-certified
+commitment. Multi-sample traces distinguish pre-object temporal identity from
+post-object empirical motion application. See
+[audit regressions](tests/test_sensible_contracts.py) and
+[temporal licenses](tests/test_temporal_licenses.py).
+
+Recognition accuracy, unity-policy completeness, and differences between
+interpretive variants still require Phase 3 implementations. Phase 5 needs
+behavioral, baseline, and ablation evidence; coverage and replay correctness
+cannot stand in for that evaluation.
 
 ## Running and reproducing
 

@@ -36,9 +36,13 @@ from kantbot.interfaces import (
 )
 from kantbot.model import (
     ApplicationResult,
+    CandidateRepresentation,
     ConfigurationIdentity,
+    Form,
+    Intuition,
     ManifoldOfIntuition,
     PresentedElement,
+    Rule,
     Scope,
     dump_terminal_outcome,
 )
@@ -46,6 +50,18 @@ from kantbot.model.common import CognitiveGround, Identifier
 
 
 class _Provenance:
+    def intuition_for(self, entity_id: Identifier, /) -> Intuition:
+        raise NotImplementedError
+
+    def candidate_for(self, entity_id: Identifier, /) -> CandidateRepresentation:
+        raise NotImplementedError
+
+    def rule_for(self, entity_id: Identifier, /) -> Rule:
+        raise NotImplementedError
+
+    def forms_for(self, intuition_id: Identifier, /) -> tuple[Form, ...]:
+        raise NotImplementedError
+
     def resolves(self, ground: CognitiveGround, /) -> bool:
         raise NotImplementedError
 

@@ -15,6 +15,7 @@ from kantbot.model.common import (
     SemanticModel,
     require_unique,
 )
+from kantbot.model.procedures import FieldProjection
 
 
 class ObservationQuality(StrEnum):
@@ -53,6 +54,7 @@ class PresentedElement(SemanticModel):
 
     @model_validator(mode="after")
     def descends_from_its_observation(self) -> Self:
+        require_unique(tuple(item.name for item in self.content), "content names")
         if not self.derivation.has_ground(self.observation_id, GroundKind.OBSERVATION):
             raise ValueError("presented element must ground itself in its observation")
         if self.episode_id != self.derivation.scope.episode_id:
@@ -69,6 +71,7 @@ class VariantProjection(SemanticModel):
     representation_kind: Identifier
     required_forms: tuple[Form, ...] = Field(min_length=1)
     conditions: tuple[Identifier, ...] = Field(min_length=1)
+    procedure: FieldProjection
     declared_omissions: tuple[NonEmptyText, ...] = ()
 
     @model_validator(mode="after")
@@ -94,6 +97,7 @@ class Intuition(SemanticModel):
 
     @model_validator(mode="after")
     def projection_is_substantive_and_traceable(self) -> Self:
+        require_unique(tuple(item.name for item in self.content), "content names")
         require_unique(self.form_ids, "form_ids")
         if not self.derivation.has_ground(
             self.presented_element_id, GroundKind.PRESENTED_ELEMENT

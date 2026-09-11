@@ -39,8 +39,8 @@ computation ([K-027](CLAIMS.md#k-027)).
 
 ## Shared foundations
 
-[`common.py`](src/kantbot/model/common.py) defines the values used across the
-whole model:
+[`common.py`](src/kantbot/model/common.py) and
+[`rules.py`](src/kantbot/model/rules.py) define values used across the model:
 
 | Value | Purpose |
 | --- | --- |
@@ -48,6 +48,7 @@ whole model:
 | `Scope` | States the episode, presentation conditions, and claims excluded from its authority |
 | `Form` | Names temporal, spatial, or other declared form without treating it as inferred object content |
 | `Rule` and `RuleAuthority` | Distinguish `constitutive`, `regulative`, and `engineering` authority |
+| `RuleKind` | Distinguish general rules from identity and category-inspired object licenses |
 | `Condition` and `ConditionResult` | Preserve required, satisfied, failed, and undecided conditions explicitly |
 | `CognitiveGround` | Admits only declared kinds of cognitive evidence into provenance |
 | `EvaluatorReference` | Represents hidden evaluation state as a separate, inadmissible warrant type |
@@ -106,6 +107,10 @@ structurally distinct:
 forms and intuition grounds. These constraints operationalize ADR 0001 without
 letting a type rename count as a projection.
 
+`VariantProjection.procedure` now explicitly selects supplied fields.
+Successful graph admission checks receptive criteria, temporal form, and the
+exact selected content, as described in [Sensible Procedures](SENSIBLE_PROCEDURES.md).
+
 ### Synthesis and object formation
 
 [`synthesis.py`](src/kantbot/model/synthesis.py) defines:
@@ -123,11 +128,17 @@ representation, and object candidate as different licensed states. Object
 formation still does not apply a concept or commit a proposition, as required
 by ADR 0003.
 
+Local success is not sufficient graph-wide: the selected identity and
+category-inspired rules declare conditions and temporal procedures. The graph
+recomputes object results against actual candidate intuitions and rejects
+unbound conditions, unauthorized nested conditions, or invented evidence.
+
 ### Concepts, schemata, and application
 
 [`concepts.py`](src/kantbot/model/concepts.py) separates:
 
-- a `Concept` and its general applicability conditions and consequences;
+- a `Concept`, its explicit empirical/category-inspired kind, and its general
+  applicability conditions and consequences;
 - a `Schema` and its inspectable mediation procedure and sensible conditions;
   and
 - an `ApplicationResult` containing the result of every tested condition.
@@ -135,6 +146,11 @@ by ADR 0003.
 An application is `applicable`, `not-applicable`, or `underdetermined` according
 to its required condition results. Supplying a contradictory status is invalid.
 Even a successful result contains no operation that commits a judgment.
+
+`Schema.procedure` is a typed `SensibleProcedure`, not prose. Each schema covers
+all its concept's conditions, and graph validation replays the results against
+the actual sensible input. The supported instructions and their limitations
+are documented once in [Sensible Procedures](SENSIBLE_PROCEDURES.md#general-procedures).
 
 ### Proposal, unity, and commitment
 

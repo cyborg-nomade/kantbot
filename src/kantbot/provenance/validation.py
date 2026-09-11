@@ -12,6 +12,7 @@ from kantbot.model import (
     ConditionStatus,
     ConfigurationIdentity,
     Form,
+    FormKind,
     GroundKind,
     InputError,
     Intuition,
@@ -28,6 +29,7 @@ from kantbot.model import (
     RetainedSequence,
     Rule,
     RuleAuthority,
+    RuleKind,
     Schema,
     Scope,
     SemanticModel,
@@ -36,9 +38,11 @@ from kantbot.model import (
     UnityConflict,
     VariantProjection,
 )
+from kantbot.model.common import same_content
+from kantbot.procedures import project_content
 from kantbot.provenance.format import ExternalInputReference, ProvenanceTrace
 from kantbot.provenance.references import nested_models
-from kantbot.provenance.registry import Entry, lookup, require
+from kantbot.provenance.registry import Entry, InvalidProvenance, lookup, require
 
 
 def validate_context(trace: ProvenanceTrace) -> None:
@@ -74,24 +78,31 @@ def validate_reception(trace: ProvenanceTrace, entries: dict[str, Entry]) -> Non
                 presented.episode_id,
                 presented.position,
                 presented.source,
-                presented.content,
             )
             == (
                 observation.episode_id,
                 observation.position,
                 observation.source,
-                observation.content,
-            ),
+            )
+            and same_content(presented.content, observation.content),
             "shared reception changed supplied content, source, or ordering",
         )
     for intuition in trace.intuitions:
         presented = lookup(entries, intuition.presented_element_id, PresentedElement)
         projection = lookup(entries, intuition.projection_id, VariantProjection)
+        try:
+            content = project_content(presented, projection)
+        except ValueError as error:
+            raise InvalidProvenance(str(error)) from error
+        require(
+            same_content(intuition.content, content),
+            "intuition content disagrees with projection replay",
+        )
         _forms(entries, intuition.form_ids)
         require(
             {form.form_id for form in projection.required_forms}
-            <= set(intuition.form_ids),
-            "intuition omits a required projection form",
+            == set(intuition.form_ids),
+            "intuition forms disagree with its projection",
         )
         require(
             intuition.position == presented.position,
@@ -99,6 +110,19 @@ def validate_reception(trace: ProvenanceTrace, entries: dict[str, Entry]) -> Non
         )
     for manifold in trace.manifolds:
         _forms(entries, manifold.form_ids)
+        require(
+            any(
+                lookup(entries, item, Form).kind is FormKind.TEMPORAL
+                for item in manifold.form_ids
+            ),
+            "manifold requires a temporal form",
+        )
+        positions = tuple(
+            lookup(entries, item, Intuition).position for item in manifold.intuition_ids
+        )
+        require(
+            positions == tuple(sorted(positions)), "manifold changed temporal order"
+        )
         for intuition_id in manifold.intuition_ids:
             intuition = lookup(entries, intuition_id, Intuition)
             require(
@@ -115,6 +139,12 @@ def validate_synthesis(trace: ProvenanceTrace, entries: dict[str, Entry]) -> Non
             <= set(manifold.intuition_ids),
             "retention introduces an intuition outside its manifold",
         )
+        retained_ids = tuple(item.intuition_id for item in retained.items)
+        require(
+            retained_ids
+            == tuple(item for item in manifold.intuition_ids if item in retained_ids),
+            "retention changed manifold order",
+        )
     for candidate in trace.candidates:
         retained = lookup(entries, candidate.retained_sequence_id, RetainedSequence)
         require(
@@ -122,11 +152,34 @@ def validate_synthesis(trace: ProvenanceTrace, entries: dict[str, Entry]) -> Non
             <= {item.intuition_id for item in retained.items},
             "candidate uses an intuition absent from retention",
         )
+        require(
+            candidate.intuition_ids
+            == tuple(
+                item.intuition_id
+                for item in retained.items
+                if item.intuition_id in candidate.intuition_ids
+            ),
+            "candidate changed retained order",
+        )
         for rule_id in candidate.identity_rule_ids + candidate.constitutive_rule_ids:
             rule = lookup(entries, rule_id, Rule)
             require(
                 rule.authority is RuleAuthority.CONSTITUTIVE,
                 "synthesis rule is not constitutive",
+            )
+            expected_kind = RuleKind.CATEGORY_INSPIRED
+            if rule_id in candidate.identity_rule_ids:
+                expected_kind = RuleKind.IDENTITY
+            require(
+                rule.kind is expected_kind,
+                "synthesis rule has the wrong licensing role",
+            )
+            require(
+                all(
+                    item.authority is RuleAuthority.CONSTITUTIVE
+                    for item in rule.conditions
+                ),
+                "synthesis conditions must be constitutive",
             )
         for alternative in candidate.alternative_candidate_ids:
             lookup(entries, alternative, CandidateRepresentation)

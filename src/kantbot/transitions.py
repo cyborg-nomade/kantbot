@@ -57,6 +57,7 @@ from kantbot.model.common import (
     Scope,
     require_unique,
 )
+from kantbot.provenance import ProvenanceGraph
 
 
 class InvalidTransition(ValueError):
@@ -728,8 +729,9 @@ def record_unity(
 def record_commitment(
     current: UnityAccepted,
     result: CommitmentResult,
+    provenance: ProvenanceGraph,
 ) -> CommitmentCompleted | CycleTerminated:
-    """Commit after successful unity or retain a typed withholding."""
+    """Commit only with replay-validated provenance, or retain a withholding."""
 
     proposal_id = current.proposal.proposed_judgment_id
     if isinstance(result, JudgmentWithheld):
@@ -747,6 +749,11 @@ def record_commitment(
         result.warrant.unity_check == current.unity_check,
         "committed judgment must use the accepted unity check",
     )
+    _certified_judgment(current, result, provenance)
+    _require(
+        current.proposal in provenance.trace.proposals,
+        "accepted proposal differs from certified provenance",
+    )
     return CommitmentCompleted(
         cycle_id=current.cycle_id,
         context=current.context,
@@ -757,6 +764,7 @@ def record_commitment(
 def record_critique(
     current: CommitmentCompleted,
     outcome: JudgmentCommitted,
+    provenance: ProvenanceGraph,
 ) -> CycleTerminated:
     """Close a successful path with its scoped warrant and limit report."""
 
@@ -764,7 +772,21 @@ def record_critique(
         outcome.judgment == current.judgment,
         "judgment-committed must contain the path's committed judgment",
     )
+    _certified_judgment(current, current.judgment, provenance)
+    _require(outcome in provenance.trace.outcomes, "outcome lacks certified provenance")
     return _terminal(current, CycleBoundary.CRITIQUE, outcome)
+
+
+def _certified_judgment(
+    current: _CycleStateBase, judgment: CommittedJudgment, provenance: ProvenanceGraph
+) -> None:
+    trace = provenance.trace
+    _require(
+        (trace.cycle_id, trace.scope, trace.configuration)
+        == (current.cycle_id, current.context.scope, current.context.configuration),
+        "certified provenance belongs to another cycle or context",
+    )
+    _require(judgment in trace.judgments, "judgment lacks certified provenance")
 
 
 def validate_cycle_state(value: object) -> CycleState:

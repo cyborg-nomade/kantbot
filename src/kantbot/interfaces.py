@@ -18,6 +18,7 @@ from kantbot.model import (
     ConditionResult,
     ConfigurationIdentity,
     Derivation,
+    Form,
     Intuition,
     JudgmentWithheld,
     LimitReport,
@@ -103,6 +104,7 @@ class UnderstandingRepertoire(SemanticModel):
                     f"schema {schema.schema_id!r} has unavailable conditions: "
                     f"{sorted(missing_conditions)}"
                 )
+            schema.validate_concept(concept)
         return self
 
     @model_validator(mode="after")
@@ -116,6 +118,18 @@ class UnderstandingRepertoire(SemanticModel):
             raise ValueError("understanding resources must share one cycle scope")
         return self
 
+    @model_validator(mode="after")
+    def conditions_have_constitutive_authority(self) -> Self:
+        conditions = tuple(item for rule in self.rules for item in rule.conditions)
+        conditions += tuple(
+            item
+            for concept in self.concepts
+            for item in concept.applicability_conditions
+        )
+        if any(item.authority is not RuleAuthority.CONSTITUTIVE for item in conditions):
+            raise ValueError("understanding conditions must be constitutive")
+        return self
+
 
 class ProvenanceView(Protocol):
     """Read-only graph capabilities required by downstream roles.
@@ -126,6 +140,26 @@ class ProvenanceView(Protocol):
 
     def resolves(self, ground: CognitiveGround, /) -> bool:
         """Return whether a cognitive ground resolves with its declared kind."""
+
+        ...
+
+    def intuition_for(self, entity_id: Identifier, /) -> Intuition:
+        """Read actual formed content and temporal position; deny other kinds."""
+
+        ...
+
+    def candidate_for(self, entity_id: Identifier, /) -> CandidateRepresentation:
+        """Read the selected synthesis, including its ordered intuition IDs."""
+
+        ...
+
+    def rule_for(self, entity_id: Identifier, /) -> Rule:
+        """Read the declared rule and its bound sensible procedure."""
+
+        ...
+
+    def forms_for(self, intuition_id: Identifier, /) -> tuple[Form, ...]:
+        """Read the forms registered for this intuition, not evaluator metadata."""
 
         ...
 

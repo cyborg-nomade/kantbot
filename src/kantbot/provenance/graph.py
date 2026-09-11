@@ -9,13 +9,17 @@ from kantbot.model import (
     CandidateRepresentation,
     CognitiveGround,
     Concept,
+    Condition,
     ConfigurationIdentity,
     Derivation,
+    Form,
     GroundKind,
+    Intuition,
     Rule,
     RuleAuthority,
     Schema,
     Scope,
+    SemanticModel,
 )
 from kantbot.provenance.format import ProvenanceTrace
 from kantbot.provenance.references import alternatives_for, grounds_for, nested_models
@@ -23,9 +27,11 @@ from kantbot.provenance.registry import (
     Entry,
     InvalidProvenance,
     build_registry,
+    lookup,
     require,
     resolves,
 )
+from kantbot.provenance.sensible import validate_sensible_licenses
 from kantbot.provenance.validation import (
     validate_applications,
     validate_commitments,
@@ -157,6 +163,11 @@ def _validate_committed_ground(entry: Entry, candidate_ids: set[str]) -> None:
             not value.conflict_ids, "committed ancestry contains a candidate conflict"
         )
     for nested in nested_models(value):
+        if isinstance(nested, Condition):
+            require(
+                nested.authority is RuleAuthority.CONSTITUTIVE,
+                "non-constitutive condition in committed ancestry",
+            )
         if isinstance(nested, Derivation):
             require(
                 not nested.unmet_conditions,
@@ -168,9 +179,9 @@ def _validate_committed_ground(entry: Entry, candidate_ids: set[str]) -> None:
 class ProvenanceGraph:
     """A validated trace with immutable indexes implementing ``ProvenanceView``.
 
-    This certifies structural provenance, not the correctness of a cognitive
-    algorithm or the truth of its condition results. Construction always runs
-    both canonical validation and the explicit graph-validation layer.
+    This certifies structural provenance and replay of supported sensible
+    procedures, not philosophical adequacy or external truth. Construction
+    always runs canonical parsing, graph validation, and procedure replay.
     """
 
     trace: ProvenanceTrace
@@ -188,6 +199,7 @@ class ProvenanceGraph:
         validate_reception(trace, entries)
         validate_synthesis(trace, entries)
         validate_applications(trace, entries)
+        validate_sensible_licenses(trace, entries)
         validate_proposals(trace, entries)
         validate_commitments(trace, entries)
         validate_outcomes(trace, entries)
@@ -207,6 +219,33 @@ class ProvenanceGraph:
         """Resolve identity, actual cognitive kind, and declared rule authority."""
 
         return resolves(self._entries.get(ground.ground_id), ground)
+
+    def _typed_value[T: SemanticModel](self, entity_id: str, expected: type[T]) -> T:
+        entry = self._cognitive_entry(entity_id)
+        if not isinstance(entry.value, expected):
+            raise KeyError(f"{entity_id!r} is not a {expected.__name__}")
+        return entry.value
+
+    def intuition_for(self, entity_id: str, /) -> Intuition:
+        """Expose formed content and position without exposing evaluator state."""
+
+        return self._typed_value(entity_id, Intuition)
+
+    def candidate_for(self, entity_id: str, /) -> CandidateRepresentation:
+        """Expose the selected synthesis and its ordered sensible references."""
+
+        return self._typed_value(entity_id, CandidateRepresentation)
+
+    def rule_for(self, entity_id: str, /) -> Rule:
+        """Expose rule conditions, authority, and temporal mediation."""
+
+        return self._typed_value(entity_id, Rule)
+
+    def forms_for(self, intuition_id: str, /) -> tuple[Form, ...]:
+        """Expose only the registered forms of a resolved intuition."""
+
+        intuition = self.intuition_for(intuition_id)
+        return tuple(lookup(self._entries, item, Form) for item in intuition.form_ids)
 
     def immediate_grounds(self, entity_id: str, /) -> tuple[CognitiveGround, ...]:
         """Return all declared evidence links, never comparison alternatives."""

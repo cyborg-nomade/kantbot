@@ -4,8 +4,9 @@
 
 This document maps the accepted cognitive-role boundaries to executable Python
 contracts in [`kantbot.interfaces`](src/kantbot/interfaces.py). It completes the
-second Phase 2 Roadmap item without yet choosing algorithms, ordering the whole
-cycle, or implementing the provenance graph.
+second Phase 2 Roadmap item. The subsequent graph implementation and
+[sensible-contract correction](SENSIBLE_PROCEDURES.md) provide its validated
+read view; the protocols themselves do not implement the cognitive roles.
 
 The interfaces inherit their philosophical boundaries from the
 [specification](PHILOSOPHICAL_SPECIFICATION.md#cognitive-roles), the
@@ -57,7 +58,9 @@ application status becomes terminal; the
 causally present without allowing it to inspect raw observations or declare its
 concepts applicable. It contains only constitutive rules, concepts, and
 schemata for one scope and configuration. Every schema must name a concept and
-conditions present in that same repertoire.
+all conditions of that concept in the same repertoire. Nested conditions must
+also have constitutive authority. The selected procedure covers them exactly;
+category-inspired concepts require temporal mediation.
 
 The imagination receives selected rules from this repertoire when recognizing
 candidates. The power of judgment receives a selected concept and schema when
@@ -67,10 +70,22 @@ adopted in [ADR 0002](docs/decisions/0002-a-b-synthesis.md).
 
 ## Provenance and evaluator boundary
 
-**Engineering.** `ProvenanceView` supplies only four read operations: resolve a
-typed cognitive ground, retrieve immediate cognitive grounds, and retrieve an
-entity's scope and configuration. It intentionally supplies no mutation,
-storage position, unrestricted node access, or evaluator-reference lookup.
+**Engineering.** `ProvenanceView` supplies eight read operations:
+
+- `resolves`, `immediate_grounds`, `scope_for`, and `configuration_for` expose
+  identity, immediate evidence, and context;
+- `intuition_for`, `candidate_for`, `rule_for`, and `forms_for` expose typed
+  immutable content, ordered sensible references, rule procedures, and forms.
+
+Recognition can retrieve the intuitions named in its retained sequence.
+Application retrieves its object's candidate and then that candidate's
+intuitions, including their actual content and positions. The
+[amber/blue regression](tests/test_sensible_contracts.py) demonstrates that
+identical application requests can now produce different results through the
+port alone. No graph downcast, closure, or global store is needed.
+
+The view intentionally supplies no mutation, unrestricted node access, or
+evaluator-reference lookup. Typed lookups reject missing IDs and wrong kinds.
 
 This interface does not itself prove graph closure. The
 [structured-provenance validator](STRUCTURED_PROVENANCE.md#checks-performed)
@@ -90,6 +105,8 @@ evaluator lookup; it is not a sandbox against hostile Python code.
   terminalization explicit without changing role ownership.
 - No protocol supplies an implementation algorithm. Later variants may replace
   an operation while preserving its boundary and comparable trace evidence.
+  The small [procedure evaluator](SENSIBLE_PROCEDURES.md) is available to those
+  implementations; graph validation replays its supported licenses.
 
 ## Verification
 

@@ -1,5 +1,6 @@
 """One semantic identity namespace, with no evaluator-to-cognitive coercion."""
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 
 from kantbot.model import (
@@ -133,7 +134,7 @@ def build_registry(trace: ProvenanceTrace) -> dict[str, Entry]:
 
 
 def lookup[T: SemanticModel](
-    entries: dict[str, Entry], entity_id: str, expected: type[T]
+    entries: Mapping[str, Entry], entity_id: str, expected: type[T]
 ) -> T:
     entry = entries.get(entity_id)
     if entry is None or not isinstance(entry.value, expected):

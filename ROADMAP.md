@@ -95,6 +95,10 @@ The formal model should preserve alternative interpretations behind explicit
 interfaces where doing so clarifies a live dispute. It should not create an
 abstraction layer for every philosophical nuance.
 
+The [epistemology-audit corrections](SENSIBLE_PROCEDURES.md) strengthen these
+contracts with replayable sensible licenses. They do not complete or replace
+the final deterministic toy-world deliverable.
+
 Exit criterion: complete example traces can be executed as data transformations
 and rejected when they violate a declared invariant.
 

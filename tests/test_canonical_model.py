@@ -63,7 +63,9 @@ def test_successful_trace_preserves_every_semantic_gate(
     assert trace.observation.observation_id == "obs-1"
     assert trace.presented.observation_id == trace.observation.observation_id
     assert trace.intuition.presented_element_id == trace.presented.presented_element_id
-    assert trace.manifold.intuition_ids == (trace.intuition.intuition_id,)
+    assert trace.manifold.intuition_ids == tuple(
+        item.intuition_id for item in trace.intuitions
+    )
     assert trace.object_candidate.candidate_representation_id == (
         trace.candidate.candidate_representation_id
     )

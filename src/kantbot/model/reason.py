@@ -9,10 +9,10 @@ from kantbot.model.common import (
     Derivation,
     Identifier,
     NonEmptyText,
-    Rule,
     RuleAuthority,
     SemanticModel,
 )
+from kantbot.model.rules import Rule
 
 
 class ReasonStatus(StrEnum):
