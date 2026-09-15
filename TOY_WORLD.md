@@ -16,8 +16,8 @@ amber patches at `(t, x) = (0, 0), (1, 1), (2, 2)`, using the canonical
 observation fields, including source and quality.
 
 This is the final [Phase 2 deliverable](ROADMAP.md#phase-2--define-an-executable-formal-model).
-Its sensor boundary is proposed for maintainer review in
-[ADR 0008](docs/decisions/0008-deterministic-strip-sensor.md). Complete
+Its sensor boundary is governed by
+[accepted ADR 0008](docs/decisions/0008-deterministic-strip-sensor.md). Complete
 cognitive-role implementations remain Phase 3 work.
 
 ## World, sensor, and cognition
@@ -70,7 +70,7 @@ deliberate simplification relative to raw perception and the illustrative
 frame-level format in [Worked Example Trace 3](WORKED_EXAMPLES.md#trace-3).
 The current [field projection](SENSIBLE_PROCEDURES.md#inputs-and-receptive-admission)
 can select scalar fields but cannot split a structured frame into several
-intuitions. This proposal exposes that limitation instead of silently adding
+intuitions. The accepted boundary exposes that limitation instead of silently adding
 segmentation to projection. A supplied patch is still an
 [observation](GLOSSARY.md#observation), not an intuition or licensed object.
 

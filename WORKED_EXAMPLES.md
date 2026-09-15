@@ -21,7 +21,7 @@ Phase 3 can turn them into deterministic integration tests following the
 [behavioral-prediction catalog](BEHAVIORAL_PREDICTIONS.md).
 
 The executable [Phase 2 strip world](TOY_WORLD.md) now supplies replayable inputs
-for these contrasts, under [proposed ADR 0008](docs/decisions/0008-deterministic-strip-sensor.md).
+for these contrasts, under [accepted ADR 0008](docs/decisions/0008-deterministic-strip-sensor.md).
 Its sensor emits anonymous patch samples at each moment, rather than the
 illustrative whole-frame records below; segmentation is supplied at the input
 boundary; cross-time identity must be synthesized during Phase 3. The world

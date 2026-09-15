@@ -1,6 +1,6 @@
 # ADR 0008: Replay a scripted strip through an anonymous patch sensor
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-09-14
 - **Deciders:** Project maintainer
 - **Related questions:** [RQ-01](../../RESEARCH_QUESTIONS.md#rq-01--what-can-be-given-to-the-model), [RQ-02](../../RESEARCH_QUESTIONS.md#rq-02--what-work-belongs-to-synthesis-and-imagination), [RQ-06](../../RESEARCH_QUESTIONS.md#rq-06--how-will-the-model-represent-the-limits-of-cognition)
@@ -51,7 +51,7 @@ serve external experiments, not a computational identification of noumena
 ### Engineering
 
 The finite script, anonymous sensor, stable frame-local IDs, and separate
-evaluator export implement proposed [K-029](../../CLAIMS.md#k-029). This adds no
+evaluator export implement [K-029](../../CLAIMS.md#k-029). This adds no
 runtime dependency or arbitrary executable scenario code, and does not change
 the cognitive provenance wire version.
 
@@ -98,8 +98,7 @@ of claims about the adequacy of the full model.
 
 ## Decision
 
-Propose **Option C** for maintainer review. The branch implements it, but this
-record remains Proposed until approved.
+Adopt **Option C**, approved with PR #19 on 2026-09-15.
 
 - Hidden IDs belong to the external world. Canonical observations contain only
   momentary visible content and public metadata.
@@ -147,8 +146,6 @@ future inputs outside a cycle's arguments.
 
 ## Follow-up
 
-- On approval, accept this record and update K-029 and the guide's review status
-  in the same PR before merge.
 - Phase 3 implements cognitive roles, including complete identity conditions,
   branch alternatives, projection refusals, and worked-example contrasts. It
   must not receive hidden world state.
