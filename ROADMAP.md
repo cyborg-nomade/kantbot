@@ -89,15 +89,16 @@ Deliverables:
   transformation;
 - [invariants and property tests](INVARIANTS_AND_PROPERTY_TESTS.md) for
   philosophical and software constraints;
-- one deterministic toy world with reproducible observation sequences.
+- one [deterministic toy world](TOY_WORLD.md) with reproducible observation sequences.
 
 The formal model should preserve alternative interpretations behind explicit
 interfaces where doing so clarifies a live dispute. It should not create an
 abstraction layer for every philosophical nuance.
 
 The [epistemology-audit corrections](SENSIBLE_PROCEDURES.md) strengthen these
-contracts with replayable sensible licenses. They do not complete or replace
-the final deterministic toy-world deliverable.
+contracts with replayable sensible licenses. The separate
+[toy-world deliverable](TOY_WORLD.md) supplies observation replay; neither
+implements the Phase 3 cognitive-role algorithms.
 
 Exit criterion: complete example traces can be executed as data transformations
 and rejected when they violate a declared invariant.

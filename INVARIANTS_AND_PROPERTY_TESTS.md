@@ -17,9 +17,10 @@ counterexample. Passing generated cases is evidence that the implementation
 preserves the stated invariant, not a proof that Kant's theory is correct or
 complete. This item introduces no new interpretation or cognitive algorithm.
 
-The deterministic toy world remains the final Phase 2 Roadmap item. The
-subsequent [sensible-contract correction](SENSIBLE_PROCEDURES.md) adds executable
-procedure regressions without completing that item.
+The separate [deterministic toy world](TOY_WORLD.md) is the final Phase 2 Roadmap
+item and adds sensor replay and evaluator-isolation properties. The
+[sensible-contract correction](SENSIBLE_PROCEDURES.md) supplies executable
+procedure regressions that its contract tests also exercise.
 
 ## Why these properties
 

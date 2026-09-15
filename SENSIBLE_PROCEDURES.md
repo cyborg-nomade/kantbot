@@ -5,7 +5,8 @@
 **Engineering.** The corrective Phase 2 implementation associated with
 [accepted ADR 0007](docs/decisions/0007-replayable-sensible-licenses.md) makes
 declared sensible licenses replayable. It strengthens the existing contracts;
-it does not implement the next toy-world item or the complete Phase 3 cycle.
+the [toy-world input boundary](TOY_WORLD.md) is a separate deliverable, and the
+complete cognitive-role implementation remains Phase 3 work.
 
 The separation is now executable:
 

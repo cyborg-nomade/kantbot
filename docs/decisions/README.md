@@ -74,5 +74,6 @@ is supposed to matter to model behavior.
 | [0005](0005-publish-readable-source-with-closed-contributions.md) | Publish readable source with closed contributions | Accepted |
 | [0006](0006-canonical-model-representation.md) | Choose the canonical model representation | Accepted |
 | [0007](0007-replayable-sensible-licenses.md) | Require replayable sensible licenses | Accepted |
+| [0008](0008-deterministic-strip-sensor.md) | Replay a scripted strip through an anonymous patch sensor | Accepted |
 
 The [record template](0000-template.md) is not itself a decision.

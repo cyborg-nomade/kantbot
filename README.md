@@ -20,8 +20,9 @@ explicit callable contracts between cognitive roles. It now also defines the
 legal immutable transitions and terminal paths for one cognitive cycle, plus a
 structured trace format with graph-wide provenance validation, replayable
 sensible procedures, and generated invariant tests tied to declared claims.
-The model does not yet execute the complete cognitive-role algorithms; the
-deterministic toy world remains separate Phase 2 work.
+A [deterministic strip world](TOY_WORLD.md) now generates reproducible anonymous
+observations while keeping evaluator state separate. The model does not yet
+execute the complete Phase 3 cognitive-role algorithms.
 
 ## Start here
 
@@ -36,6 +37,7 @@ deterministic toy world remains separate Phase 2 work.
 | [Structured provenance](STRUCTURED_PROVENANCE.md) | Versioned traces, typed identity resolution, evidence ancestry, and evaluator isolation |
 | [Sensible procedures](SENSIBLE_PROCEDURES.md) | Executable projection, temporal rule licenses, empirical tests, and audit regressions |
 | [Invariants and property tests](INVARIANTS_AND_PROPERTY_TESTS.md) | Generated domains, claim-to-property coverage, and deliberate testing gaps |
+| [Deterministic toy world](TOY_WORLD.md) | Runnable observation replays, the sensor/evaluator boundary, and scenario limits |
 | [Worked examples](WORKED_EXAMPLES.md) | Hand-traced success, ambiguity, applicability, unity, withholding, and overreach cases |
 | [Behavioral predictions](BEHAVIORAL_PREDICTIONS.md) | Controlled contrasts that distinguish the architecture from a simpler pipeline |
 | [Research questions](RESEARCH_QUESTIONS.md) | The questions Phase 1 must answer and the project's explicit non-goals |
@@ -57,6 +59,7 @@ reading or impose a consequential project constraint belong in
 ├── docs/decisions/       Decision-record index and template
 ├── src/kantbot/model/    Immutable canonical semantic values
 ├── src/kantbot/provenance/ Versioned traces and validated read-only graphs
+├── src/kantbot/worlds/   External strip-world scripts and anonymous observation export
 ├── src/kantbot/transitions.py Pure checked cognitive-cycle transitions
 ├── tests/                Invariant, transition, provenance, and outcome tests
 ├── typechecks/           Static witnesses for role, transition, and graph contracts
@@ -76,6 +79,7 @@ reading or impose a consequential project constraint belong in
 ├── ROADMAP.md            Phases, deliverables, and exit criteria
 ├── STATE_TRANSITION_MODEL.md Legal states and terminal paths for one cycle
 ├── STRUCTURED_PROVENANCE.md Trace format and graph-validation boundaries
+├── TOY_WORLD.md          Deterministic sensor replay and evaluator isolation
 ├── WORKED_EXAMPLES.md    Hand-worked cognitive traces
 └── pyproject.toml        Python dependencies and development checks
 ```
