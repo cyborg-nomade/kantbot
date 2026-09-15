@@ -24,8 +24,8 @@ The executable [Phase 2 strip world](TOY_WORLD.md) now supplies replayable input
 for these contrasts, under [proposed ADR 0008](docs/decisions/0008-deterministic-strip-sensor.md).
 Its sensor emits anonymous patch samples at each moment, rather than the
 illustrative whole-frame records below; segmentation is supplied at the input
-boundary, while cross-time identity remains for synthesis. It does not yet
-execute these complete cognitive traces.
+boundary; cross-time identity must be synthesized during Phase 3. The world
+does not execute these complete cognitive traces.
 
 ## Shared toy world and frozen configuration
 
