@@ -7,6 +7,8 @@ contracts in [`kantbot.interfaces`](src/kantbot/interfaces.py). It completes the
 second Phase 2 Roadmap item. The subsequent graph implementation and
 [sensible-contract correction](SENSIBLE_PROCEDURES.md) provide its validated
 read view; the protocols themselves do not implement the cognitive roles.
+The [Phase 3 cycle library](COGNITIVE_CYCLE.md) now implements these callables and
+composes them through the checked transition and graph boundaries.
 
 The interfaces inherit their philosophical boundaries from the
 [specification](PHILOSOPHICAL_SPECIFICATION.md#cognitive-roles), the
@@ -29,6 +31,12 @@ Operations that must inspect earlier grounds receive a read-only
 [provenance graph](STRUCTURED_PROVENANCE.md) implements this view
 and the identity contract in the
 [canonical structures](CANONICAL_DATA_STRUCTURES.md#identity-and-reference-integrity).
+
+The cycle library adds optional `ProjectionRequest.available_form_ids` to
+distinguish defined forms from forms available to the current episode. `None`
+retains the original all-required-forms-available behavior; an explicit subset
+can cause a typed projection refusal. See
+[proposed ADR 0009](docs/decisions/0009-bounded-policy-cycle.md).
 
 ## Boundary map
 

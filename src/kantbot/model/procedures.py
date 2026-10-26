@@ -52,8 +52,19 @@ class TemporalOrder(SemanticModel):
     minimum_samples: Annotated[int, Field(ge=2)] = 2
 
 
+class BoundedDisplacement(SemanticModel):
+    """Bound absolute spatial change per temporal tick, without inferring causes."""
+
+    operation: Literal["bounded-displacement"] = "bounded-displacement"
+    condition_id: Identifier
+    field: Identifier
+    spatial_form_id: Identifier
+    maximum_per_tick: Annotated[int, Field(ge=0)]
+    minimum_samples: Annotated[int, Field(ge=2)] = 2
+
+
 type SensibleCheck = Annotated[
-    FieldEquals | FieldConstant | StrictIncrease | TemporalOrder,
+    FieldEquals | FieldConstant | StrictIncrease | TemporalOrder | BoundedDisplacement,
     Field(discriminator="operation"),
 ]
 

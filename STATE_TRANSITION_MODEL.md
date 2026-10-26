@@ -8,6 +8,8 @@ pure transition functions in
 Phase 2 Roadmap item. The model orders the accepted role interfaces and checks
 their cross-stage results; it does not implement any cognitive algorithm, build
 the complete provenance graph, or perform input/output.
+The [cycle library](COGNITIVE_CYCLE.md) supplies the operations and composes these
+transitions, validating each newly constructed provenance prefix.
 
 **Engineering.** The transition order is derived from the
 [philosophical specification](PHILOSOPHICAL_SPECIFICATION.md#the-cognitive-flow),

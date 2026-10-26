@@ -4,9 +4,11 @@ These operations verify particular content against declared instructions.
 They do not select candidates, invent concepts, or commit judgments.
 """
 
+from fractions import Fraction
 from itertools import pairwise
 
 from kantbot.model import (
+    BoundedDisplacement,
     CognitiveGround,
     Condition,
     ConditionResult,
@@ -90,7 +92,7 @@ def _values_status(
 
 
 def _check_status(
-    check: SensibleCheck, intuitions: tuple[Intuition, ...]
+    check: SensibleCheck, intuitions: tuple[Intuition, ...], forms: tuple[Form, ...]
 ) -> ConditionStatus:
     minimum_samples = 1
     if not isinstance(check, FieldEquals):
@@ -99,6 +101,8 @@ def _check_status(
         return ConditionStatus.UNDECIDED
     if isinstance(check, TemporalOrder):
         return ConditionStatus.SATISFIED
+    if isinstance(check, BoundedDisplacement):
+        return _displacement_status(check, intuitions, forms)
     values: list[ScalarValue] = []
     for intuition in intuitions:
         content = {item.name: item.value for item in intuition.content}
@@ -106,6 +110,34 @@ def _check_status(
             return ConditionStatus.UNDECIDED
         values.append(content[check.field])
     return _values_status(check, tuple(values))
+
+
+def _displacement_status(
+    check: BoundedDisplacement,
+    intuitions: tuple[Intuition, ...],
+    forms: tuple[Form, ...],
+) -> ConditionStatus:
+    if not any(
+        form.form_id == check.spatial_form_id and form.kind is FormKind.SPATIAL
+        for form in forms
+    ) or any(check.spatial_form_id not in item.form_ids for item in intuitions):
+        return ConditionStatus.UNDECIDED
+    values: list[Fraction] = []
+    for item in intuitions:
+        content = {field.name: field.value for field in item.content}
+        value = content.get(check.field)
+        if isinstance(value, bool) or not isinstance(value, int | float):
+            return ConditionStatus.UNDECIDED
+        # Exact arithmetic prevents finite float subtraction from overflowing.
+        values.append(Fraction(value))
+    for (left, right), (before, after) in zip(
+        pairwise(values), pairwise(intuitions), strict=True
+    ):
+        distance = abs(right - left)
+        permitted = check.maximum_per_tick * (after.position - before.position)
+        if distance > permitted:
+            return ConditionStatus.FAILED
+    return ConditionStatus.SATISFIED
 
 
 def evaluate_procedure(
@@ -135,7 +167,7 @@ def evaluate_procedure(
     for check in procedure.checks:
         status = temporal_status
         if status is ConditionStatus.SATISFIED:
-            status = _check_status(check, intuitions)
+            status = _check_status(check, intuitions, forms)
         results.append(
             ConditionResult(
                 condition_id=check.condition_id,

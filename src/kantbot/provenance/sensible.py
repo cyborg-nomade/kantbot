@@ -1,6 +1,7 @@
 """Replay the sensible licenses for object formation and concept application."""
 
 from kantbot.model import (
+    BoundedDisplacement,
     CandidateRepresentation,
     Concept,
     Condition,
@@ -27,12 +28,18 @@ def _require_constitutive(conditions: tuple[Condition, ...]) -> None:
     )
 
 
-def _validate_temporal_form(
+def _validate_procedure_forms(
     procedure: SensibleProcedure, entries: dict[str, Entry]
 ) -> None:
     if procedure.temporal_form_id is not None:
         form = lookup(entries, procedure.temporal_form_id, Form)
         require(form.kind is FormKind.TEMPORAL, "procedure requires a temporal form")
+    for check in procedure.checks:
+        if isinstance(check, BoundedDisplacement):
+            form = lookup(entries, check.spatial_form_id, Form)
+            require(
+                form.kind is FormKind.SPATIAL, "displacement requires a spatial form"
+            )
 
 
 def _intuitions(
@@ -89,14 +96,14 @@ def validate_sensible_licenses(
 
     for rule in trace.rules:
         if rule.sensible_procedure is not None:
-            _validate_temporal_form(rule.sensible_procedure, entries)
+            _validate_procedure_forms(rule.sensible_procedure, entries)
     for schema in trace.schemas:
         concept = lookup(entries, schema.concept_id, Concept)
         try:
             schema.validate_concept(concept)
         except ValueError as error:
             raise InvalidProvenance(str(error)) from error
-        _validate_temporal_form(schema.procedure, entries)
+        _validate_procedure_forms(schema.procedure, entries)
     for obj in trace.object_candidates:
         candidate = lookup(
             entries, obj.candidate_representation_id, CandidateRepresentation

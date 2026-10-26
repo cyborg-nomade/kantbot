@@ -58,6 +58,7 @@ from kantbot.model.outcomes import (
     validate_terminal_outcome_json,
 )
 from kantbot.model.procedures import (
+    BoundedDisplacement,
     FieldConstant,
     FieldEquals,
     FieldProjection,
@@ -90,6 +91,7 @@ __all__ = [
     "ApplicationUnderdetermined",
     "AssembledWarrant",
     "AuthorityViolation",
+    "BoundedDisplacement",
     "CandidateRepresentation",
     "CognitiveGround",
     "CommittedJudgment",

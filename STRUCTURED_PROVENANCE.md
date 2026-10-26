@@ -19,7 +19,9 @@ The graph checks structural provenance and replays supported
 implementation accepted in [ADR 0007](docs/decisions/0007-replayable-sensible-licenses.md).
 It does not implement the complete cognitive roles, prove a proposition's
 modality or external truth, or replace the cycle-wide unity policy. The
-deterministic toy world remains a separate Roadmap item.
+[cycle library](COGNITIVE_CYCLE.md) performs those role operations using this
+graph as its certification boundary; the [toy world](TOY_WORLD.md) supplies its
+external observations.
 
 ## Two validation boundaries
 
@@ -65,6 +67,11 @@ canonical Python values.
 Version 2 requires executable projection and schema procedures, explicit
 concept kinds, and temporally mediated object rules. Version 1 is rejected;
 see the [explicit rebuilding requirements](SENSIBLE_PROCEDURES.md#version-2-and-limits).
+
+The cycle library adds `bounded-displacement` to the version-2 instruction
+vocabulary under [proposed ADR 0009](docs/decisions/0009-bounded-policy-cycle.md).
+Existing traces retain their meaning. Older readers fail closed when a trace
+uses the new instruction; no callable or source code is loaded from a trace.
 
 The envelope contains `format_version`, `cycle_id`, one `Scope`, and one
 `ConfigurationIdentity`. Its immutable tuples register canonical values by

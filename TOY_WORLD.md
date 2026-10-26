@@ -17,8 +17,9 @@ observation fields, including source and quality.
 
 This is the final [Phase 2 deliverable](ROADMAP.md#phase-2--define-an-executable-formal-model).
 Its sensor boundary is governed by
-[accepted ADR 0008](docs/decisions/0008-deterministic-strip-sensor.md). Complete
-cognitive-role implementations remain Phase 3 work.
+[accepted ADR 0008](docs/decisions/0008-deterministic-strip-sensor.md). The separate
+[Phase 3 cycle library](COGNITIVE_CYCLE.md) now consumes these observations and
+computes cognitive-role results.
 
 ## World, sensor, and cognition
 
@@ -38,7 +39,7 @@ reception -> variant projection  external evaluation only
     |
     v
 manifold -> synthesis -> object licensing -> schema -> judgment
-           (cognitive-role implementations are Phase 3 work)
+           (executed by the separate cycle library)
 ```
 
 A `StripWorld` contains a public episode ID and nonempty, strictly ordered
@@ -167,4 +168,5 @@ The default patch projection cannot project empty/unreadable status records
 into colored-patch intuitions. These remain valid shared input. Phase 3 must
 record projection refusal or explicit alternative handling rather than silently
 discard a frame. This package manufactures no cognitive terminal outcome;
-complete episode-level cognition remains untested.
+the separate [cycle-library tests](tests/test_cognitive_cycle.py) exercise its
+computed cognitive results and refusal paths.

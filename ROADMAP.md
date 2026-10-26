@@ -124,8 +124,8 @@ Provisional cycle:
 
 Deliverables:
 
-- a library implementing the cycle with swappable policies at identified points
-  of interpretation;
+- a [library implementing the cycle](COGNITIVE_CYCLE.md) with swappable policies
+  at identified points of interpretation;
 - deterministic unit and integration tests based on the worked examples;
 - negative cases in which synthesis or judgment must fail;
 - machine-readable and human-readable traces;
