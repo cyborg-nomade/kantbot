@@ -75,5 +75,6 @@ is supposed to matter to model behavior.
 | [0006](0006-canonical-model-representation.md) | Choose the canonical model representation | Accepted |
 | [0007](0007-replayable-sensible-licenses.md) | Require replayable sensible licenses | Accepted |
 | [0008](0008-deterministic-strip-sensor.md) | Replay a scripted strip through an anonymous patch sensor | Accepted |
+| [0009](0009-bounded-policy-cycle.md) | Execute a bounded cognitive cycle with explicit policies | Proposed |
 
 The [record template](0000-template.md) is not itself a decision.

@@ -208,6 +208,7 @@ class ProjectionRequest(SemanticModel):
     presented_element: PresentedElement
     projection: VariantProjection
     context: RoleContext
+    available_form_ids: tuple[Identifier, ...] | None = None
 
 
 class ManifoldRequest(SemanticModel):

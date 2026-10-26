@@ -21,8 +21,10 @@ legal immutable transitions and terminal paths for one cognitive cycle, plus a
 structured trace format with graph-wide provenance validation, replayable
 sensible procedures, and generated invariant tests tied to declared claims.
 A [deterministic strip world](TOY_WORLD.md) now generates reproducible anonymous
-observations while keeping evaluator state separate. The model does not yet
-execute the complete Phase 3 cognitive-role algorithms.
+observations while keeping evaluator state separate. The first
+[Phase 3 cycle library](COGNITIVE_CYCLE.md) now computes reception, synthesis,
+object formation, schema-mediated application, unity, commitment, and typed
+refusals from those observations, with replaceable policies.
 
 ## Start here
 
@@ -38,6 +40,7 @@ execute the complete Phase 3 cognitive-role algorithms.
 | [Sensible procedures](SENSIBLE_PROCEDURES.md) | Executable projection, temporal rule licenses, empirical tests, and audit regressions |
 | [Invariants and property tests](INVARIANTS_AND_PROPERTY_TESTS.md) | Generated domains, claim-to-property coverage, and deliberate testing gaps |
 | [Deterministic toy world](TOY_WORLD.md) | Runnable observation replays, the sensor/evaluator boundary, and scenario limits |
+| [Executable cognitive cycle](COGNITIVE_CYCLE.md) | Library API, interpretation policies, bounded identity search, and computed warrants |
 | [Worked examples](WORKED_EXAMPLES.md) | Hand-traced success, ambiguity, applicability, unity, withholding, and overreach cases |
 | [Behavioral predictions](BEHAVIORAL_PREDICTIONS.md) | Controlled contrasts that distinguish the architecture from a simpler pipeline |
 | [Research questions](RESEARCH_QUESTIONS.md) | The questions Phase 1 must answer and the project's explicit non-goals |
@@ -60,6 +63,7 @@ reading or impose a consequential project constraint belong in
 ├── src/kantbot/model/    Immutable canonical semantic values
 ├── src/kantbot/provenance/ Versioned traces and validated read-only graphs
 ├── src/kantbot/worlds/   External strip-world scripts and anonymous observation export
+├── src/kantbot/cycle/    Pure cognitive roles and checked cycle orchestration
 ├── src/kantbot/transitions.py Pure checked cognitive-cycle transitions
 ├── tests/                Invariant, transition, provenance, and outcome tests
 ├── typechecks/           Static witnesses for role, transition, and graph contracts

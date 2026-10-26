@@ -26,6 +26,10 @@ Its sensor emits anonymous patch samples at each moment, rather than the
 illustrative whole-frame records below; segmentation is supplied at the input
 boundary; cross-time identity must be synthesized during Phase 3. The world
 does not execute these complete cognitive traces.
+The separate [cycle library](COGNITIVE_CYCLE.md) now computes the initial strip
+paths. Its bounded path domain and conservative treatment of missing
+presentation are explicit choices proposed in
+[ADR 0009](docs/decisions/0009-bounded-policy-cycle.md).
 
 ## Shared toy world and frozen configuration
 

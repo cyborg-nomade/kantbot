@@ -6,7 +6,8 @@
 [accepted ADR 0007](docs/decisions/0007-replayable-sensible-licenses.md) makes
 declared sensible licenses replayable. It strengthens the existing contracts;
 the [toy-world input boundary](TOY_WORLD.md) is a separate deliverable, and the
-complete cognitive-role implementation remains Phase 3 work.
+[Phase 3 cycle library](COGNITIVE_CYCLE.md) implements the cognitive roles using
+these procedures and the checked provenance graph.
 
 The separation is now executable:
 
@@ -64,6 +65,7 @@ judgment.
 | `FieldConstant` | The field retains the same typed value across the ordered sequence | Requires a temporal form and at least two samples (default two) |
 | `StrictIncrease` | Numeric field values strictly increase at every adjacent sample | Requires temporal form, at least two samples, and numeric values; booleans are not numbers here |
 | `TemporalOrder` | Enough samples occupy strictly increasing positions | Requires temporal form and at least two samples (default two) |
+| `BoundedDisplacement` | Absolute numeric coordinate change is bounded by a declared maximum per elapsed tick | Requires temporal and spatial form, at least two samples, and numeric values; missing spatial form or fields is undecided |
 
 All temporal procedures check the actual registered `FormKind.TEMPORAL` and its
 availability to every input. They never sort inputs. Unavailable temporal form
@@ -89,6 +91,12 @@ claim that every possible Kantian category requires two empirical observations.
 Neither field constancy nor numerical increase alone establishes substance or
 causality. Those adequacy questions remain visible under the adopted
 [philosophical specification](PHILOSOPHICAL_SPECIFICATION.md#power-of-judgment-and-schematism-applicability).
+
+The displacement instruction is the cycle library's additive extension,
+proposed in [ADR 0009](docs/decisions/0009-bounded-policy-cycle.md). It uses exact
+rational arithmetic for finite numeric inputs, so overflow cannot turn an
+excessive displacement into a passing comparison. It operationalizes the
+worked example's `I-1` bound, independently of `StrictIncrease` for predication.
 
 ## Certification, errors, and failures
 
